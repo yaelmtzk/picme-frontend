@@ -7,6 +7,7 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { storyService } from '../services/story/'
 import { userService } from '../services/user'
 
+import {Nav} from '../cmps/Nav'
 import { StoryList } from '../cmps/StoryList'
 import { Search} from '../cmps/Search'
 
@@ -54,10 +55,10 @@ export function StoryIndex() {
     return (
         <main className="story-index">
             <header>
-                <h2>Storys</h2>
                 {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
             </header>
-            <Search filterBy={filterBy} setFilterBy={setFilterBy} />
+            <Nav/>
+            {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <StoryList 
                 storys={storys}
                 onRemoveStory={onRemoveStory} 
