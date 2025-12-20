@@ -1,0 +1,21 @@
+.feed-sidebar {
+    height: 100%;
+    width: 383px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 64px;
+    >*{
+        padding: 0 16px
+    }
+}
+
+.rights {
+    margin-top: 200px;
+}
+
+.user-feed-sidebar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+
+} 

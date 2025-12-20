@@ -22,9 +22,9 @@
 @import "pages/Chat";
 
 /* Components */
-@import "cmps/list";
 @import "cmps/StoryPreview.css";
 @import "cmps/StoryList";
+@import "cmps/Nav.css";
 
 @import "cmps/AppHeader";
 @import "cmps/AppFooter";
@@ -33,3 +33,10 @@
 @import "cmps/Search.css";
 @import "cmps/CommentList.css";
 @import "cmps/CommentPreview.css";
+@import "cmps/FeedSideBar.css";
+
+/* Media Queries */
+@import "setup/mq.css";
+
+/* Icons */
+@import "@fortawesome/fontawesome-free/css/all.css";

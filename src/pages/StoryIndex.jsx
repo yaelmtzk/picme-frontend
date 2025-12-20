@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import { loadStorys, addStory, updateStory, removeStory, addStoryComment } from '../store/actions/story.actions'
+import { loadStories, addStory, updateStory, removeStory, addStoryComment } from '../store/actions/story.actions'
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { storyService } from '../services/story/'
+import { getDefaultFilter, getEmptyStory } from '../services/story/index.js'
 import { userService } from '../services/user'
 
 import {Nav} from '../cmps/Nav'
@@ -13,11 +13,11 @@ import { Search} from '../cmps/Search'
 
 export function StoryIndex() {
 
-    const [ filterBy, setFilterBy ] = useState(storyService.getDefaultFilter())
-    const storys = useSelector(storeState => storeState.storyModule.storys)
+    const [ filterBy, setFilterBy ] = useState(getDefaultFilter())
+    const stories = useSelector(storeState => storeState.storyModule.stories)
 
     useEffect(() => {
-        loadStorys(filterBy)
+        loadStories(filterBy)
     }, [filterBy])
 
     async function onRemoveStory(storyId) {
@@ -30,7 +30,7 @@ export function StoryIndex() {
     }
 
     async function onAddStory() {
-        const story = storyService.getEmptyStory()
+        const story = getEmptyStory()
         try {
             const savedStory = await addStory(story)
             showSuccessMsg(`Story added (id: ${savedStory._id})`)
@@ -53,14 +53,14 @@ export function StoryIndex() {
     }
 
     return (
-        <main className="story-index">
-            <header>
+        <main className="story-index main-layout">
+            {/* <header>
                 {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
-            </header>
+            </header> */}
             <Nav/>
             {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <StoryList 
-                storys={storys}
+                stories={stories}
                 onRemoveStory={onRemoveStory} 
                 onUpdateStory={onUpdateStory}/>
         </main>

@@ -1,0 +1,11 @@
+@media (min-width: 1264px) and (max-width: 1919px) {
+    .main-layout {
+        grid-template-columns: 244px 1fr;
+    }
+}
+
+@media (min-width: 1919px) {
+    .main-layout {
+        grid-template-columns: 335px 1fr;
+    }
+}

@@ -1,0 +1,25 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient definition -->
+  <defs>
+    <linearGradient id="picmeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <!-- Custom, not Instagram’s exact gradient -->
+      <stop offset="0%" stop-color="#ff7a9e"></stop>
+      <stop offset="50%" stop-color="#ffb347"></stop>
+      <stop offset="100%" stop-color="#a855ff"></stop>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square "camera" -->
+  <rect x="25" y="25" width="150" height="150" rx="40" fill="url(#picmeGradient)"></rect>
+
+  <!-- Inner circle (lens) -->
+  <circle cx="100" cy="100" r="35" fill="white" opacity="0.9"></circle>
+
+  <!-- Tiny top-right dot (flash) -->
+  <circle cx="140" cy="60" r="7" fill="white" opacity="0.9"></circle>
+
+  <!-- Brand text (you can style this with CSS or replace with real font) -->
+  <text x="50%" y="190" text-anchor="middle" font-size="24" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" fill="#333">
+    Picme
+  </text>
+</svg>

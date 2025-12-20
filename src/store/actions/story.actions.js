@@ -1,13 +1,13 @@
 import { storyService } from '../../services/story/story.service.local'
 import { store } from '../store'
-import { ADD_STORY, REMOVE_STORY, SET_STORYS, SET_STORY, UPDATE_STORY, ADD_STORY_COMMENT } from '../reducers/story.reducer'
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_COMMENT } from '../reducers/story.reducer'
 
-export async function loadStorys(filterBy) {
+export async function loadStories(filterBy) {
     try {
-        const storys = await storyService.query(filterBy)
-        store.dispatch(getCmdSetStorys(storys))
+        const stories = await storyService.query(filterBy)
+        store.dispatch(getCmdSetStories(stories))
     } catch (err) {
-        console.log('Cannot load storys', err)
+        console.log('Cannot load stories', err)
         throw err
     }
 }
@@ -67,10 +67,10 @@ export async function addStoryComment(storyId, txt) {
 }
 
 // Command Creators:
-function getCmdSetStorys(storys) {
+function getCmdSetStories(stories) {
     return {
-        type: SET_STORYS,
-        storys
+        type: SET_STORIES,
+        stories
     }
 }
 function getCmdSetStory(story) {
@@ -106,7 +106,7 @@ function getCmdAddStoryComment(comment) {
 
 // unitTestActions()
 async function unitTestActions() {
-    await loadStorys()
+    await loadStories()
     await addStory(storyService.getEmptyStory())
     await updateStory({
         _id: 'm1oC7',

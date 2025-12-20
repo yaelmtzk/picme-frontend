@@ -51,3 +51,28 @@ export function loadFromStorage(key) {
     const data = localStorage.getItem(key)
     return (data) ? JSON.parse(data) : undefined
 }
+
+export function timeAgo(ts) {
+  const now = Date.now()
+  const diffMs = now - ts
+  const diffMin = Math.floor(diffMs / 1000 / 60)
+
+  if (diffMin < 1) return "just now"
+
+  if (diffMin < 60) {
+    return `${diffMin}m`        // minutes
+  }
+
+  const diffHrs = Math.floor(diffMin / 60)
+  if (diffHrs < 24) {
+    return `${diffHrs}h`        // hours
+  }
+
+  const diffDays = Math.floor(diffHrs / 24)
+  if (diffDays < 7) {
+    return `${diffDays}d`       // days
+  }
+
+  const diffWeeks = Math.floor(diffDays / 7)
+  return `${diffWeeks}w`        // weeks
+}

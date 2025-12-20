@@ -18,7 +18,7 @@ const gStories = [
     {
         _id: '01',
         txt: 'Best trip ever',
-        imgUrl: 'https://unsplash.com/photos/a-vertical-shot-of-the-road-in-dades-gorges-mountains-in-morocco-during-daylight-7dVCZITFodk',
+        imgUrl: 'trip.jpg',
         by: {
             byId: 'u01',
             username: 'daniel.coh',
@@ -31,7 +31,6 @@ const gStories = [
                 username: 'maya.levine',
                 txt: 'Is that in the South? Looks familiar'
             }
-
         ],
         likedBy: [],
         tags: ['trip', 'outdoor', 'fun']
@@ -41,7 +40,7 @@ const gStories = [
     {
         _id: '02',
         txt: 'My favorite recipe for lazy days',
-        imgUrl: 'https://unsplash.com/photos/vegetable-dish-on-black-cooking-pan-w3awZjfVa6w',
+        imgUrl: 'cook.jpg',
         by: {
             byId: 'u02',
             username: 'maya.levine',
@@ -86,29 +85,29 @@ const gStories = [
 _createStories()
 
 async function query(filterBy = {}) {
-    var storys = await storageService.query(STORAGE_KEY)
+    var stories = await storageService.query(STORAGE_KEY)
 
     /* const { txt, minSpeed, sortField, sortDir } = filterBy
   
       if (txt) {
           const regex = new RegExp(filterBy.txt, 'i')
-          storys = storys.filter(story => regex.test(story.vendor) || regex.test(story.description))
+          stories = stories.filter(story => regex.test(story.vendor) || regex.test(story.description))
       }
       if (minSpeed) {
-          storys = storys.filter(story => story.speed >= minSpeed)
+          stories = stories.filter(story => story.speed >= minSpeed)
       }
       if(sortField === 'vendor'){
-          storys.sort((story1, story2) => 
+          stories.sort((story1, story2) => 
               story1[sortField].localeCompare(story2[sortField]) * +sortDir)
       }
       if(sortField === 'speed'){
-          storys.sort((story1, story2) => 
+          stories.sort((story1, story2) => 
               (story1[sortField] - story2[sortField]) * +sortDir)
       }
       
-      storys = storys.map(({ _id, txt, by, tags }) => ({ _id, txt, by, tags }))*/
+      stories = stories.map(({ _id, txt, by, tags }) => ({ _id, txt, by, tags }))*/
 
-    return storys
+    return stories
 }
 
 function getById(storyId) {

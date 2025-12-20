@@ -1,11 +1,5 @@
 .story-index {
-    header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        padding-block: .3em;
-    }
+        height: 100vh;
 
     h2 {
         margin: 0;

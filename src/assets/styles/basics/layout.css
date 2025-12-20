@@ -1,8 +1,12 @@
 .main-container {
-    display: grid;
-    grid-template-columns: 1rem 1fr 1rem;
+    height: 100vh;
+}
 
-    > * {
+.main-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 335px) 1fr;
+
+    >* {
         grid-column: 2;
 
         &.full {
@@ -10,7 +14,7 @@
         }
     }
 
-    for-narrow-layout {
+    /* for-narrow-layout {
         grid-template-columns: 
             minmax(20px, 1fr)
             minmax(auto, var(--mobile-breakpoint))
@@ -27,7 +31,7 @@
             minmax(20px, 1fr)
             minmax(auto, var(--normal-breakpoint))
             minmax(20px, 1fr);
-    }
+    } */
 }
 
 .card-grid {

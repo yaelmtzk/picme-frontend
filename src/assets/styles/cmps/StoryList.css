@@ -1,22 +1,23 @@
+.story-list-section {
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    /* background-color: beige; */
+    border-left: solid 1px var(--border-clr);
+}
+
 .story-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: .5em;
+    place-items: center;
+    width: 630px;
+    margin-top: 16px;
 
-    li {
-        display: grid;
-        grid-template-columns: max-content auto;
-        padding: .5em;
-        background-color: var(--clr2);
+    /* background-color: var(--clr2);
+    color: var(--clr6); */
+}
 
-        color: var(--clr6);
-
-        .actions {
-            justify-self: end;
-
-            button {
-                padding: .3em .5em;
-            }
-        }
-    }
+.feed-sidebar {
+    width: 320px;
+    margin-top: 36px;
+    padding-inline-start: 64px;
 }

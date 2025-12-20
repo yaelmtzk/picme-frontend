@@ -5,7 +5,7 @@ import { getRandomIntInclusive, makeId } from '../util.service'
 import { storyService as local } from './story.service.local'
 import { storyService as remote } from './story.service.remote'
 
-function getEmptyStory() {
+export function getEmptyStory() {
 	return {
         _id: '',
 		txt: '',
@@ -14,7 +14,7 @@ function getEmptyStory() {
 	}
 }
 
-function getDefaultFilter() {
+export function getDefaultFilter() {
     return {
         txt: '',
         tags: []
