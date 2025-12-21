@@ -2,7 +2,6 @@
     grid-column: 2;
     display: flex;
     justify-content: center;
-    /* background-color: beige; */
     border-left: solid 1px var(--border-clr);
 }
 
@@ -11,9 +10,6 @@
     place-items: center;
     width: 630px;
     margin-top: 16px;
-
-    /* background-color: var(--clr2);
-    color: var(--clr6); */
 }
 
 .feed-sidebar {

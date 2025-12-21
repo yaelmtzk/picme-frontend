@@ -2,6 +2,17 @@ import { storageService } from '../async-storage.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
+const gUsers = [
+    {
+        _id: 'u03',
+        username: 'shira.avt',
+        fullname: 'Shira Avital',
+        isAdmin: false
+    }
+]
+
+saveLoggedinUser(gUsers[0])
+
 export const userService = {
     login,
     logout,
@@ -35,7 +46,7 @@ async function update({ _id, score }) {
     user.score = score
     await storageService.put('user', user)
 
-	// When admin updates other user's details, do not update loggedinUser
+    // When admin updates other user's details, do not update loggedinUser
     const loggedinUser = getLoggedinUser()
     if (loggedinUser._id === user._id) saveLoggedinUser(user)
 
@@ -66,14 +77,14 @@ function getLoggedinUser() {
 }
 
 function saveLoggedinUser(user) {
-	user = { 
-        _id: user._id, 
-        fullname: user.fullname, 
-        imgUrl: user.imgUrl, 
-        isAdmin: user.isAdmin 
+    user = {
+        _id: user._id,
+        username: user.username,
+        fullname: user.fullname,
+        isAdmin: user.isAdmin
     }
-	sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
-	return user
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+    return user
 }
 
 // To quickly create an admin user, uncomment the next line

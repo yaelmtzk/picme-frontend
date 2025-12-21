@@ -1,7 +1,11 @@
+import { useState } from "react"
 import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
+import { CreateStory } from "./CreateStory.jsx"
 
-export function Nav() {
+export function Nav({ onAdd }) {
+    const [openCreate, setOpenCreate] = useState(false)
+
 
     return (
         <section className='nav-section'>
@@ -26,13 +30,20 @@ export function Nav() {
 
                 <div className='nav-btn'><img src={getIconImg('like')} alt="like" /> <div>Notifications</div></div>
 
-                <div className='nav-btn'><img src={getIconImg('create')} alt="create" /> <div>Create</div></div>
+                <div onClick={() => setOpenCreate(true)}
+                    className='nav-btn'>
+                    <img src={getIconImg('create')} alt="create" />
+                    <div>Create</div>
+                </div>
 
                 <div className='avatar nav-btn'>
                     <img className="avatar-img small" src={getIconImg('avatar')} alt="avatar" />
                     <div>Profile</div>
                 </div>
             </section>
+
+            {openCreate && (
+                <CreateStory onClose={() => setOpenCreate(false)} onAdd={onAdd}/>)}
 
         </section>)
 

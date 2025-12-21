@@ -34,6 +34,7 @@
 @import "cmps/CommentList.css";
 @import "cmps/CommentPreview.css";
 @import "cmps/FeedSideBar.css";
+@import "cmps/CreateStory.css/";
 
 /* Media Queries */
 @import "setup/mq.css";

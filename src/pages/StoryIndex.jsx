@@ -29,8 +29,11 @@ export function StoryIndex() {
         }
     }
 
-    async function onAddStory() {
+    async function onAddStory(txt, imgUrl) {
         const story = getEmptyStory()
+        story.txt = txt
+        story.imgUrl = imgUrl
+        
         try {
             const savedStory = await addStory(story)
             showSuccessMsg(`Story added (id: ${savedStory._id})`)
@@ -57,7 +60,7 @@ export function StoryIndex() {
             {/* <header>
                 {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
             </header> */}
-            <Nav/>
+            <Nav onAdd={onAddStory}/>
             {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <StoryList 
                 stories={stories}

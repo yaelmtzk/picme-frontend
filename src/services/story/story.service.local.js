@@ -128,12 +128,13 @@ async function save(story) {
         }
         savedStory = await storageService.put(STORAGE_KEY, storyToSave)
     } else {
-        const storyToSave = {
-            txt: story.txt,
-            imgUrl: story.imgUrl,
-            // Later, owner is set by the backend
-            owner: userService.getLoggedinUser(),
-        }
+        let storyToSave = {...story}
+
+        storyToSave._id =  makeId()
+        // Later, owner is set by the backend
+        storyToSave.by = userService.getLoggedinUser()
+        storyToSave.createdAt = Date.now()
+
         savedStory = await storageService.post(STORAGE_KEY, storyToSave)
     }
     return savedStory

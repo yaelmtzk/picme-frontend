@@ -2,10 +2,27 @@
     .main-layout {
         grid-template-columns: 244px 1fr;
     }
+    .create-content{
+        height: 735px;
+    }
+
+    .create-preview-img, .create-content-main {
+        /* height: 735px; */
+        width: 692px;
+    }
 }
 
 @media (min-width: 1919px) {
     .main-layout {
         grid-template-columns: 335px 1fr;
+    }
+
+    .create-content{
+        height: 735px;
+    }
+
+    .create-preview-img, .create-content-main {
+        /* height: 735px; */
+        width: 692px;
     }
 }
