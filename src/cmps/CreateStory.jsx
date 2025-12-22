@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { getIconImg } from '../services/image.service.js'
 import { userService } from '../services/user/user.service.local.js'
-import {uploadImg} from  '../services/upload.service.js'
+import { uploadImg } from '../services/upload.service.js'
 
 export function CreateStory({ onClose, onAdd }) {
     const [imgUrl, setImgUrl] = useState('')
@@ -11,6 +11,11 @@ export function CreateStory({ onClose, onAdd }) {
     const fileInputRef = useRef(null)
 
     const user = userService.getLoggedinUser()
+
+    useEffect(() => {
+        document.body.style.overflow = "hidden"
+        return () => { document.body.style.overflow = "" }
+    }, [])
 
     useEffect(() => {
         function handleEsc(ev) {
@@ -23,44 +28,12 @@ export function CreateStory({ onClose, onAdd }) {
     async function onSaveStory() {
         if (!imgUrl) return alert("Please upload an image first")
 
-        const uploadedUrl = await uploadImg (imgFile)
+        const uploadedUrl = await uploadImg(imgFile)
 
         onAdd(txt, uploadedUrl)
 
         onClose()
     }
-
-    // async function uploadImg(file) {
-    //     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`
-        
-    //     const formData = new FormData()
-    //     formData.append('file', file)
-    //     formData.append('upload_preset', 'picmeapp')
-
-    //     try {
-    //         const res = await fetch(UPLOAD_URL, {
-    //             method: 'POST',
-    //             body: formData
-    //         })
-    //         const data = await res.json()
-
-    //         console.log('Cloudinary response:', data)
-    //         return data.secure_url
-
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
-    // async function onAddStory() {
-    //     const story = getEmptyStory()
-    //     try {
-    //         const savedStory = await addStory(story)
-    //         showSuccessMsg(`Story added (id: ${savedStory._id})`)
-    //     } catch (err) {
-    //         showErrorMsg('Cannot add story')
-    //     }
-    // }
 
     function onOverlayClick() {
         onClose()

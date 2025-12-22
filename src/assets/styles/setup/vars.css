@@ -1,14 +1,23 @@
 :root {
     --bg-clr1: #FFFFFF;
+
     --txt-clr1: rgb(12, 16, 20);
-    --txt-clr2: rgb(106, 113, 122);
-    --txt-clr-3: #FFFFFF;
+    --txt-clr2: #6A717A;
+    --txt-clr3: #FFFFFF;
     --txt-clr4: #4150F7;
+
     --btn-clr1: #4A5DF9;
+
+    --btn-hover: #3143E3;
+    --icon-btn-hover: #CCD0D5;
+    --btn-hover: #3143E3;
+    --nav-hover: rgba(0, 0, 0, 0.05);
+
     --border-clr: #DBDBDB;
     --avatar-bg-clr: #CCD0D5;
-    --nav-hover: rgba(0,0,0,0.05);
-    --btn-hover: #3143E3;
+
+
+
 
 
     --clr1: hsl(337, 63%, 49%);

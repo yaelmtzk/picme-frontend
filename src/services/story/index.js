@@ -13,7 +13,7 @@ export function getEmptyStory() {
 		imgUrl: '',
         by: {},
         createdAt: '',
-        loc: [],
+        loc: {},
         comments: [],
         likedBy:[],
         tags: []

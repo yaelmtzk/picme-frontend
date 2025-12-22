@@ -18,7 +18,7 @@ const gStories = [
     {
         _id: '01',
         txt: 'Best trip ever',
-        imgUrl: 'trip.jpg',
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766349160/l6fsyngzqjqtpyio6ipq.jpg',
         by: {
             byId: 'u01',
             username: 'daniel.coh',
@@ -40,7 +40,7 @@ const gStories = [
     {
         _id: '02',
         txt: 'My favorite recipe for lazy days',
-        imgUrl: 'cook.jpg',
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766349160/f64ti0vrazpu9kzty7h0.jpg',
         by: {
             byId: 'u02',
             username: 'maya.levine',
@@ -62,7 +62,7 @@ const gStories = [
       {
         _id: '03',
         txt: 'My yard got a visitor',
-        imgUrl: 'bird.jpg',
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766349159/pgaybrqiamzwo69r8e6z.jpg',
         by: {
             byId: 'u03',
             username: 'shira.avt',

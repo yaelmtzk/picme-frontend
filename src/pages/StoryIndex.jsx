@@ -7,13 +7,13 @@ import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { getDefaultFilter, getEmptyStory } from '../services/story/index.js'
 import { userService } from '../services/user'
 
-import {Nav} from '../cmps/Nav'
+import { Nav } from '../cmps/Nav'
 import { StoryList } from '../cmps/StoryList'
-import { Search} from '../cmps/Search'
+import { Search } from '../cmps/Search'
 
 export function StoryIndex() {
 
-    const [ filterBy, setFilterBy ] = useState(getDefaultFilter())
+    const [filterBy, setFilterBy] = useState(getDefaultFilter())
     const stories = useSelector(storeState => storeState.storyModule.stories)
 
     useEffect(() => {
@@ -23,7 +23,7 @@ export function StoryIndex() {
     async function onRemoveStory(storyId) {
         try {
             await removeStory(storyId)
-            showSuccessMsg('Story removed')            
+            showSuccessMsg('Story removed')
         } catch (err) {
             showErrorMsg('Cannot remove story')
         }
@@ -33,18 +33,18 @@ export function StoryIndex() {
         const story = getEmptyStory()
         story.txt = txt
         story.imgUrl = imgUrl
-        
+
         try {
             const savedStory = await addStory(story)
             showSuccessMsg(`Story added (id: ${savedStory._id})`)
         } catch (err) {
             showErrorMsg('Cannot add story')
-        }        
+        }
     }
 
     async function onUpdateStory(story) {
         const speed = +prompt('New speed?', story.speed) || 0
-        if(speed === 0 || speed === story.speed) return
+        if (speed === 0 || speed === story.speed) return
 
         const storyToSave = { ...story, speed }
         try {
@@ -52,7 +52,7 @@ export function StoryIndex() {
             showSuccessMsg(`Story updated, new speed: ${savedStory.speed}`)
         } catch (err) {
             showErrorMsg('Cannot update story')
-        }        
+        }
     }
 
     return (
@@ -60,12 +60,13 @@ export function StoryIndex() {
             {/* <header>
                 {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
             </header> */}
-            <Nav onAdd={onAddStory}/>
+            <Nav onAdd={onAddStory} />
             {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
-            <StoryList 
+            <StoryList
                 stories={stories}
-                onRemoveStory={onRemoveStory} 
-                onUpdateStory={onUpdateStory}/>
+                onRemoveStory={onRemoveStory}
+                onUpdateStory={onUpdateStory} />
+
         </main>
     )
 }

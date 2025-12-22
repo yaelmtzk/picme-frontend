@@ -7,7 +7,22 @@ const gUsers = [
         _id: 'u03',
         username: 'shira.avt',
         fullname: 'Shira Avital',
-        isAdmin: false
+        isAdmin: false,
+        imgUrl: 'avatar.jpg'
+    },
+    {
+        _id: 'u02',
+        username: 'maya.levine',
+        fullname: 'Maya Levine',
+        isAdmin: false,
+        imgUrl: 'avatar.jpg'
+    },
+    {
+        _id: 'u01',
+        username: 'daniel.coh',
+        fullname: 'Daniel Cohen',
+        isAdmin: false,
+        imgUrl: 'avatar.jpg'
     }
 ]
 
