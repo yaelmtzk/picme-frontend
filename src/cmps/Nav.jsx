@@ -2,10 +2,11 @@ import { useState } from "react"
 import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 import { CreateStory } from "./CreateStory.jsx"
+import { userService } from "../services/user/user.service.local.js"
 
 export function Nav({ onAdd }) {
     const [openCreate, setOpenCreate] = useState(false)
-
+    const user = userService.getLoggedinUser()
 
     return (
         <section className='nav-section'>
@@ -37,7 +38,7 @@ export function Nav({ onAdd }) {
                 </div>
 
                 <div className='avatar nav-btn'>
-                    <img className="avatar-img small" src={getIconImg('avatar')} alt="avatar" />
+                    <img className="avatar-img small" src={user.imgUrl? user.imgUrl: getIconImg('avatar')} alt="avatar" />
                     <div>Profile</div>
                 </div>
             </section>

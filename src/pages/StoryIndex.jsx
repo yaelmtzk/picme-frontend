@@ -43,13 +43,10 @@ export function StoryIndex() {
     }
 
     async function onUpdateStory(story) {
-        const speed = +prompt('New speed?', story.speed) || 0
-        if (speed === 0 || speed === story.speed) return
-
-        const storyToSave = { ...story, speed }
+        const storyToSave = { ...story }
         try {
-            const savedStory = await updateStory(storyToSave)
-            showSuccessMsg(`Story updated, new speed: ${savedStory.speed}`)
+            await updateStory(storyToSave)
+            showSuccessMsg(`Story updated`)
         } catch (err) {
             showErrorMsg('Cannot update story')
         }

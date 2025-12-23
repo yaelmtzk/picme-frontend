@@ -30,12 +30,16 @@ export function storyReducer(state = initialState, action) {
             break
         case UPDATE_STORY:
             stories = state.stories.map(story => (story._id === action.story._id) ? action.story : story)
-            newState = { ...state, stories }
+
+            const updatedStory = state.story && state.story._id === action.story._id
+                ? action.story
+                : state.story
+            newState = { ...state, stories, story: updatedStory}
             break
+
         case ADD_STORY_COMMENT:
             if (action.comment && state.story) {
                 newState = { ...state, story: { ...state.story, comments: [...state.story.comments || [], action.comment] } }
-                break
             }
         default:
     }
@@ -46,8 +50,8 @@ export function storyReducer(state = initialState, action) {
 
 function unitTestReducer() {
     var state = initialby
-    const story1 = { _id: 'b101', text: 'Story ', imgUrl: 'story.jpg' ,by: null, comments: [] }
-    const story2 = { _id: 'b102', text: 'Story ', imgUrl: 'story.jpg' ,by: null, comments: [] }
+    const story1 = { _id: 'b101', text: 'Story ', imgUrl: 'story.jpg', by: null, comments: [] }
+    const story2 = { _id: 'b102', text: 'Story ', imgUrl: 'story.jpg', by: null, comments: [] }
 
     state = storyReducer(state, { type: SET_STORIES, stories: [story1] })
     console.log('After SET_STORIES:', state)

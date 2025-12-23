@@ -17,22 +17,13 @@ body {
     display: flex;
     align-items: center;
     height: 92px;
-    padding-left:  8px;
+    padding-left: 8px;
 
     img {
         height: 30px;
     }
 }
 
-/* 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0 0 0.6em;
-} */
 
 img {
     display: block;
@@ -41,7 +32,7 @@ img {
 
 a {
     text-decoration: none;
-    color: #0C1014;
+    color: rgb(12, 16, 20);
 }
 
 ul {
@@ -56,8 +47,6 @@ input {
 button {
     border: 0;
     background-color: var(--btn-clr1);
-    padding: 5px 10px;
-    margin: 5px;
     cursor: pointer;
 }
 
@@ -95,12 +84,26 @@ button {
 
 .fullname {
     color: var(--txt-clr2);
+
     &.small {
         font-size: 14px;
     }
 }
 
-.rights{
+.rights {
     font-size: 12px;
     color: var(--txt-clr2);
+}
+
+.heart-filled {
+    fill:rgb(255, 48, 64);
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+}
+
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
 }

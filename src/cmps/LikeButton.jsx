@@ -1,0 +1,24 @@
+import { getIconImg } from '../services/image.service.js';
+
+export function LikeButton({ isLiked, onLike }) {
+  return (
+    <div onClick={onLike} title="Like">
+      {isLiked ? (
+        <svg
+          viewBox="0 0 48 48"
+          className="btn heart-filled"
+        >
+          <path
+            d={`M 34.6 3.1 c -4.5 0 -7.9 1.8 -10.6 5.6 c -2.7 -3.7 -6.1 -5.5 -10.6 -5.5 C 6 3.1 0 9.6 0 17.6 c 0 7.3 5.4 12 10.6 16.5 c 0.6 0.5 1.3 1.1 1.9 1.7 l 2.3 2 c 4.4 3.9 6.6 5.9 7.6 6.5 c 0.5 0.3 1.1 0.5 1.6 0.5 s 1.1 -0.2 1.6 -0.5 c 1 -0.6 2.8 -2.2 7.8 -6.8 l 2 -1.8 c 0.7 -0.6 1.3 -1.2 2 -1.7 C 42.7 29.6 48 25 48 17.6 c 0 -8 -6 -14.5 -13.4 -14.5 Z`}
+          />
+        </svg>
+      ) : (
+        <img
+          className="btn"
+          src={getIconImg('like')}
+          alt="like icon"
+        />
+      )}
+    </div>
+  );
+}

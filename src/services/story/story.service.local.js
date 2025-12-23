@@ -120,19 +120,19 @@ async function remove(storyId) {
 }
 
 async function save(story) {
-    var savedStory
+    let savedStory
+
     if (story._id) {
-        const storyToSave = {
-            _id: story._id,
-            txt: story.txt,
-        }
+        const storyToSave = {...story}
         savedStory = await storageService.put(STORAGE_KEY, storyToSave)
+
     } else {
         let storyToSave = {...story}
+        const user = userService.getLoggedinUser()
 
         storyToSave._id =  makeId()
         // Later, owner is set by the backend
-        storyToSave.by = userService.getLoggedinUser()
+        storyToSave.by = {byId: user._id, username: user.username}
         storyToSave.createdAt = Date.now()
 
         savedStory = await storageService.post(STORAGE_KEY, storyToSave)
@@ -143,16 +143,30 @@ async function save(story) {
 async function addStoryComment(storyId, txt) {
     // Later, this is all done by the backend
     const story = await getById(storyId)
+    const user = userService.getLoggedinUser()
 
-    const msg = {
-        id: makeId(),
-        by: userService.getLoggedinUser(),
+    const comment = {
+        byId: user._id,
+        username: user.username,
         txt
     }
-    story.msgs.push(msg)
+    story.msgs.push(comment)
     await storageService.put(STORAGE_KEY, story)
 
-    return msg
+    return comment
+}
+
+export function toggleStoryLike(story, user) {
+    const alreadyLiked = story.likedBy.some(u => u.byId === user._id)
+
+    const likedBy = alreadyLiked
+        ? story.likedBy.filter(u => u.byId !== user._id)
+        : [...story.likedBy, { byId: user._id, username: user.username }]
+
+    return {
+        ...story,
+        likedBy
+    }
 }
 
 /////////////////////////////////////////////////////////

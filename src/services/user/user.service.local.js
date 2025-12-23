@@ -8,21 +8,21 @@ const gUsers = [
         username: 'shira.avt',
         fullname: 'Shira Avital',
         isAdmin: false,
-        imgUrl: 'avatar.jpg'
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766429746/jvt8azbhqejm93lfjeeh.png'
     },
     {
         _id: 'u02',
         username: 'maya.levine',
         fullname: 'Maya Levine',
         isAdmin: false,
-        imgUrl: 'avatar.jpg'
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766429750/gknhxkwwbyauresaoqsi.png'
     },
     {
         _id: 'u01',
         username: 'daniel.coh',
         fullname: 'Daniel Cohen',
         isAdmin: false,
-        imgUrl: 'avatar.jpg'
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766429748/ldycswivsd2oqeziurzu.png'
     }
 ]
 
@@ -48,10 +48,13 @@ async function getUsers() {
     })
 }
 
-async function getById(userId) {
-    return await storageService.get('user', userId)
-}
+// async function getById(userId) {
+//     return await storageService.get('user', userId)
+// }
 
+function getById(userId) {
+    return gUsers.find(user => user._id == userId)
+}
 function remove(userId) {
     return storageService.remove('user', userId)
 }
@@ -96,7 +99,8 @@ function saveLoggedinUser(user) {
         _id: user._id,
         username: user.username,
         fullname: user.fullname,
-        isAdmin: user.isAdmin
+        isAdmin: user.isAdmin,
+        imgUrl: user.imgUrl
     }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
     return user

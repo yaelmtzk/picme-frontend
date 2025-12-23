@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { getIconImg } from '../services/image.service.js'
 import { userService } from '../services/user/user.service.local.js'
 import { uploadImg } from '../services/upload.service.js'
+import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
+import { Emoji } from "emoji-picker-react";
 
 export function CreateStory({ onClose, onAdd }) {
     const [imgUrl, setImgUrl] = useState('')
@@ -61,7 +63,6 @@ export function CreateStory({ onClose, onAdd }) {
         setNext(true)
     }
 
-
     return (
         <div className="create-overlay" onClick={onOverlayClick}>
             <button className="create-close" onClick={onClose}>✕</button>
@@ -89,21 +90,25 @@ export function CreateStory({ onClose, onAdd }) {
                         </div>)
                     }
 
-
-
                     {next && (
                         <div className="create-text-section">
                             <div className='avatar'>
-                                <img className="avatar-img md" src={getIconImg('avatar')} alt="avatar" />
+                                <img className="avatar-img md" src={user.imgUrl? user.imgUrl: getIconImg('avatar')} alt="avatar" />
                                 <div className="username small">{user.username}</div>
                             </div>
 
-                            <textarea
+                            {/* <textarea
                                 value={txt}
                                 onChange={(ev) => setTxt(ev.target.value)}>
 
-                            </textarea>
+                            </textarea> */}
 
+                            <EmojiTextArea txt={txt} setTxt={setTxt}/>
+
+                            <div className="add-location">
+                                <p>Add location</p>
+                                <img title="Add location" src={getIconImg('location')} alt="location" />
+                            </div>
                         </div>
 
                     )}

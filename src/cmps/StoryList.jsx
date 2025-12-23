@@ -9,7 +9,7 @@ export function StoryList({ stories, onRemoveStory, onUpdateStory }) {
             <ul className="story-list">
                 {storylist.map(story =>
                     <li key={story._id}>
-                        <StoryPreview story={story} />
+                        <StoryPreview story={story} onUpdate={onUpdateStory}/>
                     </li>)
                 }
             </ul>

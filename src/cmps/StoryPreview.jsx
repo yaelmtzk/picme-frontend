@@ -1,29 +1,46 @@
 import { useState } from "react";
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
-import { Link, useLocation  } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
+import { userService } from '../services/user/user.service.local.js'
+import { useDispatch } from "react-redux"
+import { toggleStoryLike } from '../services/story/story.service.local.js'
+import { LikeButton } from "./LikeButton.jsx"
+import { SET_STORY } from '../store/reducers/story.reducer'
 
 
-export function StoryPreview({ story }) {
 
-    const { by, txt, imgUrl, createdAt, comments, _id } = story
+export function StoryPreview({ story, onUpdate }) {
+
+    const { by, txt, imgUrl, createdAt, comments, _id, likedBy } = story
+
+    const loggedinUser = userService.getLoggedinUser()
+    const storyUser = userService.getById(by.byId)
+    console.log(storyUser);
+    
+    const dispatch = useDispatch()
 
     const location = useLocation()
 
-    function getImgSrc() {
-        return imgUrl.startsWith('http')? imgUrl: getIconImg(imgUrl)
+    function onDetails() {
+        dispatch({ type: SET_STORY, story })
     }
 
     return <article className="preview">
         {/* HEADER */}
         <header>
-            <div className='avatar'>
-                <img className="avatar-img md" src={getIconImg('avatar')} alt="avatar" />
+            <div>
+                <div className='avatar'>
+                    <img className="avatar-img md" src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                </div>
+
+                <div>
+                    <a className='username small'>{by.username}</a> <span className='story-date'> • {timeAgo(createdAt)}</span>
+                </div>
             </div>
 
-            <div>
-                <a className='username small'>{by.username}</a> <span className='story-date'> • {timeAgo(createdAt)}</span>
-            </div>
+            <img className='btn' title='More options'
+                src={getIconImg('more')} alt="more-icon" />
         </header>
 
         {/* IMAGE */}
@@ -31,16 +48,24 @@ export function StoryPreview({ story }) {
 
         {/* BUTTONS */}
         <div className='preview-action-btns'>
-            <div>
-                <img className='btn' title='Like'
-                    src={getIconImg('like')} alt="like-icon" />
-            </div>
+
+            <LikeButton
+                isLiked={story.likedBy.some(u => u.byId === loggedinUser._id)}
+                onLike={() => onUpdate(toggleStoryLike(story, loggedinUser))}
+            />
+
+            <span>{likedBy.length > 0 ? likedBy.length : ''}</span>
 
             {/* COMMENT */}
             <div>
                 <Link
+                    onClick={onDetails}
                     to={`/p/${_id}`}
-                    state={{ modal: true, backgroundLocation: location.state?.background || location, story, }}
+                    state={{
+                        modal: true,
+                        backgroundLocation: location.state?.background || location,
+                        story
+                    }}
                 >
                     <img className='btn' title='Comment'
                         src={getIconImg('comment')} alt="comment-icon" />
@@ -48,7 +73,7 @@ export function StoryPreview({ story }) {
             </div>
 
 
-            <div>{comments.length > 0 ? comments.length : ''}</div>
+            <span>{comments.length > 0 ? comments.length : ''}</span>
 
             <div><img className='btn' title='Share'
                 src={getIconImg('send')} alt="send-icon" />
