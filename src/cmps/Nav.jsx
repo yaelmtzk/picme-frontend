@@ -3,10 +3,16 @@ import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 import { CreateStory } from "./CreateStory.jsx"
 import { userService } from "../services/user/user.service.local.js"
+import { Link, useLocation } from "react-router-dom"
 
 export function Nav({ onAdd }) {
     const [openCreate, setOpenCreate] = useState(false)
     const user = userService.getLoggedinUser()
+    const userId = user._id
+    const username = user.username
+
+    console.log(user);
+    
 
     return (
         <section className='nav-section'>
@@ -37,14 +43,20 @@ export function Nav({ onAdd }) {
                     <div>Create</div>
                 </div>
 
-                <div className='avatar nav-btn'>
-                    <img className="avatar-img small" src={user.imgUrl? user.imgUrl: getIconImg('avatar')} alt="avatar" />
+                <NavLink
+                    className='profile-btn nav-btn'
+                    to={`/${username}`}
+                    state={{
+                        userId
+                    }}>
+                    <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
                     <div>Profile</div>
-                </div>
+                </NavLink>
+
             </section>
 
             {openCreate && (
-                <CreateStory onClose={() => setOpenCreate(false)} onAdd={onAdd}/>)}
+                <CreateStory onClose={() => setOpenCreate(false)} onAdd={onAdd} />)}
 
         </section>)
 

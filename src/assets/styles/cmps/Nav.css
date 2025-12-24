@@ -2,6 +2,8 @@
     grid-column: 1;
     padding: 8px 12px 20px 12px;
     color: #0C1014;
+
+    border-right: solid 1px var(--border-clr);
 }
 
 .nav-btns {

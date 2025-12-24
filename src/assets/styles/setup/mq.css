@@ -2,6 +2,9 @@
     .main-layout {
         grid-template-columns: 244px 1fr;
     }
+    .nav-section{
+        grid-template-columns: 244px;
+    }
     .create-content{
         height: 735px;
     }
@@ -15,6 +18,10 @@
 @media (min-width: 1919px) {
     .main-layout {
         grid-template-columns: 335px 1fr;
+    }
+
+    .nav-section{
+        grid-template-columns: 335px;
     }
 
     .create-content{

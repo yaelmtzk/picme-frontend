@@ -10,6 +10,7 @@ import { userService } from '../services/user'
 import { Nav } from '../cmps/Nav'
 import { StoryList } from '../cmps/StoryList'
 import { Search } from '../cmps/Search'
+import { UserDetails } from './UserDetails.jsx'
 
 export function StoryIndex() {
 
@@ -53,16 +54,18 @@ export function StoryIndex() {
     }
 
     return (
-        <main className="story-index main-layout">
+        <main className="story-index ">
             {/* <header>
                 {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
             </header> */}
-            <Nav onAdd={onAddStory} />
+            {/* <Nav onAdd={onAddStory} /> */}
             {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <StoryList
                 stories={stories}
                 onRemoveStory={onRemoveStory}
                 onUpdateStory={onUpdateStory} />
+
+            {/* <UserDetails /> */}
 
         </main>
     )

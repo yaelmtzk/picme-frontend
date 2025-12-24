@@ -148,9 +148,9 @@ async function addStoryComment(storyId, txt) {
     const comment = {
         byId: user._id,
         username: user.username,
-        txt
+        txt: txt
     }
-    story.msgs.push(comment)
+    story.comments.push(comment)
     await storageService.put(STORAGE_KEY, story)
 
     return comment

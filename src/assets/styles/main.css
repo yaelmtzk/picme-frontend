@@ -10,7 +10,7 @@
 @import "basics/forms";
 
 /* pages */
-@import "RootCmp";
+/* @import "RootCmp"; */
 
 @import "pages/AboutUs";
 /* @import "pages/HomePage"; */
@@ -35,9 +35,26 @@
 @import "cmps/CommentPreview.css";
 @import "cmps/FeedSideBar.css";
 @import "cmps/CreateStory.css/";
+@import "cmps/Modal.css";
+@import "cmps/StoryMoreOpt.css";
 
 /* Media Queries */
 @import "setup/mq.css";
 
 /* Icons */
 @import "@fortawesome/fontawesome-free/css/all.css";
+
+.epr-category-nav {
+  display: none !important;
+}
+
+/* 1. FIX CUT EMOJIS (CRITICAL) */
+.EmojiPickerReact button.epr-emoji {
+  overflow: visible !important;
+}
+
+/* 2. FIX LABEL FONT SIZE       */
+.EmojiPickerReact .epr-emoji-category-label {
+  font-size: 12px !important;
+}
+

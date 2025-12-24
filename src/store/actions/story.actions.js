@@ -1,4 +1,5 @@
 import { storyService } from '../../services/story/story.service.local'
+import { userService } from '../../services/user/user.service.local'
 import { store } from '../store'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_COMMENT } from '../reducers/story.reducer'
 
@@ -25,8 +26,16 @@ export async function loadStory(storyId) {
 
 export async function removeStory(storyId) {
     try {
+        const loggedInUser = userService.getLoggedinUser()
+        const story = await storyService.getById(storyId)
+
+        if (story.by.byId !== loggedInUser._id){
+            throw new Error('Not authorized')
+        }
+
         await storyService.remove(storyId)
         store.dispatch(getCmdRemoveStory(storyId))
+
     } catch (err) {
         console.log('Cannot remove story', err)
         throw err
@@ -61,7 +70,7 @@ export async function addStoryComment(storyId, txt) {
         store.dispatch(getCmdAddStoryComment(comment))
         return comment
     } catch (err) {
-        console.log('Cannot add story msg', err)
+        console.log('Cannot add comment', err)
         throw err
     }
 }

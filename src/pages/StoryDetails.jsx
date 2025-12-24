@@ -1,22 +1,29 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { getIconImg } from '../services/image.service.js'
-import { timeAgo } from '../services/util.service.js'
+
 import { CommentList } from "../cmps/CommentList.jsx"
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
-
-import { updateStory, loadStory } from '../store/actions/story.actions'
-import { toggleStoryLike } from '../services/story/story.service.local.js'
 import { LikeButton } from "../cmps/LikeButton.jsx"
+import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
+import { Modal } from "../cmps/Modal.jsx"
 
+import { updateStory, loadStory, removeStory, addStoryComment } from '../store/actions/story.actions'
+import { getIconImg } from '../services/image.service.js'
+import { timeAgo } from '../services/util.service.js'
+import { toggleStoryLike } from '../services/story/story.service.local.js'
+import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { userService } from '../services/user/user.service.local.js'
 
 
 export function StoryDetails() {
+
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
+
   const storyId = useParams().id
+
   const [txt, setTxt] = useState('')
+  const [openOpts, setOpenOpts] = useState(false)
 
   const loggedinUser = userService.getLoggedinUser()
   const storyUser = userService.getById(loadedStory.by.byId)
@@ -24,25 +31,10 @@ export function StoryDetails() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  // lock scroll
-  useEffect(() => {
-    document.body.style.overflow = "hidden"
-    return () => { document.body.style.overflow = "" }
-  }, [])
 
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
-
-  // esc to close
-  useEffect(() => {
-    function handleEsc(ev) {
-      if (ev.key === "Escape") onCloseDetails()
-    }
-
-    window.addEventListener("keydown", handleEsc)
-    return () => window.removeEventListener("keydown", handleEsc)
-  }, [])
 
 
   function onCloseDetails() {
@@ -53,7 +45,28 @@ export function StoryDetails() {
 
   async function onLike() {
     const updated = toggleStoryLike(loadedStory, loggedinUser)
-    await updateStory(updated)   // call async updater
+    await updateStory(updated)
+  }
+
+  async function onRemoveStory(storyId) {
+    try {
+      await removeStory(storyId)
+      showSuccessMsg('Story removed')
+    } catch (err) {
+      showErrorMsg('Cannot remove story')
+    } finally {
+      onCloseDetails()
+    }
+  }
+
+  async function onAddComment(storyId, txt) {   
+    try {
+      const comment = await addStoryComment(storyId, txt)
+      setTxt('')
+      showSuccessMsg(`Comment added (${comment})`)
+    } catch (err) {
+      showErrorMsg('Cannot add comment')
+    }
   }
 
   if (!loadedStory) {
@@ -61,11 +74,11 @@ export function StoryDetails() {
   }
 
   return (
-    <div className="details-overlay" onClick={onCloseDetails}>
+    <Modal onClose={onCloseDetails} className="details-modal">
 
       <button className="details-close" onClick={onCloseDetails}>✕</button>
 
-      <div className="details-content" onClick={ev => ev.stopPropagation()}>
+      <div className="details-content">
 
         {/* IMAGE */}
         <div className="details-img">
@@ -80,7 +93,12 @@ export function StoryDetails() {
               <div className="username small">{loadedStory.by.username}</div>
             </div>
 
-            <img className='btn' title='More options'
+            <img
+              onClick={(ev) => {
+                ev.stopPropagation()
+                setOpenOpts(true)
+              }}
+              className='btn' title='More options'
               src={getIconImg('more')} alt="more-icon" />
           </header>
 
@@ -127,23 +145,31 @@ export function StoryDetails() {
             <span>{timeAgo(loadedStory.createdAt)}</span>
           </div>
 
-
           <section className="new-comment-section">
-            <EmojiTextArea placeholderTxt={'Add a comment...'} txt={txt} setTxt={setTxt} />
+            <EmojiTextArea
+              placeholderTxt={'Add a comment...'}
+              txt={txt} setTxt={setTxt} />
 
-            {/* <textarea
-              value={txt}
-              placeholder="Add a comment..."
-              onChange={(ev) => setTxt(ev.target.value)}>
-            </textarea> */}
-
-            <a className="disabled" >Post</a>
+            <a onClick={() => onAddComment(storyId, txt)} className="posst-btn btn" >Post</a>
           </section>
 
         </div>
-
       </div>
 
-    </div>
+      {openOpts && (
+        <Modal
+          onClose={() => setOpenOpts(false)}
+          className="opts-modal"
+        >
+          <StoryMoreOpt
+            storyId={storyId}
+            onRemove={() => onRemoveStory(storyId)}
+            onClose={() => setOpenOpts(false)}
+            isOwner={loggedinUser._id === storyUser._id} />
+        </Modal>
+      )}
+
+    </Modal>
+
   )
 }

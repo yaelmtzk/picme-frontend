@@ -3,8 +3,7 @@ import { getIconImg } from '../services/image.service.js'
 import { useRef, useState, useEffect } from "react"
 
 
-export function EmojiTextArea({ placeholderTxt = '', txt, setTxt}) {
-    const [text, setText] = useState("")
+export function EmojiTextArea({ placeholderTxt = '', txt, setTxt }) {
     const [open, setOpen] = useState(false)
 
     const textareaRef = useRef(null)
@@ -67,16 +66,30 @@ export function EmojiTextArea({ placeholderTxt = '', txt, setTxt}) {
             />
 
             {open && (
-                <div
-                    ref={pickerRef}
+                <div className="emoji-wrapper"
                     style={{
-                        position: "absolute",
-                        bottom: 40,
-                        right: 0,
-                        zIndex: 20
+                        position: 'absolute',
+                        bottom: '50px',
+                        left: 0,
+                        zIndex: 20,
+                        height: '260px',
+                        width: '320px',
+                        overflow: 'visible',
                     }}
+
+                    ref={pickerRef}
                 >
-                    <EmojiPicker onEmojiClick={onEmojiClick} />
+                    <EmojiPicker
+                        onEmojiClick={onEmojiClick}
+                        style={{
+                            width: '100%',
+                            height: '100%',
+                        }}
+                        categories={[]}
+                        searchDisabled={true}
+                        previewConfig={{ showPreview: false }}
+                        
+                    />
                 </div>
             )}
         </div>

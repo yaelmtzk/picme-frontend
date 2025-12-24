@@ -1,7 +1,181 @@
-.user-details {
-    .user-img {
-        height: 200px;
-        width: 200px;
-        background-size: contain;
-    }
+/* =========================
+   INSTAGRAM-LIKE PROFILE PAGE
+   ========================= */
+
+.profile-page {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background: #ffffff;
+  color: #262626;
+}
+
+/* ===== HEADER ===== */
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  column-gap: 30px;
+  margin-bottom: 44px;
+}
+
+.profile-avatar {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-avatar img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* ===== TOP ROW ===== */
+
+.profile-top-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.profile-username {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* ===== BUTTONS ===== */
+
+.profile-btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid #dbdbdb;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-btn:hover {
+  background: #fafafa;
+}
+
+.profile-btn.icon {
+  width: 34px;
+  padding: 0;
+}
+
+/* ===== STATS ===== */
+
+.profile-stats {
+  display: flex;
+  gap: 40px;
+  margin-bottom: 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.profile-stats li {
+  font-size: 16px;
+}
+
+.profile-stats strong {
+  font-weight: 600;
+}
+
+/* ===== BIO ===== */
+
+.profile-bio {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.profile-bio strong {
+  display: block;
+  font-weight: 600;
+}
+
+/* ===== HIGHLIGHTS ===== */
+
+.profile-highlights {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.highlight {
+  text-align: center;
+  font-size: 12px;
+  color: #262626;
+}
+
+.highlight-circle {
+  width: 77px;
+  height: 77px;
+  border-radius: 50%;
+  border: 1px solid #dbdbdb;
+  margin-bottom: 8px;
+}
+
+/* ===== TABS ===== */
+
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  border-top: 1px solid #dbdbdb;
+  margin-bottom: 20px;
+}
+
+.profile-tabs .tab {
+  background: none;
+  border: none;
+  padding: 16px 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #8e8e8e;
+  cursor: pointer;
+  border-top: 1px solid transparent;
+}
+
+.profile-tabs .tab.active {
+  color: #262626;
+  border-top-color: #262626;
+}
+
+/* ===== POSTS GRID ===== */
+
+.profile-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.post-tile {
+  aspect-ratio: 1 / 1;
+  background: #efefef;
+  cursor: pointer;
+}
+
+/* ===== RESPONSIVE ===== */
+
+@media (max-width: 735px) {
+  .profile-header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .profile-top-row {
+    justify-content: center;
+  }
+
+  .profile-stats {
+    justify-content: center;
+  }
+
+  .profile-highlights {
+    justify-content: center;
+  }
 }

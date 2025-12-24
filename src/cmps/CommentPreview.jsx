@@ -5,7 +5,7 @@ import { userService } from '../services/user/user.service.local.js'
 
 export function CommentPreview({ comment }) {
     const { username, txt, byId } = comment
-    const user = userService.getById(byId)
+    const user = userService.getById(byId)    
 
     return <article className="comment-preview">
 

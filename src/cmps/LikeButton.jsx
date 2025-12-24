@@ -5,7 +5,7 @@ export function LikeButton({ isLiked, onLike }) {
     <div onClick={onLike} title="Like">
       {isLiked ? (
         <svg
-          viewBox="0 0 48 48"
+          viewBox="0 0 50 40"
           className="btn heart-filled"
         >
           <path

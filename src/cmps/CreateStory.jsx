@@ -97,12 +97,6 @@ export function CreateStory({ onClose, onAdd }) {
                                 <div className="username small">{user.username}</div>
                             </div>
 
-                            {/* <textarea
-                                value={txt}
-                                onChange={(ev) => setTxt(ev.target.value)}>
-
-                            </textarea> */}
-
                             <EmojiTextArea txt={txt} setTxt={setTxt}/>
 
                             <div className="add-location">

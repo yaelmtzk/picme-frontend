@@ -1,13 +1,13 @@
 import React from 'react'
-// import { useLocation } from "react-router-dom"
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
 import { StoryIndex } from './pages/StoryIndex.jsx'
 import { StoryDetails } from './pages/StoryDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
-
-// import { HomePage } from './pages/HomePage.jsx'
-// import {AboutUs} from './pages/AboutUs.jsx'
+import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
+import { addStory } from './store/actions/story.actions.js'
+import { getEmptyStory } from './services/story/index.js'
+import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
 // import { Explore } from './pages/Explore.jsx'
 // import { AppHeader } from './cmps/AppHeader'
 // import { AppFooter } from './cmps/AppFooter'
@@ -21,17 +21,35 @@ export function RootCmp() {
     const state = location.state
     const navigate = useNavigate()
 
+    async function onAddStory(txt, imgUrl) {
+        const story = getEmptyStory()
+        story.txt = txt
+        story.imgUrl = imgUrl
+
+        try {
+            const savedStory = await addStory(story)
+            showSuccessMsg(`Story added (id: ${savedStory._id})`)
+        } catch (err) {
+            showErrorMsg('Cannot add story')
+        }
+    }
+
+
     return (
         <div className="main-container">
             {/* <AppHeader /> */}
             <UserMsg />
             <main>
                 <Routes location={state?.modal ? state.backgroundLocation : location}>
-                    <Route path="/" element={<StoryIndex />} />
-                    <Route path="/p/:storyId" element={<StoryDetails />} />
-                    <Route path="/user/:id" element={<UserDetails />} />
 
-                    {/* <Route path="" element={<HomePage />} /> */}
+                    {/* Routes WITH nav */}
+
+                    <Route element={<LayoutWithNav onAdd={onAddStory} />}>
+                        <Route path="/" element={<StoryIndex />} />
+                        <Route path="/:username" element={<UserDetails />} />
+                    </Route>
+                    
+                    {/* 
                     {/* <Route path="about" element={<AboutUs />}></Route> */}
                     {/* <Route path="review" element={<ReviewIndex />} /> */}
                     {/* <Route path="chat" element={<ChatApp />} />
