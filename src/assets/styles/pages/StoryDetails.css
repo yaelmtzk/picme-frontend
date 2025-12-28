@@ -1,58 +1,62 @@
-
 .details-content {
     display: grid;
-    grid-template-columns: 1.35fr 1fr;
+    grid-template-columns:
+        minmax(450px, 863px) minmax(340px, 500px);
 
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-    background: white;
+    width: min(96vw, 1363px);
+    height: min(94vh, 863px);
 
-    width: 63vw;
-    height: 95vh;
-    max-width: 1210px;
+    background: #fff;
+    overflow: hidden;
 
-    p {
-        margin: 0;
-        padding: 0;
-    }
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
 }
 
 .details-img {
-    flex: 1.2;
     background: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+}
 
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
+.details-img img {
+      aspect-ratio: 1 / 1;    
+  align-self: center; 
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+
 }
 
 .side-details-section {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    min-height: 0;
+}
+
+
+.side-details-section header,
+.preview-action-btns,
+.details-stats,
+.new-comment-section {
+    flex-shrink: 0;
 }
 
 .side-details-section header {
     display: flex;
     align-items: center;
-
-    border-bottom: 1.3px solid var(--border-clr2);
     justify-content: space-between;
+
+    padding-right: 8px;
+    border-bottom: 1.3px solid var(--border-clr2);
 
     .avatar {
         display: flex;
-        gap: 12px;
+        gap: 16px;
         align-items: center;
 
         padding: 14px 4px 14px 16px;
     }
 
     .btn {
-        padding: 8px 16px 8px 8px;
+        margin: 8px;
         cursor: pointer;
 
         &:hover {
@@ -75,7 +79,8 @@
 
 .comment-section {
     flex: 1;
-    overflow-y: scroll;
+
+    overflow-y: auto;
     scrollbar-width: none;
     padding: 16px;
 
@@ -85,19 +90,27 @@
 
 .comment-section .story-txt {
     display: flex;
-    align-items: top;
-    gap: 12px;
+    align-content: start;
+    gap: 16px;
+
     padding: 12px 0 16px;
     margin: -5px -2px 0 0;
 
-    span {
+    .story-date {
         color: var(--txt-clr2);
         font-size: 12px;
+    }
+
+    div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 43px;
     }
 }
 
 .side-details-section .preview-action-btns {
-    padding: 8px;
+    padding: 6px 8px 8px 8px;
     margin: 0;
 }
 
@@ -106,6 +119,7 @@
     align-items: center;
     border-top: 1.3px solid var(--border-clr2);
     padding: 0px 16px;
+    min-height: 55px;
 
     img {
         width: 24px;

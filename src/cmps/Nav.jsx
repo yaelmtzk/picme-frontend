@@ -4,15 +4,14 @@ import { getIconImg } from '../services/image.service.js'
 import { CreateStory } from "./CreateStory.jsx"
 import { userService } from "../services/user/user.service.local.js"
 import { Link, useLocation } from "react-router-dom"
+import { useSelector } from 'react-redux'
 
 export function Nav({ onAdd }) {
     const [openCreate, setOpenCreate] = useState(false)
-    const user = userService.getLoggedinUser()
+    const user = useSelector(storeState => storeState.userModule.user)
+    
     const userId = user._id
     const username = user.username
-
-    console.log(user);
-    
 
     return (
         <section className='nav-section'>
@@ -44,7 +43,7 @@ export function Nav({ onAdd }) {
                 </div>
 
                 <NavLink
-                    className='profile-btn nav-btn'
+                    className='nav-btn'
                     to={`/${username}`}
                     state={{
                         userId

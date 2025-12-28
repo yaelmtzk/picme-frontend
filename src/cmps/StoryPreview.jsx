@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { userService } from '../services/user/user.service.local.js'
 import { useDispatch } from "react-redux"
 import { toggleStoryLike } from '../services/story/story.service.local.js'
@@ -19,13 +19,23 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
 
     const loggedinUser = userService.getLoggedinUser()
     const storyUser = userService.getById(by.byId)
+    const storyUserId = storyUser._id
+    const storyUsername = storyUser.username
 
     const dispatch = useDispatch()
-
+    const navigate = useNavigate()
     const location = useLocation()
 
     function onDetails() {
         dispatch({ type: SET_STORY, story })
+    }
+
+    function onUserDetails(userId, username) {
+        navigate(`/${username}`, {
+            state: {
+                userId
+            }
+        })
     }
 
     return <article className="preview">
@@ -33,11 +43,18 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
         <header>
             <div>
                 <div className='avatar'>
-                    <img className="avatar-img md" src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                    <img className="avatar-img md pointer"
+                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                        src={storyUser?.imgUrl || getIconImg('avatar')}
+                        alt="avatar" />
                 </div>
 
                 <div>
-                    <a className='username small'>{by.username}</a> <span className='story-date'> • {timeAgo(createdAt)}</span>
+                    <a className='username small pointer'
+                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}>
+                        {by.username}
+                    </a>
+                    <span className='story-date'> • {timeAgo(createdAt)}</span>
                 </div>
             </div>
 
@@ -89,16 +106,17 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
                 src={getIconImg('send')} alt="send-icon" />
             </div>
 
-            <div>
+            <div className="save-btn">
                 <img className='btn' title='Save'
                     src={getIconImg('save')} alt="save-icon" />
             </div>
         </div>
 
         <div className='story-txt-short'>
-            <div className='username small'>
-                {by.username}</div>
-            <span>{txt}</span>
+            <span
+                onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                className="username small pointer">
+                {by.username}</span> <span>{txt}</span>
         </div>
 
         {openOpts &&
@@ -112,7 +130,7 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
                     onClose={() => setOpenOpts(false)}
                     isOwner={loggedinUser._id === storyUser._id} />
             </Modal>
-        )}
+            )}
 
     </article>
 }

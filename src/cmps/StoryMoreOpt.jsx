@@ -9,7 +9,7 @@ export function StoryMoreOpt({ storyId, onClose, onRemove, isOwner }) {
     return (
             <div className="opts-container">
 
-                {isOwner && <div className="option" onClick={onRemoveStory}>Delete</div> }
+                {isOwner && <div className="option delete-btn" onClick={onRemoveStory}>Delete</div> }
                 
                 <div className="option" onClick={onClose}>Cancel</div>
             </div>

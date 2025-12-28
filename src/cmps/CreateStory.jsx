@@ -3,6 +3,7 @@ import { getIconImg } from '../services/image.service.js'
 import { userService } from '../services/user/user.service.local.js'
 import { uploadImg } from '../services/upload.service.js'
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
+import { Modal } from "../cmps/Modal.jsx"
 import { Emoji } from "emoji-picker-react";
 
 export function CreateStory({ onClose, onAdd }) {
@@ -37,10 +38,6 @@ export function CreateStory({ onClose, onAdd }) {
         onClose()
     }
 
-    function onOverlayClick() {
-        onClose()
-    }
-
     function onContentClick(ev) {
         ev.stopPropagation()
     }
@@ -64,58 +61,58 @@ export function CreateStory({ onClose, onAdd }) {
     }
 
     return (
-        <div className="create-overlay" onClick={onOverlayClick}>
-            <button className="create-close" onClick={onClose}>✕</button>
+        <Modal onClose={onClose} className="details-modal">
+                <button className="create-close" onClick={onClose}>✕</button>
 
-            <div className="create-content" onClick={onContentClick}>
-                {imgUrl && next ?
-                    (<div className="create-header">
-                        <div>Create new post</div>
-                        {next && (<a onClick={onSaveStory}>Share</a>)}
-                    </div>) :
-                    (<div className="create-next"><a onClick={onNextClick}>Next</a></div>)
-                }
-
-                <div className="create-main">
-                    {imgUrl ?
-                        (<div className="create-preview-img">
-                            <img alt="preview-img" src={imgUrl} />
-
-                        </div>)
-                        :
-                        (<div className="create-content-main">
-                            <img className="create-icon" src={getIconImg('createbg')} alt="create icon" />
-                            <div>Drag photos and videos here</div>
-                            <button onClick={handleSelectFile}>Select from computer</button>
-                        </div>)
+                <div className="create-content" onClick={onContentClick}>
+                    {imgUrl && next ?
+                        (<div className="create-header">
+                            <div>Create new post</div>
+                            {next && (<a onClick={onSaveStory}>Share</a>)}
+                        </div>) :
+                        (<div className="create-next"><a onClick={onNextClick}>Next</a></div>)
                     }
 
-                    {next && (
-                        <div className="create-text-section">
-                            <div className='avatar'>
-                                <img className="avatar-img md" src={user.imgUrl? user.imgUrl: getIconImg('avatar')} alt="avatar" />
-                                <div className="username small">{user.username}</div>
+                    <div className="create-main">
+                        {imgUrl ?
+                            (<div className="create-preview-img">
+                                <img alt="preview-img" src={imgUrl} />
+
+                            </div>)
+                            :
+                            (<div className="create-content-main">
+                                <img className="create-icon" src={getIconImg('createbg')} alt="create icon" />
+                                <div>Drag photos and videos here</div>
+                                <button onClick={handleSelectFile}>Select from computer</button>
+                            </div>)
+                        }
+
+                        {next && (
+                            <div className="create-text-section">
+                                <div className='avatar'>
+                                    <img className="avatar-img md" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
+                                    <div className="username small">{user.username}</div>
+                                </div>
+
+                                <EmojiTextArea txt={txt} setTxt={setTxt} />
+
+                                <div className="add-location">
+                                    <p>Add location</p>
+                                    <img title="Add location" src={getIconImg('location')} alt="location" />
+                                </div>
                             </div>
 
-                            <EmojiTextArea txt={txt} setTxt={setTxt}/>
+                        )}
 
-                            <div className="add-location">
-                                <p>Add location</p>
-                                <img title="Add location" src={getIconImg('location')} alt="location" />
-                            </div>
-                        </div>
-
-                    )}
-
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        accept="image/*"
-                        style={{ display: "none" }}
-                        onChange={handleFileChange}
-                    />
+                        <input
+                            ref={fileInputRef}
+                            type="file"
+                            accept="image/*"
+                            style={{ display: "none" }}
+                            onChange={handleFileChange}
+                        />
+                    </div>
                 </div>
-            </div>
-        </div>
+        </Modal>
     )
 }

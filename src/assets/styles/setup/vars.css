@@ -5,8 +5,10 @@
     --txt-clr2: #6A717A;
     --txt-clr3: #FFFFFF;
     --txt-clr4: #4150F7;
+    --txt-red: #ED4956;
 
     --btn-clr1: #4A5DF9;
+    --btn-clr2: #F0F2F5;
 
     --btn-hover: #3143E3;
     --icon-btn-hover: #CCD0D5;
@@ -16,4 +18,6 @@
     --border-clr: #DBDBDB;
     --border-clr2: #F3F5F7;
     --avatar-bg-clr: #CCD0D5;
+
+    --overlay-clr: rgba(0, 0, 0, 0.7);
 }

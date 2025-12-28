@@ -8,6 +8,7 @@ import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
 import { addStory } from './store/actions/story.actions.js'
 import { getEmptyStory } from './services/story/index.js'
 import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
+
 // import { Explore } from './pages/Explore.jsx'
 // import { AppHeader } from './cmps/AppHeader'
 // import { AppFooter } from './cmps/AppFooter'
@@ -34,7 +35,6 @@ export function RootCmp() {
         }
     }
 
-
     return (
         <div className="main-container">
             {/* <AppHeader /> */}
@@ -47,8 +47,9 @@ export function RootCmp() {
                     <Route element={<LayoutWithNav onAdd={onAddStory} />}>
                         <Route path="/" element={<StoryIndex />} />
                         <Route path="/:username" element={<UserDetails />} />
+                         <Route path="/p/:id" element={<StoryDetails />} />
                     </Route>
-                    
+
                     {/* 
                     {/* <Route path="about" element={<AboutUs />}></Route> */}
                     {/* <Route path="review" element={<ReviewIndex />} /> */}

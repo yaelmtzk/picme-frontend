@@ -1,31 +1,18 @@
-/* flex helpers */
+.pointer{
+    cursor: pointer;
+}
 
-.flex {
+.btn {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin: 8px;
 
+    &:hover {
+        transform: scale(1.04);
+    }
+}
+
+.flex{
     display: flex;
-
-    > *.full {
-        flex: 1;
-    }
-    &.column {
-        flex-direction: column;
-    }
-    &.justify-center {
-        justify-content: center;
-    }
-    &.align-center {
-        align-items: center;
-    }
-}
-
-/* Media helpers */
-
-.square-ratio {
-    aspect-ratio: 1/1;
-}
-.video-ratio {
-    aspect-ratio: 16/9;
-}
-.portrait-ratio {
-    aspect-ratio: 9/16;
 }

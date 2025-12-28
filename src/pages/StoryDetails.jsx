@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { CommentList } from "../cmps/CommentList.jsx"
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
@@ -19,7 +19,6 @@ import { userService } from '../services/user/user.service.local.js'
 export function StoryDetails() {
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
-
   const storyId = useParams().id
 
   const [txt, setTxt] = useState('')
@@ -31,15 +30,16 @@ export function StoryDetails() {
   const location = useLocation()
   const navigate = useNavigate()
 
+  console.log(location.state.backgroundLocation);
 
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
 
-
   function onCloseDetails() {
-    const bg = location.state?.background
-    if (bg) navigate(bg.pathname, { replace: true })
+    const bg = location.state?.backgroundLocation
+
+    if (bg) navigate(bg.pathname, { replace: true, state: bg.state })
     else navigate("/", { replace: true })
   }
 
@@ -59,14 +59,23 @@ export function StoryDetails() {
     }
   }
 
-  async function onAddComment(storyId, txt) {   
+  async function onAddComment(storyId, txt) {
     try {
       const comment = await addStoryComment(storyId, txt)
+      // loadStory(storyId)
       setTxt('')
       showSuccessMsg(`Comment added (${comment})`)
     } catch (err) {
       showErrorMsg('Cannot add comment')
     }
+  }
+
+  function onUserDetails(userId, username) {
+    navigate(`/${username}`, {
+      state: {
+        userId
+      }
+    })
   }
 
   if (!loadedStory) {
@@ -89,8 +98,16 @@ export function StoryDetails() {
 
           <header>
             <div className='avatar'>
-              <img className="avatar-img md" src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar" />
-              <div className="username small">{loadedStory.by.username}</div>
+              <img
+                className="avatar-img md pointer"
+                src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+
+              <div
+                className="username small pointer"
+                onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                {loadedStory.by.username}
+              </div>
             </div>
 
             <img
@@ -106,14 +123,26 @@ export function StoryDetails() {
           <section className='comment-section'>
 
             <div className="story-txt">
+
               <div className='avatar'>
-                <img className="avatar-img md" src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                <img
+                  className="avatar-img md pointer"
+                  src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
               </div>
 
               <div>
-                <p><strong>{loadedStory.by.username}</strong> {loadedStory.txt}</p>
-                <span>{timeAgo(loadedStory.createdAt)}</span>
+
+                <p>
+                  <span className="username small pointer"
+                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                    {loadedStory.by.username}</span> {loadedStory.txt}
+                </p>
+
+                <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
+
               </div>
+
             </div>
 
             <CommentList comments={loadedStory.comments} />
@@ -132,7 +161,7 @@ export function StoryDetails() {
             <div><img className='btn' title='Share'
               src={getIconImg('send')} alt="send-icon" /></div>
 
-            <div><img className='btn' title='Save'
+            <div className="save-btn"><img className='btn' title='Save'
               src={getIconImg('save')} alt="save-icon" /></div>
           </section>
 
@@ -150,7 +179,7 @@ export function StoryDetails() {
               placeholderTxt={'Add a comment...'}
               txt={txt} setTxt={setTxt} />
 
-            <a onClick={() => onAddComment(storyId, txt)} className="posst-btn btn" >Post</a>
+            <a onClick={() => onAddComment(storyId, txt)} className={`post-btn ${txt.length == 0 && 'disabled'}`}>Post</a>
           </section>
 
         </div>

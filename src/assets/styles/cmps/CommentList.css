@@ -1,6 +1,7 @@
 .comment-list{
     display: flex;
     flex-direction: column;
+    justify-content:space-between ;
     gap: 12px;
     p{
         margin: 0;
@@ -12,6 +13,8 @@
 
     li{
         width: 100%;
+        min-height: 43px;
+        padding-top: 12px;
     }
 
 }

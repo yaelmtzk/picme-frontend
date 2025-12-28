@@ -14,7 +14,7 @@ export function CommentList({ comments, onRemoveComment }) {
 
     return <ul className="comment-list">
             {comments.map(comment =>
-                <li key={comment.byId}>
+                <li key={comment._id}>
 
                     <CommentPreview comment={comment}/>
 

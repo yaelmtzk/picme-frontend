@@ -15,11 +15,11 @@ export function CommentPreview({ comment }) {
                 <img className="avatar-img md" src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
             </div>
 
-            <div>
+            <div className='comment-content'>
                 <p><strong>{username}</strong> {txt}</p>
                 <div className='comment-preview-btns'>
                     {/* <span>{timeAgo(story.createdAt)}</span> */}
-                    <span>{timeAgo(Date.now())}</span>
+                    <span>{timeAgo(comment.createdAt)}</span>
                     <span>like</span>
                     <span>Reply</span>
                 </div>

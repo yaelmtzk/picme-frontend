@@ -8,13 +8,13 @@ export function FeedSideBar() {
     return <div className="feed-sidebar">
 
         <div className="user-feed-sidebar">
-            <div className='avatar'>
+            {/* <div className='avatar'>
                 <img className="avatar-img big"src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
-            </div>
-            <div>            
+            </div> */}
+            {/* <div>            
                 <div className="username small">{user.username}</div>
                 <div className="fullname small">{user.fullname}</div>
-            </div>
+            </div> */}
 
         </div>
 
