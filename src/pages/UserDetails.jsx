@@ -1,120 +1,250 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
+import { useDispatch } from "react-redux"
+import { getIconImg } from '../services/image.service.js'
 
 import { loadUser } from '../store/actions/user.actions'
-import { store } from '../store/store'
-import { showSuccessMsg } from '../services/event-bus.service'
-import { socketService, SOCKET_EVENT_USER_UPDATED, SOCKET_EMIT_USER_WATCH } from '../services/socket.service'
+import { SET_STORY } from '../store/reducers/story.reducer'
+import { userService } from '../services/user/user.service.local.js'
 
 export function UserDetails() {
   const { username } = useParams()
-  // const params = useParams()
-  const user = useSelector(storeState => storeState.userModule.user)
+  const dispatch = useDispatch()
   const location = useLocation()
-  const loggedinId = location.state?.userId
+  const state = location.state
+  const navigate = useNavigate()
 
+  const loggedinUser = useSelector(storeState => storeState.userModule.user)
+  const userId = state?.userId
+  const user = userService.getById(userId)
 
-
-  console.log(user);
+  // console.log(loggedinUser._id, userId);
   
+  const stories = useSelector(storeState => storeState.storyModule.stories)
+  const userStories = stories.filter(story => story.by.byId === userId).sort((a, b) => b.createdAt - a.createdAt)
 
-  useEffect(() => {
-    loadUser(loggedinId)
-  }, [loggedinId])
+  function onDetails(story) {
+    dispatch({ type: SET_STORY, story })
 
-  // useEffect(() => {
-  //   if (!user) return
-
-  //   // 2️⃣ sockets still work with ID
-  //   socketService.emit(SOCKET_EMIT_USER_WATCH, user._id)
-  //   socketService.on(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
-
-  //   return () => {
-  //     socketService.off(SOCKET_EVENT_USER_UPDATED, onUserUpdate)
-  //   }
-  // }, [user])
-
-  // function onUserUpdate(user) {
-  //   showSuccessMsg(`This user ${user.fullname} just got updated from socket`)
-  //   store.dispatch({ type: 'SET_WATCHED_USER', user })
-  // }
+    navigate(`/p/${story._id}`, {
+      state: {
+        modal: true,
+        backgroundLocation: state?.background || location,
+        story,
+        openOpts: true
+      }
+    })
+  }
 
   return (
-<section className="profile-page">
+    <section className="profile-page">
 
-      {/* HEADER */}
-      <header className="profile-header">
+      <div className='profile-main'>
+        {/* HEADER */}
+        <header className="profile-header">
 
-        {/* Avatar */}
-        <div className="profile-avatar">
-          <img
-            src={user.imgUrl}
-            alt="profile avatar"
-            className="avatar-img"
-          />
-        </div>
+          <div className='top-header-row'>
+            {/* Avatar */}
+            <div className="profile-avatar">
+              <img
+                src={user.imgUrl}
+                alt="profile avatar"
+                className="avatar-img"
+              />
+            </div>
 
-        {/* User Info */}
-        <div className="profile-info">
+            {/* Header Main */}
+            <div className='profile-header-main'>
+              {/* User Info */}
+              {/* Username + actions */}
+              <div className="profile-top-row">
 
-          {/* Username + actions */}
-          <div className="profile-top-row">
-            <h2 className="profile-username">{username}</h2>
+                <div className="username">{username}</div>
 
-            <button className="profile-btn">Edit profile</button>
-            <button className="profile-btn icon">⚙</button>
+                {loggedinUser._id === userId &&
+                  (
+                    <div className="btn">
+                      <img src={getIconImg('settings')} alt="settings" />
+                    </div>
+                  )}
+
+              </div>
+
+              <div className='profile-fullname'>{user.fullname}</div>
+
+              {/* Stats */}
+              <ul className="profile-stats">
+                <li><span>{userStories?.length || 0}</span> posts</li>
+                <li><span>{user?.followers || 0}</span>  followers</li>
+                <li><span>{user?.following || 0}</span> following</li>
+              </ul>
+
+              {/* Bio */}
+              {user.bio &&
+                (<div className="profile-bio">
+                  <p>{user.bio}</p>
+                </div>)
+              }
+            </div>
+
           </div>
 
-          {/* Stats */}
-          <ul className="profile-stats">
-            <li><strong>12</strong> posts</li>
-            <li><strong>340</strong> followers</li>
-            <li><strong>180</strong> following</li>
-          </ul>
+          {loggedinUser._id === userId?
+            (
+              <div className='profile-btn-section'>
+                <button className="profile-btn">Edit profile</button>
+                <button className="profile-btn">View archive</button>
+              </div>
+            ) : ('')}
 
-          {/* Bio */}
-          <div className="profile-bio">
-            <strong>{username}</strong>
-            <p>Frontend developer ✨</p>
-            <p>📍 Tel Aviv</p>
+          {/* HIGHLIGHTS */}
+          <section className="profile-highlights">
+
+            {user.highlights && (
+              user.highlights.map(hl =>
+                <div className='highlight-container'>
+                  <div className='highlight-circle-outer'>
+
+                    <div className="highlight-circle-inner">
+
+                      <img src={hl.coverImg} alt="highlight-img" />
+                    </div>
+
+                  </div>
+                  <span>{hl.txt}</span>
+                </div>
+
+              ))}
+
+            {loggedinUser._id === userId ?
+              (
+                <div className='highlight-container'>
+                  <div className='highlight-circle-outer'>
+
+                    <div className="highlight-circle-inner" title='New highlight'>
+
+                      <svg
+                        className='new-high-icon'
+                        viewBox="0 0 24 24"
+                        alt="new-highlight"
+                      >
+                        <path
+                          d="M21 11h-8V3a1 1 0 1 0-2 0v8H3a1 1 0 1 0 0 2h8v8a1 1 0 1 0 2 0v-8h8a1 1 0 1 0 0-2Z"
+                        />
+                      </svg>
+
+                    </div>
+
+                  </div>
+
+                  <span>New</span>
+
+                </div>
+              ) :
+              ('')
+            }
+
+          </section>
+
+        </header>
+
+        {/* TABS */}
+        <nav className="profile-tabs">
+
+          <div className="post-tab tab ">
+            <div className='inner-tab active'>
+              <svg
+                className='posts-icon'
+                viewBox="0 0 24 24"
+
+                alt="posts-icon"
+                title='Posts'
+              >
+                <path d="M3 3 H21 V21 H3 Z
+                        M9.01486 3 V21
+                        M14.98514 3 V21
+                        M3 9.01486 H21
+                        M3 14.98514 H21" />
+              </svg>
+            </div>
           </div>
 
-        </div>
-      </header>
+          {loggedinUser._id === userId &&
+            (
+              <div className="saved-tab tab ">
+                <div className='inner-tab'>
 
-      {/* HIGHLIGHTS */}
-      <section className="profile-highlights">
-        <div className="highlight">
-          <div className="highlight-circle"></div>
-          <span>Travel</span>
-        </div>
-        <div className="highlight">
-          <div className="highlight-circle"></div>
-          <span>Food</span>
-        </div>
-        <div className="highlight">
-          <div className="highlight-circle"></div>
-          <span>Work</span>
-        </div>
-      </section>
+                  <svg
+                    className='saved-icon'
+                    viewBox="0 0 24 24"
+                    alt="saved-icon"
+                    title="Saved"
+                  >
+                    <path d="M20 21 L12 13.44 L4 21 L4 3 L20 3 Z" />
 
-      {/* TABS */}
-      <nav className="profile-tabs">
-        <button className="tab active">Posts</button>
-        <button className="tab">Reels</button>
-        <button className="tab">Tagged</button>
-      </nav>
+                  </svg>
+                </div>
 
-      {/* POSTS GRID */}
-      <section className="profile-posts-grid">
-        <div className="post-tile"></div>
-        <div className="post-tile"></div>
-        <div className="post-tile"></div>
-        <div className="post-tile"></div>
-        <div className="post-tile"></div>
-        <div className="post-tile"></div>
-      </section>
+              </div>
+            )}
+
+          <div className="tagged-tab tab">
+            <div className='inner-tab'>
+              <svg
+                className='tagged-icon'
+                viewBox="0 0 24 24"
+                alt="tagged-icon"
+              >
+                <path d="M10.201 3.797L12 1.997l1.799 1.8a1.59 1.59
+                        0 0 0 1.124.465h5.259A1.818 1.818 0 0 1 22 
+                        6.08v14.104A1.818 1.818 0 0 1 20.182 22H3.818A1.818 
+                        1.818 0 0 1 2 20.184V6.08A1.818 1.818 0 0 1 3.818 
+                        4.262h5.26a1.59 1.59 0 0 0 1.123-.465Z
+                        M6 20v-.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V20
+                        M12 13.5a3 3 0 1 0 0-6a3 3 0 0 0 0 6
+                " />
+              </svg>
+            </div>
+
+          </div>
+
+        </nav>
+
+        {/* POSTS GRID */}
+        <section className="profile-stories">
+
+          {userStories ?
+            (<ul className="profile-stories-grid">
+              {userStories.map(story =>
+                <li key={story._id}
+                  className="story-tile"
+                  onClick={() => { onDetails(story) }}>
+
+                  <img src={story.imgUrl} alt="user-post" />
+
+                  <div className='profile-comment-icon'>
+
+                    <svg
+                      viewBox="0 0 24 24"
+
+                      alt="comment-icon"
+                    >
+                      <path d="M20.656 17.008a9.993 9.993 0 1 0-3.59 3.615L22 22Z" />
+                    </svg>
+
+                    <span>{story.comments?.length || 0}</span>
+                  </div>
+
+                </li>)
+              }
+
+            </ul>
+            ) : (<div className='no'>Share your first photo</div>)
+          }
+
+        </section>
+      </div>
 
     </section>
   )
