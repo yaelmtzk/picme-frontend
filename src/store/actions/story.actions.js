@@ -1,9 +1,9 @@
 import { storyService } from '../../services/story/story.service.local'
 import { userService } from '../../services/user/user.service.local'
 import { store } from '../store'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, ADD_STORY_COMMENT } from '../reducers/story.reducer'
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY } from '../reducers/story.reducer'
 
-export async function loadStories(filterBy) {
+export async function loadStories(filterBy = {}) {
     try {
         const stories = await storyService.query(filterBy)
         store.dispatch(getCmdSetStories(stories))
@@ -22,7 +22,6 @@ export async function loadStory(storyId) {
         throw err
     }
 }
-
 
 export async function removeStory(storyId) {
     try {
@@ -66,9 +65,10 @@ export async function updateStory(story) {
 
 export async function addStoryComment(storyId, txt) {
     try {
-        const comment = await storyService.addStoryComment(storyId, txt)
-        store.dispatch(getCmdAddStoryComment(comment))
-        return comment
+        const updatedStory = await storyService.addStoryComment(storyId, txt)
+        store.dispatch(getCmdUpdateStory(updatedStory))
+        
+        return updatedStory
     } catch (err) {
         console.log('Cannot add comment', err)
         throw err
@@ -106,12 +106,12 @@ function getCmdUpdateStory(story) {
         story
     }
 }
-function getCmdAddStoryComment(comment) {
-    return {
-        type: ADD_STORY_COMMENT,
-        comment
-    }
-}
+// function getCmdAddStoryComment(comment) {
+//     return {
+//         type: ADD_STORY_COMMENT,
+//         comment
+//     }
+// }
 
 // unitTestActions()
 async function unitTestActions() {

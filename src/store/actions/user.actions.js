@@ -1,10 +1,12 @@
-import { userService } from '../../services/user'
+import { userService } from '../../services/user/user.service.local'
 import { socketService } from '../../services/socket.service'
 import { store } from '../store'
 
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
+import { readJsonFile } from '../../services/util.service'
+
 
 export async function loadUsers() {
     try {
@@ -27,17 +29,31 @@ export async function removeUser(userId) {
     }
 }
 
-export async function login(credentials) {
+// export async function login(credentials) {
+//     try {
+//         const user = await userService.login(credentials)
+//         store.dispatch({
+//             type: SET_USER,
+//             user
+//         })
+//         socketService.login(user._id)
+//         return user
+//     } catch (err) {
+//         console.log('Cannot login', err)
+//         throw err
+//     }
+// }
+
+export async function login() {
+    
     try {
-        const user = await userService.login(credentials)
-        store.dispatch({
-            type: SET_USER,
-            user
-        })
-        socketService.login(user._id)
-        return user
+        const users = await readJsonFile('data/user.json')
+        const user = userService.saveLoggedinUser(users[0]._id) 
+        
+        console.log('user login:', user)
+        store.dispatch({ type: SET_USER, user })
     } catch (err) {
-        console.log('Cannot login', err)
+        console.log('user actions -> Cannot login', err)
         throw err
     }
 }
@@ -74,7 +90,7 @@ export async function logout() {
 export async function loadUser(userId) {
     try {
         const user = await userService.getById(userId)
-        store.dispatch({ type: SET_WATCHED_USER, user })
+        store.dispatch({ type: SET_USER, user })
     } catch (err) {
         showErrorMsg('Cannot load user')
         console.log('Cannot load user', err)

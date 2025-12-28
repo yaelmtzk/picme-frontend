@@ -1,3 +1,5 @@
+
+
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -53,26 +55,34 @@ export function loadFromStorage(key) {
 }
 
 export function timeAgo(ts) {
-  const now = Date.now()
-  const diffMs = now - ts
-  const diffMin = Math.floor(diffMs / 1000 / 60)
+    const now = Date.now()
+    const diffMs = now - ts
+    const diffMin = Math.floor(diffMs / 1000 / 60)
 
-  if (diffMin < 1) return "just now"
+    if (diffMin < 1) return "just now"
 
-  if (diffMin < 60) {
-    return `${diffMin}m`        // minutes
-  }
+    if (diffMin < 60) {
+        return `${diffMin}m`        // minutes
+    }
 
-  const diffHrs = Math.floor(diffMin / 60)
-  if (diffHrs < 24) {
-    return `${diffHrs}h`        // hours
-  }
+    const diffHrs = Math.floor(diffMin / 60)
+    if (diffHrs < 24) {
+        return `${diffHrs}h`        // hours
+    }
 
-  const diffDays = Math.floor(diffHrs / 24)
-  if (diffDays < 7) {
-    return `${diffDays}d`       // days
-  }
+    const diffDays = Math.floor(diffHrs / 24)
+    if (diffDays < 7) {
+        return `${diffDays}d`       // days
+    }
 
-  const diffWeeks = Math.floor(diffDays / 7)
-  return `${diffWeeks}w`        // weeks
+    const diffWeeks = Math.floor(diffDays / 7)
+    return `${diffWeeks}w`        // weeks
 }
+
+export async function readJsonFile(path) {
+  const url = new URL(path, import.meta.env.BASE_URL).href
+  const res = await fetch(url)
+  if (!res.ok) throw new Error(`Failed to load ${url}`)
+  return res.json()
+}
+

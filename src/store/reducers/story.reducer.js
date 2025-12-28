@@ -3,7 +3,7 @@ export const SET_STORY = 'SET_STORY'
 export const REMOVE_STORY = 'REMOVE_STORY'
 export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
-export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT'
+// export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT'
 
 const initialState = {
     stories: [],
@@ -37,10 +37,10 @@ export function storyReducer(state = initialState, action) {
             newState = { ...state, stories, story: updatedStory}
             break
 
-        case ADD_STORY_COMMENT:
-            if (action.comment && state.story) {
-                newState = { ...state, story: { ...state.story, comments: [...state.story.comments || [], action.comment] } }
-            }
+        // case ADD_STORY_COMMENT:
+        //     if (action.comment && state.story) {
+        //         newState = { ...state, story: { ...state.story, comments: [...state.story.comments || [], action.comment] } }
+        //     }
         default:
     }
     return newState
@@ -68,8 +68,8 @@ function unitTestReducer() {
     state = storyReducer(state, { type: SET_STORY, story: story1 })
     console.log('After SET_STORY:', state)
 
-    const comment = { id: 'm' + parseInt('' + Math.random() * 100), txt: 'Some comment', by: { _id: 'u123', username: 'test' } }
-    state = storyReducer(state, { type: ADD_STORY_COMMENT, storyId: story1._id, comment })
-    console.log('After ADD_STORY_COMMENT:', state)
+    // const comment = { id: 'm' + parseInt('' + Math.random() * 100), txt: 'Some comment', by: { _id: 'u123', username: 'test' } }
+    // state = storyReducer(state, { type: ADD_STORY_COMMENT, storyId: story1._id, comment })
+    // console.log('After ADD_STORY_COMMENT:', state)
 }
 
