@@ -17,7 +17,6 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
     function openWithDelay() {
         clearTimeout(closeTimerRef.current)
         openTimerRef.current = setTimeout(() => setIsOpen(true), 140)
-        // console.log(userStories);        
     }
 
     function closeWithDelay() {
@@ -31,10 +30,8 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
             onMouseEnter={openWithDelay}
             onMouseLeave={closeWithDelay}
         >
-
             {children}
 
-            {/* The hover card */}
             {isOpen && (
                 <div
                     className="uhc-card"
@@ -102,30 +99,6 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
                         ) : ('')
                     }
 
-                    <div className="uhc-actions">
-                        {/* <button
-                            className="uhc-btn"
-                            onClick={(ev) => {
-                                ev.preventDefault()
-                                ev.stopPropagation()
-                                onOpenProfile?.(user)
-                            }}
-                        >
-                            View profile
-                        </button> */}
-
-                        {/* <button
-                            className="uhc-btn uhc-btn--ghost"
-                            onClick={(ev) => {
-                                ev.preventDefault()
-                                ev.stopPropagation()
-                                // Example: follow action hook
-                                console.log("follow", user._id)
-                            }}
-                        >
-                            Follow
-                        </button> */}
-                    </div>
                 </div>
             )}
         </span>

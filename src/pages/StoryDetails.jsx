@@ -35,8 +35,6 @@ export function StoryDetails() {
   const loggedinUser = userService.getLoggedinUser()
   const storyUser = userService.getById(loadedStory.by.byId)
 
-
-
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
@@ -67,7 +65,6 @@ export function StoryDetails() {
   async function onAddComment(storyId, txt) {
     try {
       const comment = await addStoryComment(storyId, txt)
-      // loadStory(storyId)
       setTxt('')
       showSuccessMsg(`Comment added (${comment})`)
     } catch (err) {
@@ -136,7 +133,7 @@ export function StoryDetails() {
                 storyList={stories}>
                 <div
                   className="username small pointer"
-                  onClick={onUserDetails}>
+                  onClick={() => onUserDetails(storyUser._id, storyUser.username)}>
                   {loadedStory.by.username}
                 </div>
               </UserHoverCard>
@@ -152,7 +149,6 @@ export function StoryDetails() {
               src={getIconImg('more')} alt="more-icon" />
           </header>
 
-          {/* COMMENTS */}
           <section className='comment-section'>
 
             <div className="story-txt">
@@ -188,9 +184,7 @@ export function StoryDetails() {
                 </div>
 
                 <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
-
               </div>
-
             </div>
 
             <CommentList 

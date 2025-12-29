@@ -17,8 +17,6 @@ export function UserDetails() {
   const loggedinUser = useSelector(storeState => storeState.userModule.user)
   const userId = state?.userId
   const user = userService.getById(userId)
-
-  // console.log(loggedinUser._id, userId);
   
   const stories = useSelector(storeState => storeState.storyModule.stories)
   const userStories = stories.filter(story => story.by.byId === userId).sort((a, b) => b.createdAt - a.createdAt)
@@ -41,11 +39,11 @@ export function UserDetails() {
     <section className="profile-page">
 
       <div className='profile-main'>
-        {/* HEADER */}
+
         <header className="profile-header">
 
           <div className='top-header-row'>
-            {/* Avatar */}
+
             <div className="profile-avatar">
               <img
                 src={user.imgUrl}
@@ -54,10 +52,8 @@ export function UserDetails() {
               />
             </div>
 
-            {/* Header Main */}
             <div className='profile-header-main'>
-              {/* User Info */}
-              {/* Username + actions */}
+
               <div className="profile-top-row">
 
                 <div className="username">{username}</div>
@@ -73,14 +69,13 @@ export function UserDetails() {
 
               <div className='profile-fullname'>{user.fullname}</div>
 
-              {/* Stats */}
+
               <ul className="profile-stats">
                 <li><span>{userStories?.length || 0}</span> posts</li>
                 <li><span>{user?.followers || 0}</span>  followers</li>
                 <li><span>{user?.following || 0}</span> following</li>
               </ul>
 
-              {/* Bio */}
               {user.bio &&
                 (<div className="profile-bio">
                   <p>{user.bio}</p>
@@ -98,7 +93,6 @@ export function UserDetails() {
               </div>
             ) : ('')}
 
-          {/* HIGHLIGHTS */}
           <section className="profile-highlights">
 
             {user.highlights && (
@@ -149,7 +143,6 @@ export function UserDetails() {
 
         </header>
 
-        {/* TABS */}
         <nav className="profile-tabs">
 
           <div className="post-tab tab ">
@@ -211,7 +204,6 @@ export function UserDetails() {
 
         </nav>
 
-        {/* POSTS GRID */}
         <section className="profile-stories">
 
           {userStories ?

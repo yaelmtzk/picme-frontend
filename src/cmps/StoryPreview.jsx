@@ -9,7 +9,7 @@ import { LikeButton } from "./LikeButton.jsx"
 import { SET_STORY } from '../store/reducers/story.reducer'
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
-import { UserHoverCard } from "./UserHoverCard.jsx"; 
+import { UserHoverCard } from "./UserHoverCard.jsx";
 
 export function StoryPreview({ story, stories, onUpdate, onRemove }) {
 
@@ -25,9 +25,20 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
+    const state = location.state
 
-    function onDetails() {
+    function onStoryDetails(story) {
         dispatch({ type: SET_STORY, story })
+
+        navigate(`/p/${story._id}`, {
+            state: {
+                modal: true,
+                backgroundLocation: state?.background || location,
+                story,
+                stories,
+                openOpts: true
+            }
+        })
     }
 
     function onUserDetails(userId, username) {
@@ -39,22 +50,27 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
     }
 
     return <article className="preview">
-        {/* HEADER */}
         <header>
             <div className="preview-header">
                 <div className='avatar'>
-                    <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                    <UserHoverCard
+                        user={storyUser}
+                        onOpenProfile={onUserDetails}
+                        onOpenStory={onStoryDetails}
+                        storyList={stories}>
                         <img className="avatar-img md pointer"
                             onClick={() => { onUserDetails(storyUserId, storyUsername) }}
                             src={storyUser?.imgUrl || getIconImg('avatar')}
                             alt="avatar" />
                     </UserHoverCard>
-
                 </div>
 
                 <div>
-
-                    <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                    <UserHoverCard
+                        user={storyUser}
+                        onOpenProfile={onUserDetails}
+                        onOpenStory={onStoryDetails}
+                        storyList={stories}>
                         <a className='username small pointer'
                             onClick={() => { onUserDetails(storyUserId, storyUsername) }}>
                             {by.username}
@@ -76,10 +92,8 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
                 alt="more-icon" />
         </header>
 
-        {/* IMAGE */}
         <img className="story-pic" src={imgUrl} alt="story-pic" />
 
-        {/* BUTTONS */}
         <div className='preview-action-btns'>
 
             <LikeButton
@@ -89,22 +103,9 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
 
             <span>{likedBy.length > 0 ? likedBy.length : ''}</span>
 
-            {/* COMMENT */}
             <div>
-                <Link
-                    onClick={onDetails}
-                    to={`/p/${_id}`}
-                    state={{
-                        modal: true,
-                        backgroundLocation: location.state?.background || location,
-                        story,
-                        stories,
-                        openOpts: true
-                    }}
-                >
-                    <img className='btn' title='Comment'
-                        src={getIconImg('comment')} alt="comment-icon" />
-                </Link>
+                <img onClick={() => onStoryDetails(story)} className='btn' title='Comment'
+                    src={getIconImg('comment')} alt="comment-icon" />
             </div>
 
 
@@ -122,11 +123,15 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
 
         <div className='story-txt-short'>
             <p>
-                <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
-                <span
-                    onClick={() => { onUserDetails(storyUserId, storyUsername) }}
-                    className="username small pointer">
-                    {by.username}</span>                    
+                <UserHoverCard
+                    user={storyUser}
+                    onOpenProfile={onUserDetails}
+                    storyList={stories}
+                    onOpenStory={onStoryDetails}>
+                    <span
+                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                        className="username small pointer">
+                        {by.username}</span>
                 </UserHoverCard> <span>{txt}</span>
             </p>
 

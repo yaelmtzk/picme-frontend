@@ -3,7 +3,6 @@ export const SET_STORY = 'SET_STORY'
 export const REMOVE_STORY = 'REMOVE_STORY'
 export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
-// export const ADD_STORY_COMMENT = 'ADD_STORY_COMMENT'
 
 const initialState = {
     stories: [],
@@ -37,10 +36,6 @@ export function storyReducer(state = initialState, action) {
             newState = { ...state, stories, story: updatedStory}
             break
 
-        // case ADD_STORY_COMMENT:
-        //     if (action.comment && state.story) {
-        //         newState = { ...state, story: { ...state.story, comments: [...state.story.comments || [], action.comment] } }
-        //     }
         default:
     }
     return newState

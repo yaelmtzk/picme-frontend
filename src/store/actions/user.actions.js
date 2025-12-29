@@ -5,8 +5,6 @@ import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import { REMOVE_USER, SET_USER, SET_USERS, SET_WATCHED_USER } from '../reducers/user.reducer'
-import { readJsonFile } from '../../services/util.service'
-
 
 export async function loadUsers() {
     try {
@@ -29,34 +27,21 @@ export async function removeUser(userId) {
     }
 }
 
-// export async function login(credentials) {
-//     try {
-//         const user = await userService.login(credentials)
-//         store.dispatch({
-//             type: SET_USER,
-//             user
-//         })
-//         socketService.login(user._id)
-//         return user
-//     } catch (err) {
-//         console.log('Cannot login', err)
-//         throw err
-//     }
-// }
-
-export async function login() {
-    
+export async function login(credentials) {
     try {
-        const users = await readJsonFile('data/user.json')
-        const user = userService.saveLoggedinUser(users[0]._id) 
-        
-        console.log('user login:', user)
-        store.dispatch({ type: SET_USER, user })
+        const user = await userService.login(credentials)
+        store.dispatch({
+            type: SET_USER,
+            user
+        })
+        socketService.login(user._id)
+        return user
     } catch (err) {
-        console.log('user actions -> Cannot login', err)
+        console.log('Cannot login', err)
         throw err
     }
 }
+
 
 export async function signup(credentials) {
     try {

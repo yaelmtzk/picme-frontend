@@ -21,13 +21,11 @@ export function AppHeader() {
 	return (
 		<header className="app-header full">
 			<nav>
-
 				<NavLink to="/login" className="login">
 					Picme
 				</NavLink>
 				<NavLink to="/">Home</NavLink>
 				<NavLink to="about">About</NavLink>
-
 
                 {user?.isAdmin && <NavLink to="/admin">Admin</NavLink>}
 
@@ -35,10 +33,9 @@ export function AppHeader() {
 				{user && (
 					<div className="user-info">
 						<Link to={`user/${user._id}`}>
-							{/* {user.imgUrl && <img src={user.imgUrl} />} */}
 							{user.fullname}
 						</Link>
-						{/* <span className="score">{user.score?.toLocaleString()}</span> */}
+
 						<button onClick={onLogout}>logout</button>
 					</div>
 				)}

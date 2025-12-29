@@ -1,5 +1,4 @@
 import { storageService } from '../async-storage.service'
-import { readJsonFile } from '../util.service'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -336,16 +335,23 @@ const gUsers = [
     highlights: [],
     followers: 21890,
     following: 502
+  },
+    {
+    _id: 'u32',
+    username: 'avital.judaica',
+    fullname: 'אביטל יהודייקה',
+    isAdmin: false,
+    imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1767020987/frmiziaylddsr5g8ek0p.png',
+    bio: 'הידור מצוות עם מותגים אלגנטיים',
+    highlights: [
+      {txt: 'קולקציה לפסח', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1767020137/hpm7n0v4kjvyb5f22ske.png'}
+    ],
+    followers: 30623,
+    following: 192
   }
 ]
 
-
-// const users = readJsonFile('data/user.json')
-
 saveLoggedinUser(gUsers[0])
-
-// console.log(users);
-
 
 export const userService = {
     login,
@@ -359,43 +365,11 @@ export const userService = {
     saveLoggedinUser
 }
 
-
-
-async function loadUsers() {
-  if (gUsers) return gUsers
-
-  const res = await fetch('data/user.json')
-  if (!res.ok) throw new Error('Failed to load users')
-
-  gUsers = await res.json()
-  return gUsers
-}
-
-// export async function getById(userId) {
-//   const users = await loadUsers()
-//   return users.find(user => user._id === userId)
-// }
-
-
-// async function getUsers() {
-//     const users = await storageService.query('user')
-//     return users.map(user => {
-//         delete user.password
-//         return user
-//     })
-// }
-
 async function getUsers() {
     return gUsers.map(user => {
-        // delete user.password
         return user
     })
 }
-
-// async function getById(userId) {
-//     return await storageService.get('user', userId)
-// }
-
 function getById(userId) {
     return gUsers.find(user => user._id == userId)
 }
@@ -416,20 +390,12 @@ async function update({ _id, score }) {
     return user
 }
 
-// async function login() {
-//     const users = await storageService.query('user')
-//     const user = users.find(user => user.username === userCred.username)
-
-//     if (user) return saveLoggedinUser(user)
-// }
-
 async function login(id) {
     const users = await getUsers()
     const user = users.find(user => user._id === id)
 
     if (user) return saveLoggedinUser(user)
 }
-
 
 async function signup(userCred) {
     if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
@@ -462,19 +428,4 @@ function saveLoggedinUser(user) {
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 
     return user
-}
-
-// To quickly create an admin user, uncomment the next line
-// _createAdmin()
-async function _createAdmin() {
-    const user = {
-        username: 'admin',
-        password: 'admin',
-        fullname: 'Mustafa Adminsky',
-        imgUrl: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
-        score: 10000,
-    }
-
-    const newUser = await storageService.post('user', userCred)
-    console.log('newUser: ', newUser)
 }

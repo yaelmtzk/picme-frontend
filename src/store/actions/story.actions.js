@@ -106,22 +106,4 @@ function getCmdUpdateStory(story) {
         story
     }
 }
-// function getCmdAddStoryComment(comment) {
-//     return {
-//         type: ADD_STORY_COMMENT,
-//         comment
-//     }
-// }
 
-// unitTestActions()
-async function unitTestActions() {
-    await loadStories()
-    await addStory(storyService.getEmptyStory())
-    await updateStory({
-        _id: 'm1oC7',
-        text: 'My story',
-        imgUrl: 'story.jpg'
-    })
-    await removeStory('m1oC7')
-    // TODO unit test addStoryMsg
-}

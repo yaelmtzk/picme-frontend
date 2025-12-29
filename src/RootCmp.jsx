@@ -9,12 +9,6 @@ import { addStory } from './store/actions/story.actions.js'
 import { getEmptyStory } from './services/story/index.js'
 import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
 
-// import { Explore } from './pages/Explore.jsx'
-// import { AppHeader } from './cmps/AppHeader'
-// import { AppFooter } from './cmps/AppFooter'
-// import { LoginSignup } from './pages/LoginSignup.jsx'
-// import { Login } from './pages/Login.jsx'
-// import { Signup } from './pages/Signup.jsx'
 
 export function RootCmp() {
 
@@ -42,23 +36,11 @@ export function RootCmp() {
             <main>
                 <Routes location={state?.modal ? state.backgroundLocation : location}>
 
-                    {/* Routes WITH nav */}
-
                     <Route element={<LayoutWithNav onAdd={onAddStory} />}>
                         <Route path="/" element={<StoryIndex />} />
                         <Route path="/:username" element={<UserDetails />} />
                          <Route path="/p/:id" element={<StoryDetails />} />
                     </Route>
-
-                    {/* 
-                    {/* <Route path="about" element={<AboutUs />}></Route> */}
-                    {/* <Route path="review" element={<ReviewIndex />} /> */}
-                    {/* <Route path="chat" element={<ChatApp />} />
-                    <Route path="admin" element={<AdminIndex />} /> */}
-                    {/* <Route path="login" element={<LoginSignup />}>
-                        <Route index element={<Login />} />
-                        <Route path="signup" element={<Signup />} />
-                    </Route> */}
 
                 </Routes>
 
@@ -69,7 +51,6 @@ export function RootCmp() {
                 )}
 
             </main>
-            {/* <AppFooter /> */}
         </div>
     )
 }

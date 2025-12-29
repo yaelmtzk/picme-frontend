@@ -15,8 +15,6 @@
             })
             const data = await res.json()
 
-            // console.log('Cloudinary response:', data)
-
             return data.secure_url
 
         } catch (err) {

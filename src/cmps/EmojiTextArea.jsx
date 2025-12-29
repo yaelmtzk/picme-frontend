@@ -2,7 +2,6 @@ import EmojiPicker from "emoji-picker-react"
 import { getIconImg } from '../services/image.service.js'
 import { useRef, useState, useEffect } from "react"
 
-
 export function EmojiTextArea({ placeholderTxt = '', txt, setTxt }) {
     const [open, setOpen] = useState(false)
 

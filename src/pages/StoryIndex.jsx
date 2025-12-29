@@ -51,18 +51,10 @@ export function StoryIndex() {
 
     return (
         <main className="story-index ">
-            {/* <header>
-                {userService.getLoggedinUser() && <button onClick={onAddStory}>Add a Story</button>}
-            </header> */}
-            {/* <Nav onAdd={onAddStory} /> */}
-            {/* <Search filterBy={filterBy} setFilterBy={setFilterBy} /> */}
             <StoryList
                 stories={stories}
                 onRemoveStory={onRemoveStory}
                 onUpdateStory={onUpdateStory} />
-
-            {/* <UserDetails /> */}
-
         </main>
     )
 }
