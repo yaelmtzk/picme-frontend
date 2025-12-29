@@ -4,7 +4,6 @@ import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { getIconImg } from '../services/image.service.js'
 
-import { loadUser } from '../store/actions/user.actions'
 import { SET_STORY } from '../store/reducers/story.reducer'
 import { userService } from '../services/user/user.service.local.js'
 
@@ -32,6 +31,7 @@ export function UserDetails() {
         modal: true,
         backgroundLocation: state?.background || location,
         story,
+        stories,
         openOpts: true
       }
     })

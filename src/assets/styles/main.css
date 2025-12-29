@@ -37,6 +37,7 @@
 @import "cmps/CreateStory.css/";
 @import "cmps/Modal.css";
 @import "cmps/StoryMoreOpt.css";
+@import "cmps/UserHoverCard.css";
 
 /* Media Queries */
 @import "setup/mq.css";

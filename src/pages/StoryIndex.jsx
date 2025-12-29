@@ -5,12 +5,8 @@ import { loadStories, addStory, updateStory, removeStory, addStoryComment } from
 
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { getDefaultFilter, getEmptyStory } from '../services/story/index.js'
-import { userService } from '../services/user'
 
-import { Nav } from '../cmps/Nav'
 import { StoryList } from '../cmps/StoryList'
-import { Search } from '../cmps/Search'
-import { UserDetails } from './UserDetails.jsx'
 
 export function StoryIndex() {
 

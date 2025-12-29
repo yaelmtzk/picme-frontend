@@ -14,7 +14,6 @@
 		flex-direction: column;
 		justify-content: space-between;
 	}
-
 }
 
 .comment-preview-btns {
@@ -22,7 +21,6 @@
 	>* {
 		margin-right: 12px;
 	}
-
 }
 
 .comment-like-btn {

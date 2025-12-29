@@ -9,9 +9,9 @@ import { LikeButton } from "./LikeButton.jsx"
 import { SET_STORY } from '../store/reducers/story.reducer'
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
+import { UserHoverCard } from "./UserHoverCard.jsx"; 
 
-
-export function StoryPreview({ story, onUpdate, onRemove }) {
+export function StoryPreview({ story, stories, onUpdate, onRemove }) {
 
     const [openOpts, setOpenOpts] = useState(false)
 
@@ -41,20 +41,27 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
     return <article className="preview">
         {/* HEADER */}
         <header>
-            <div>
+            <div className="preview-header">
                 <div className='avatar'>
-                    <img className="avatar-img md pointer"
-                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}
-                        src={storyUser?.imgUrl || getIconImg('avatar')}
-                        alt="avatar" />
+                    <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                        <img className="avatar-img md pointer"
+                            onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                            src={storyUser?.imgUrl || getIconImg('avatar')}
+                            alt="avatar" />
+                    </UserHoverCard>
+
                 </div>
 
                 <div>
-                    <a className='username small pointer'
-                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}>
-                        {by.username}
-                    </a>
-                    <span className='story-date'> • {timeAgo(createdAt)}</span>
+
+                    <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                        <a className='username small pointer'
+                            onClick={() => { onUserDetails(storyUserId, storyUsername) }}>
+                            {by.username}
+                        </a>
+                    </UserHoverCard>
+
+                    <span className='date'> • {timeAgo(createdAt)}</span>
                 </div>
             </div>
 
@@ -91,6 +98,7 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
                         modal: true,
                         backgroundLocation: location.state?.background || location,
                         story,
+                        stories,
                         openOpts: true
                     }}
                 >
@@ -113,10 +121,15 @@ export function StoryPreview({ story, onUpdate, onRemove }) {
         </div>
 
         <div className='story-txt-short'>
-            <span
-                onClick={() => { onUserDetails(storyUserId, storyUsername) }}
-                className="username small pointer">
-                {by.username}</span> <span>{txt}</span>
+            <p>
+                <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                <span
+                    onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                    className="username small pointer">
+                    {by.username}</span>                    
+                </UserHoverCard> <span>{txt}</span>
+            </p>
+
         </div>
 
         {openOpts &&

@@ -3,7 +3,7 @@ import { StoryPreview } from './StoryPreview'
 
 export function StoryList({ stories, onRemoveStory, onUpdateStory }) {
 
-    const storylist = [...stories].sort((a, b) => b.createdAt - a.createdAt)
+    const storylist = [...stories]
 
     return <section className='story-list-section'>
             <ul className="story-list">
@@ -12,7 +12,8 @@ export function StoryList({ stories, onRemoveStory, onUpdateStory }) {
                         <StoryPreview 
                         story={story} 
                         onUpdate={onUpdateStory}
-                        onRemove={onRemoveStory}/>
+                        onRemove={onRemoveStory}
+                        stories={storylist}/>
                     </li>)
                 }
             </ul>

@@ -4,9 +4,9 @@
 
 html,
 body {
-  height: 100vh;
-  margin: 0;
-  overflow: hidden;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
 }
 
 #root {
@@ -153,8 +153,11 @@ main {
     font-weight: 600;
 }
 
-svg{
+svg {
     cursor: pointer;
 }
 
-
+.date {
+    color: var(--txt-clr2);
+    font-size: 12px;
+}

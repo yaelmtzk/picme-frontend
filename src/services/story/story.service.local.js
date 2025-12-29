@@ -2125,7 +2125,13 @@ const gStories = [
 _createStories()
 
 async function query(filterBy = {}) {
-    var stories = await storageService.query(STORAGE_KEY)
+
+    const stories = await storageService.query(STORAGE_KEY)
+    var filteredStories = [...stories]
+
+    if (filterBy.userId){
+        filteredStories = filteredStories.filter(story => story.by.byId == filterBy.userId)
+    }
 
     /* const { txt, minSpeed, sortField, sortDir } = filterBy
   
@@ -2147,7 +2153,7 @@ async function query(filterBy = {}) {
       
       stories = stories.map(({ _id, txt, by, tags }) => ({ _id, txt, by, tags }))*/
 
-    return stories
+    return filteredStories.sort((a, b) => b.createdAt - a.createdAt)
 }
 
 function getById(storyId) {

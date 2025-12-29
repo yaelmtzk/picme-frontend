@@ -1,24 +1,46 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { userService } from '../services/user/user.service.local.js'
+import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
-export function CommentPreview({ comment }) {
+export function CommentPreview({ comment, stories }) {
+    const navigate = useNavigate()
     const { username, txt, byId } = comment
-    const user = userService.getById(byId)    
+    const user = userService.getById(byId)
+
+    function onUserDetails(userId, username) {
+        navigate(`/${username}`, {
+            state: {
+                userId
+            }
+        })
+    }
 
     return <article className="comment-preview">
 
         <div className='comment-main'>
 
             <div className='avatar'>
-                <img className="avatar-img md" src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                <UserHoverCard user={user} onOpenProfile={onUserDetails} storyList={stories}>
+                    <img
+                        onClick={() => { onUserDetails(byId, username) }}
+                        className="avatar-img md pointer" src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                </UserHoverCard>
+
             </div>
 
             <div className='comment-content'>
-                <p><strong>{username}</strong> {txt}</p>
-                <div className='comment-preview-btns'>
-                    {/* <span>{timeAgo(story.createdAt)}</span> */}
+                <div
+                    className='pointer'
+                    onClick={() => { onUserDetails(byId, username) }}>
+
+                    <UserHoverCard user={user} onOpenProfile={onUserDetails} storyList={stories}>
+                        <div className='username small'>{username}</div>
+                    </UserHoverCard> {txt}
+                </div>
+
+                <div className='comment-preview-btns date'>
                     <span>{timeAgo(comment.createdAt)}</span>
                     <span>like</span>
                     <span>Reply</span>

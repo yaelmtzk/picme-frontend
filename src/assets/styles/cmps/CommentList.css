@@ -3,13 +3,15 @@
     flex-direction: column;
     justify-content:space-between ;
     gap: 12px;
+
     p{
         margin: 0;
     }
-    span{
+    
+    /* span{
         color: var(--txt-clr2);
         font-size: 12px;
-    }
+    } */
 
     li{
         width: 100%;

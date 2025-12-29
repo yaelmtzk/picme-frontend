@@ -7,6 +7,7 @@ import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import { LikeButton } from "../cmps/LikeButton.jsx"
 import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { Modal } from "../cmps/Modal.jsx"
+import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
 import { updateStory, loadStory, removeStory, addStoryComment } from '../store/actions/story.actions'
 import { getIconImg } from '../services/image.service.js'
@@ -18,8 +19,12 @@ import { userService } from '../services/user/user.service.local.js'
 
 export function StoryDetails() {
 
+  const location = useLocation()
+  const navigate = useNavigate()
+
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
   const storyId = useParams().id
+  const stories = location.state?.stories
 
   const [txt, setTxt] = useState('')
   const [openOpts, setOpenOpts] = useState(false)
@@ -27,10 +32,7 @@ export function StoryDetails() {
   const loggedinUser = userService.getLoggedinUser()
   const storyUser = userService.getById(loadedStory.by.byId)
 
-  const location = useLocation()
-  const navigate = useNavigate()
 
-  console.log(location.state.backgroundLocation);
 
   useEffect(() => {
     loadStory(storyId)
@@ -98,16 +100,21 @@ export function StoryDetails() {
 
           <header>
             <div className='avatar'>
-              <img
-                className="avatar-img md pointer"
-                src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
-                onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+              <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                <img
+                  className="avatar-img md pointer"
+                  src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+              </UserHoverCard>
 
-              <div
-                className="username small pointer"
-                onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
-                {loadedStory.by.username}
-              </div>
+              <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                <div
+                  className="username small pointer"
+                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                  {loadedStory.by.username}
+                </div>
+              </UserHoverCard>
+
             </div>
 
             <img
@@ -125,19 +132,24 @@ export function StoryDetails() {
             <div className="story-txt">
 
               <div className='avatar'>
-                <img
-                  className="avatar-img md pointer"
-                  src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
-                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+                <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                  <img
+                    className="avatar-img md pointer"
+                    src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                    onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+                </UserHoverCard>
+
               </div>
 
-              <div>
+              <div className="story-txt-main">
 
-                <p>
-                  <span className="username small pointer"
-                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
-                    {loadedStory.by.username}</span> {loadedStory.txt}
-                </p>
+                <div>
+                  <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                    <div className="username small pointer"
+                      onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                      {loadedStory.by.username}</div>
+                  </UserHoverCard> {loadedStory.txt}
+                </div>
 
                 <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
 
@@ -145,7 +157,7 @@ export function StoryDetails() {
 
             </div>
 
-            <CommentList comments={loadedStory.comments} />
+            <CommentList comments={loadedStory.comments} stories={stories}/>
           </section>
 
           <section className='preview-action-btns'>
@@ -171,7 +183,7 @@ export function StoryDetails() {
             {!loadedStory.likedBy.length && (<p>Be the first one to <strong>like this</strong></p>)}
             {loadedStory.likedBy.length > 1 && (<p><strong>{loadedStory.likedBy.length} likes</strong></p>)}
 
-            <span>{timeAgo(loadedStory.createdAt)}</span>
+            <span className="date">{timeAgo(loadedStory.createdAt)}</span>
           </div>
 
           <section className="new-comment-section">
