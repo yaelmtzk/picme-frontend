@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 
-export function UserHoverCard({ user, storyList, onOpenProfile, children }) {
+export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, children }) {
     const [isOpen, setIsOpen] = useState(false)
     const openTimerRef = useRef(null)
     const closeTimerRef = useRef(null)
@@ -91,7 +91,7 @@ export function UserHoverCard({ user, storyList, onOpenProfile, children }) {
                             {userStoriesPrev.map(story =>
                                 <li key={story._id}
                                     className="hover-story-tile"
-                                    onClick={() => { onDetails(story) }}>
+                                    onClick={() => onOpenStory(story) }>
 
                                     <img src={story.imgUrl} alt="user-post" />
 

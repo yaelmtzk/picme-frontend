@@ -2,7 +2,7 @@ import { userService } from '../services/user/index.js'
 
 import { CommentPreview } from './CommentPreview.jsx'
 
-export function CommentList({ comments, stories, onRemoveComment }) {
+export function CommentList({ comments, stories, onOpenStory, onRemoveComment }) {
     
     function shouldShowActionBtns(comment) {
         const user = userService.getLoggedinUser()
@@ -16,7 +16,7 @@ export function CommentList({ comments, stories, onRemoveComment }) {
             {comments.map(comment =>
                 <li key={comment._id}>
 
-                    <CommentPreview comment={comment} stories={stories}/>
+                    <CommentPreview comment={comment} stories={stories} onOpenStory={onOpenStory}/>
 
                     {/* {shouldShowActionBtns(comment) && <div className="actions">
                         <button onClick={() => onRemoveComment(comment._id)}>x</button>

@@ -4,7 +4,7 @@ import { timeAgo } from '../services/util.service.js'
 import { userService } from '../services/user/user.service.local.js'
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
-export function CommentPreview({ comment, stories }) {
+export function CommentPreview({ comment, stories, onOpenStory }) {
     const navigate = useNavigate()
     const { username, txt, byId } = comment
     const user = userService.getById(byId)
@@ -22,7 +22,11 @@ export function CommentPreview({ comment, stories }) {
         <div className='comment-main'>
 
             <div className='avatar'>
-                <UserHoverCard user={user} onOpenProfile={onUserDetails} storyList={stories}>
+                <UserHoverCard
+                    user={user}
+                    onOpenProfile={onUserDetails}
+                    onOpenStory={onOpenStory}
+                    storyList={stories}>
                     <img
                         onClick={() => { onUserDetails(byId, username) }}
                         className="avatar-img md pointer" src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
@@ -35,7 +39,11 @@ export function CommentPreview({ comment, stories }) {
                     className='pointer'
                     onClick={() => { onUserDetails(byId, username) }}>
 
-                    <UserHoverCard user={user} onOpenProfile={onUserDetails} storyList={stories}>
+                    <UserHoverCard
+                        user={user}
+                        onOpenProfile={onUserDetails}
+                        onOpenStory={onOpenStory}
+                        storyList={stories}>
                         <div className='username small'>{username}</div>
                     </UserHoverCard> {txt}
                 </div>

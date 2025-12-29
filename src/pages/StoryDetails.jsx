@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { CommentList } from "../cmps/CommentList.jsx"
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
@@ -10,6 +10,7 @@ import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
 import { updateStory, loadStory, removeStory, addStoryComment } from '../store/actions/story.actions'
+import { SET_STORY } from '../store/reducers/story.reducer'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { toggleStoryLike } from '../services/story/story.service.local.js'
@@ -21,10 +22,12 @@ export function StoryDetails() {
 
   const location = useLocation()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const state = location.state
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
   const storyId = useParams().id
-  const stories = location.state?.stories
+  const stories = state?.stories
 
   const [txt, setTxt] = useState('')
   const [openOpts, setOpenOpts] = useState(false)
@@ -39,7 +42,7 @@ export function StoryDetails() {
   }, [storyId])
 
   function onCloseDetails() {
-    const bg = location.state?.backgroundLocation
+    const bg = state?.backgroundLocation
 
     if (bg) navigate(bg.pathname, { replace: true, state: bg.state })
     else navigate("/", { replace: true })
@@ -72,10 +75,25 @@ export function StoryDetails() {
     }
   }
 
-  function onUserDetails(userId, username) {
+  function onUserDetails(userId, username) {    
     navigate(`/${username}`, {
       state: {
         userId
+      }
+    })
+  }
+
+  function onStoryDetails(story) {
+    console.log('details');
+    dispatch({ type: SET_STORY, story })
+
+    navigate(`/p/${story._id}`, {
+      state: {
+        modal: true,
+        backgroundLocation: state?.background || location,
+        story,
+        stories,
+        openOpts: true
       }
     })
   }
@@ -100,17 +118,25 @@ export function StoryDetails() {
 
           <header>
             <div className='avatar'>
-              <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+              <UserHoverCard
+                user={storyUser}
+                onOpenProfile={onUserDetails}
+                onOpenStory={onStoryDetails}
+                storyList={stories}>
                 <img
                   className="avatar-img md pointer"
                   src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
                   onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
               </UserHoverCard>
 
-              <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+              <UserHoverCard
+                user={storyUser}
+                onOpenProfile={onUserDetails}
+                onOpenStory={onStoryDetails}
+                storyList={stories}>
                 <div
                   className="username small pointer"
-                  onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                  onClick={onUserDetails}>
                   {loadedStory.by.username}
                 </div>
               </UserHoverCard>
@@ -132,7 +158,11 @@ export function StoryDetails() {
             <div className="story-txt">
 
               <div className='avatar'>
-                <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                <UserHoverCard
+                  user={storyUser}
+                  onOpenProfile={onUserDetails}
+                  onOpenStory={onStoryDetails}
+                  storyList={stories}>
                   <img
                     className="avatar-img md pointer"
                     src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
@@ -144,10 +174,16 @@ export function StoryDetails() {
               <div className="story-txt-main">
 
                 <div>
-                  <UserHoverCard user={storyUser} onOpenProfile={onUserDetails} storyList={stories}>
+                  <UserHoverCard
+                    user={storyUser}
+                    onOpenProfile={onUserDetails}
+                    onOpenStory={onStoryDetails}
+                    storyList={stories}>
+
                     <div className="username small pointer"
                       onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
                       {loadedStory.by.username}</div>
+
                   </UserHoverCard> {loadedStory.txt}
                 </div>
 
@@ -157,7 +193,10 @@ export function StoryDetails() {
 
             </div>
 
-            <CommentList comments={loadedStory.comments} stories={stories}/>
+            <CommentList 
+            comments={loadedStory.comments} 
+            stories={stories} 
+            onOpenStory={onStoryDetails}/>
           </section>
 
           <section className='preview-action-btns'>
