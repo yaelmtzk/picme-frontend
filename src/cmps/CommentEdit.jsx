@@ -1,32 +1,32 @@
 import { useState } from "react"
 import { useSelector } from "react-redux"
-import { addReview } from "../store/actions/review.actions"
+import { addReview } from "../store/actions/comment.actions"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service"
 
-export function ReviewEdit() {
+export function CommentEdit() {
 	const users = useSelector(storeState => storeState.userModule.users)
-	const [reviewToEdit, setReviewToEdit] = useState({ txt: '', aboutUserId: '' })
+	const [commentToEdit, setReviewToEdit] = useState({ txt: '', aboutUserId: '' })
 
 	function handleChange(ev) {
 		const { name, value } = ev.target
-		setReviewToEdit({ ...reviewToEdit, [name]: value })
+		setReviewToEdit({ ...commentToEdit, [name]: value })
 	}
 
     async function onAddReview(ev) {
 		ev.preventDefault()
-		if (!reviewToEdit.txt || !reviewToEdit.aboutUserId) return alert('All fields are required')
+		if (!commentToEdit.txt || !commentToEdit.aboutUserId) return alert('All fields are required')
             
 		try {
-			await addReview(reviewToEdit)
+			await addReview(commentToEdit)
 			showSuccessMsg('Review added')
 			setReviewToEdit({ txt: '', aboutUserId: '' })
 		} catch (err) {
-			showErrorMsg('Cannot add review')
+			showErrorMsg('Cannot add comment')
 		}
 	}
 
-   return <form className="review-edit" onSubmit={onAddReview}>
-        <select onChange={handleChange} value={reviewToEdit.aboutUserId} name="aboutUserId">
+   return <form className="comment-edit" onSubmit={onAddReview}>
+        <select onChange={handleChange} value={commentToEdit.aboutUserId} name="aboutUserId">
             <option value="">Review about...</option>
             {users.map(user =>
                 <option key={user._id} value={user._id}>
@@ -34,7 +34,7 @@ export function ReviewEdit() {
                 </option>
             )}
         </select>
-        <textarea name="txt" onChange={handleChange} value={reviewToEdit.txt}></textarea>
+        <textarea name="txt" onChange={handleChange} value={commentToEdit.txt}></textarea>
         <button>Add</button>
     </form>
 

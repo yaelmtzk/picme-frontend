@@ -7,7 +7,3 @@
   background: var(--overlay-clr);
   z-index: 100; 
 }
-
-.modal-content{
-  position: relative;
-}

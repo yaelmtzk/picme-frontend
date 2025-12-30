@@ -11,7 +11,7 @@ export function FeedSideBar() {
 
         </div>
 
-        <span className="rights">© 2025 PICME FROM MTZK</span>
+        {/* <span className="rights">© 2025 PICME FROM MTZK</span> */}
 
     </div>
 }

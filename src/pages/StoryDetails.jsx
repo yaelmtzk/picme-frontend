@@ -66,7 +66,6 @@ export function StoryDetails() {
     try {
       const comment = await addStoryComment(storyId, txt)
       setTxt('')
-      showSuccessMsg(`Comment added (${comment})`)
     } catch (err) {
       showErrorMsg('Cannot add comment')
     }

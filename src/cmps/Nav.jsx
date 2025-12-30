@@ -2,8 +2,6 @@ import { useState } from "react"
 import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 import { CreateStory } from "./CreateStory.jsx"
-import { userService } from "../services/user/user.service.local.js"
-import { Link, useLocation } from "react-router-dom"
 import { useSelector } from 'react-redux'
 
 export function Nav({ onAdd }) {

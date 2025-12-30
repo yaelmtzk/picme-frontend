@@ -23,7 +23,7 @@ export function RootCmp() {
 
         try {
             const savedStory = await addStory(story)
-            showSuccessMsg(`Story added (id: ${savedStory._id})`)
+            showSuccessMsg('Story added')
         } catch (err) {
             showErrorMsg('Cannot add story')
         }

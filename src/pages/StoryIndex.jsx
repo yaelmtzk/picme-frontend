@@ -15,7 +15,7 @@ export function StoryIndex() {
 
     useEffect(() => {
         loadStories(filterBy)
-    }, [filterBy])
+    }, [filterBy, stories.length])
 
     async function onRemoveStory(storyId) {
         try {
@@ -33,7 +33,7 @@ export function StoryIndex() {
 
         try {
             const savedStory = await addStory(story)
-            showSuccessMsg(`Story added (id: ${savedStory._id})`)
+            showSuccessMsg('Story added')
         } catch (err) {
             showErrorMsg('Cannot add story')
         }

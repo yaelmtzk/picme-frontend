@@ -9,7 +9,6 @@
 }
 
 .create-content {
-    position: relative;
     display: grid;
     grid-template-rows: auto 1fr;
 
@@ -43,7 +42,15 @@
             text-decoration: underline;
         }
     }
+}
 
+.create-content .logo-vector {
+    width: 150px;
+}
+
+.create-content .create-icon {
+    width: 96px;
+    height: 77px;
 }
 
 .create-main {
@@ -94,12 +101,6 @@
             background-color: var(--btn-hover);
         }
     }
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-    }
 }
 
 .create-close {
@@ -119,7 +120,8 @@
     width: 348px;
     border-bottom-left-radius: 20px;
     overflow: hidden;
-   
+    background-color: rgb(243, 245, 247);
+    border-right: solid 1px var(--border-clr);
 
     img {
         width: 100%;
