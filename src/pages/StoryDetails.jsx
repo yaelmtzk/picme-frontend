@@ -64,7 +64,7 @@ export function StoryDetails() {
 
   async function onAddComment(storyId, txt) {
     try {
-      const comment = await addStoryComment(storyId, txt)
+      await addStoryComment(storyId, txt)
       setTxt('')
     } catch (err) {
       showErrorMsg('Cannot add comment')
@@ -80,7 +80,6 @@ export function StoryDetails() {
   }
 
   function onStoryDetails(story) {
-    console.log('details');
     dispatch({ type: SET_STORY, story })
 
     navigate(`/p/${story._id}`, {

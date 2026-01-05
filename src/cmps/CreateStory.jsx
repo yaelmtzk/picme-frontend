@@ -73,7 +73,7 @@ export function CreateStory({ onClose, onAdd }) {
 
     if (saved) {
         return (
-            <Modal onClose={onClose} className="details-modal">
+            <Modal onClose={onClose} className="create-modal">
                 <button className="create-close" onClick={onClose}>✕</button>
 
                 <div className="create-content" onClick={onContentClick}>
@@ -82,9 +82,7 @@ export function CreateStory({ onClose, onAdd }) {
                     <div className="create-main">
 
                         <div className="create-content-main">
-                            <div className="create-content-main">
-                                <img className="checkmark" src={spinnerChecked} />
-                            </div>
+                            <img className="checkmark" src={spinnerChecked} />
                             <div>Your post has been shared.</div>
                         </div>
                     </div>
@@ -96,7 +94,7 @@ export function CreateStory({ onClose, onAdd }) {
 
     if (isLoading) {
         return (
-            <Modal onClose={onClose} className="details-modal">
+            <Modal onClose={onClose} className="create-modal">
                 <button className="create-close" onClick={onClose}>✕</button>
 
                 <div className="create-content" onClick={onContentClick}>
@@ -115,7 +113,7 @@ export function CreateStory({ onClose, onAdd }) {
     }
 
     return (
-        <Modal onClose={onClose} className="details-modal">
+        <Modal onClose={onClose} className="create-modal">
             <button className="create-close" onClick={onClose}>✕</button>
 
             <div className="create-content" onClick={onContentClick}>
@@ -147,7 +145,7 @@ export function CreateStory({ onClose, onAdd }) {
                     {next && (
                         <div className="create-text-section">
                             <div className='avatar'>
-                                <img className="avatar-img md" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
+                                <img className="avatar-img small2" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
                                 <div className="username small">{user.username}</div>
                             </div>
 
