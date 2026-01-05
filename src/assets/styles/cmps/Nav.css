@@ -1,16 +1,14 @@
 .nav-section {
     grid-column: 1;
+    width: 100%;
+
     padding: 8px 12px 20px 12px;
+    background-color: white;
     color: #0C1014;
 
     overflow-y: hidden;
 
     border-right: solid 1px var(--border-clr);
-
-    .avatar-img.small {
-        width: 28px;
-        height: 28px;
-    }
 }
 
 .nav-btns {
@@ -44,20 +42,36 @@
 }
 
 .nav-btn {
-    color: #0C1014
+    color: #0C1014;
 }
 
+.nav-desktop {
+    display: none;
+}
 
-/* .nav-btns svg path {
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: fill 0.2s ease, stroke 0.2s ease;
-} */
+.nav-md-device {
+    display: none;
+}
 
-/* .profile-tabs .tab.active svg path {
-  fill: currentColor;         
-  stroke: currentColor;
-} */
+.nav-mobile {
+    display: block;
+    border-top: solid 1px var(--border-clr);
+
+    .nav-btn,
+    a {
+        &:hover {
+            background-color: transparent;
+        }
+
+    }
+}
+
+.nav-section,
+.nav-desktop,
+.nav-md-device,
+.nav-mobile {
+  transform: none !important;
+  filter: none !important;
+  will-change: auto !important;
+  opacity: 1 !important;
+}
