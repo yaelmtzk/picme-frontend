@@ -9,21 +9,19 @@
 .profile-main {
   width: 74%;
   height: 100vh;
-  padding-top: 27px;
+  padding-top: 30px;
 }
 
 .profile-header {
   justify-self: center;
   display: flex;
   flex-direction: column;
-  
-  width: 60%;
-  margin-top: 30px;
+  width: 95%;
   
   .top-header-row {
     width: 100%;
     display: flex;
-    gap: 36px;
+    gap: 20px;
   }
 }
 
@@ -55,13 +53,13 @@
 }
 
 .profile-avatar {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 
 .profile-avatar img {
-  width: 150px;
-  height: 150px;
+  width: 77px;
+  height: 77px;
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--txt-clr2);
@@ -81,8 +79,6 @@
 .profile-btn-section {
   display: flex;
   gap: 8px;
-
-  margin-top: 24px;
 }
 
 .profile-btn {
@@ -114,18 +110,22 @@
   }
 }
 
-
-.profile-bio{
+.profile-bio, .profile-bio-mobile{
   margin: 20px 0;
   font-size: 14px;
+  display:block
+}
+
+.profile-bio{
+  display: none;
 }
 
 .profile-highlights {
   margin: 32px 0 32px 20px;
   width: 100%;
   text-align: center;
-  width: fit-content;
   display: flex;
+  overflow: hidden;
 }
 
 .profile-highlights img{
@@ -174,7 +174,6 @@
   height: 40px;
   display: block;
   color: var(--icon-btn-hover);
-
 }
 
 .new-high-icon path {
@@ -204,8 +203,7 @@
   height: 44px;
   width: 100%;
   max-width: 193px;
-
-
+  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -217,7 +215,6 @@
   cursor: pointer;
   width: 64px;
   height: 42px;
-
 }
 
 .tab .active {
@@ -242,11 +239,11 @@
 
 .profile-stories-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   grid-auto-flow: dense;
   width: 100%;
-  gap: 1.5px;
-  padding-bottom: 52px;
+  gap: 1.3px;
+  padding-bottom: 50px;
 }
 
 .story-tile {
@@ -291,7 +288,6 @@
   opacity: 0;
   z-index: 1;
   transition: opacity .25s ease;
-
 }
 
 .profile-comment-icon span {
@@ -303,12 +299,10 @@
   opacity: 1;
 }
 
-
 .story-tile svg {
   width: 25px;
   height: 25px;
   fill: currentColor;
-
 }
 
 .profile-stories {
@@ -320,5 +314,4 @@
 .profile-stories .no-stories {
   font-size: 18px;
   font-weight: 600;
-
 }

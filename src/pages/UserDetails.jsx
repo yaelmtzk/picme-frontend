@@ -17,7 +17,7 @@ export function UserDetails() {
   const loggedinUser = useSelector(storeState => storeState.userModule.user)
   const userId = state?.userId
   const user = userService.getById(userId)
-  
+
   const stories = useSelector(storeState => storeState.storyModule.stories)
   const userStories = stories.filter(story => story.by.byId === userId).sort((a, b) => b.createdAt - a.createdAt)
 
@@ -81,11 +81,18 @@ export function UserDetails() {
                   <p>{user.bio}</p>
                 </div>)
               }
+
             </div>
 
           </div>
 
-          {loggedinUser._id === userId?
+          {user.bio &&
+            (<div className="profile-bio-mobile">
+              <p>{user.bio}</p>
+            </div>)
+          }
+
+          {loggedinUser._id === userId ?
             (
               <div className='profile-btn-section'>
                 <button className="profile-btn">Edit profile</button>
