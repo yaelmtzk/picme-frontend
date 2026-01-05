@@ -38,6 +38,8 @@
 @import "cmps/Modal.css";
 @import "cmps/StoryMoreOpt.css";
 @import "cmps/UserHoverCard.css";
+@import "cmps/MobileCommentsModal.css";
+@import "cmps/CreateStoryMobile.css";
 
 /* Media Queries */
 @import "setup/mq.css";

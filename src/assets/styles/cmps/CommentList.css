@@ -13,5 +13,11 @@
         min-height: 43px;
         padding-top: 12px;
     }
+}
 
+.no-comments{
+    display: grid;
+    place-items: center;
+    padding-top: 100px;
+    margin: 0;
 }

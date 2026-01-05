@@ -1,6 +1,8 @@
 import { CommentPreview } from './CommentPreview.jsx'
 
 export function CommentList({ comments, stories, onOpenStory, onRemoveComment }) {
+
+    if (!comments.length) return <div className='no-comments'><span>No comments to show</span></div>
     
     return <ul className="comment-list">
             {comments.map(comment =>
