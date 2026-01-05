@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { AppHeader } from '../cmps/AppHeader.jsx'
 
 import { loadStories, addStory, updateStory, removeStory, addStoryComment } from '../store/actions/story.actions'
 
@@ -51,6 +52,7 @@ export function StoryIndex() {
 
     return (
         <main className="story-index ">
+            <AppHeader />
             <StoryList
                 stories={stories}
                 onRemoveStory={onRemoveStory}

@@ -1,8 +1,7 @@
 .feed-sidebar {
+    display: none;
     height: 100%;
     width: 383px;
-    display: flex;
-    flex-direction: column;
     padding-left: 64px;
     >*{
         padding: 0 16px

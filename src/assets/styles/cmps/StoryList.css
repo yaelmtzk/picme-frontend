@@ -2,6 +2,7 @@
     grid-column: 2;
     display: flex;
     justify-content: center;
+    padding-top: 0;
 }
 
 .story-list {

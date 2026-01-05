@@ -1,0 +1,13 @@
+/* Base modal */
+.modal-overlay{
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+
+  overscroll-behavior: contain;
+  background: var(--overlay-clr);
+  z-index: 100; 
+
+  overflow: hidden;
+}
