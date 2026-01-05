@@ -29,7 +29,7 @@ body {
     display: flex;
     align-items: center;
     height: 92px;
-    padding-left: 8px;
+    padding-left: 12px;
 
     img {
         height: 30px;
@@ -72,18 +72,37 @@ button {
     display: flex;
 }
 
+img.avatar-img,
+.profile-avatar img {
+    height: initial;
+    /* or unset */
+    max-width: none;
+}
+
 .avatar-img {
+    border: solid 1px var(--avatar-bg-clr);
     border-radius: 50%;
     background-color: var(--avatar-bg-clr);
     width: 100%;
     height: 100%;
     object-fit: cover;
     flex-shrink: 0;
+
+
+    aspect-ratio: 1 / 1;
+
+    align-self: center;
+
 }
 
 .avatar-img.small {
     height: 24px;
     width: 24px;
+}
+
+.avatar-img.small2 {
+    height: 28px;
+    width: 28px;
 }
 
 .avatar-img.md {
@@ -117,11 +136,14 @@ button {
     color: var(--txt-clr2);
 }
 
+.heart-icon {
+    margin: 8px;
+    display: flex;
+    align-content: center;
+}
+
 .heart-filled {
     fill: rgb(255, 48, 64);
-    margin: 8px;
-    height: 24px;
-    width: 24px;
 }
 
 a.disabled {
@@ -155,9 +177,28 @@ main {
 
 svg {
     cursor: pointer;
+    /* color: var(--txt-clr1); */
+    height: 24px;
+    width: 24px;
+    transition: fill 0.2s ease, stroke 0.2s ease, color 0.2s ease;
+}
+
+.is-filled {
+    fill: currentColor;
+    stroke: none;
 }
 
 .date {
     color: var(--txt-clr2);
     font-size: 12px;
+}
+
+.emoji-wrapper {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    z-index: 300;
+    height: 260px;
+    width: 320px;
+    overflow: visible;
 }
