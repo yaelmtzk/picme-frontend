@@ -103,8 +103,6 @@ export function StoryDetails() {
       <button className="details-close" onClick={onCloseDetails}>✕</button>
 
       <div className="details-content">
-
-        {/* IMAGE */}
         <div className="details-img">
           <img alt="preview-img" src={loadedStory.imgUrl} />
         </div>

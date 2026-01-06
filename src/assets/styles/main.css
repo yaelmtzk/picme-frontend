@@ -10,14 +10,13 @@
 @import "basics/forms";
 
 /* pages */
-/* @import "RootCmp"; */
-
 @import "pages/AboutUs";
-/* @import "pages/HomePage"; */
 @import "pages/StoryIndex";
 @import "pages/CommentIndex";
 @import "pages/UserDetails";
 @import "pages/StoryDetails.css";
+@import "pages/StoryDetailsMobile.css";
+@import "pages/Explore.css";
 @import "pages/LoginSignup";
 @import "pages/Chat";
 

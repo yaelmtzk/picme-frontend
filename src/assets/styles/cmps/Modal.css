@@ -7,7 +7,7 @@
 
   overscroll-behavior: contain;
   background: var(--overlay-clr);
-  z-index: 100; 
+  z-index: 300; 
 
   overflow: hidden;
 }

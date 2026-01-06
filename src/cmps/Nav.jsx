@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 import { CreateEntry } from "./CreateEntry.jsx"
 import { MobileCreatePortal } from "./MobileCreatePortal.jsx"
-// import { CreateStory } from "./CreateStory.jsx"
 import { useSelector } from 'react-redux'
 
 export function Nav({ onAdd }) {
@@ -24,7 +23,6 @@ export function Nav({ onAdd }) {
 
 
                     <NavLink to="/">
-                        {/* <img src={getIconImg('home')} alt="home" /> */}
                         <svg
                             src={getIconImg('home')} alt="home"
                             fill="currentColor"
@@ -39,7 +37,9 @@ export function Nav({ onAdd }) {
 
                     <div className='nav-btn'><img src={getIconImg('search')} alt="search" /> <div>Search</div></div>
 
-                    <div className='nav-btn'><img src={getIconImg('explore')} alt="explore" /> <div>Explore</div></div>
+                    <NavLink to="/explore" title="Explore" className='nav-btn'>
+                        <img src={getIconImg('explore')} alt="explore" /> <div>Explore</div>
+                    </NavLink>
 
                     <div className='nav-btn'><img src={getIconImg('reel')} alt="reel" /><div>Reels</div></div>
 
@@ -88,7 +88,9 @@ export function Nav({ onAdd }) {
 
                     <div className='nav-btn' title="Search"><img src={getIconImg('search')} alt="search" /></div>
 
-                    <div className='nav-btn' title="Explore"><img src={getIconImg('explore')} alt="explore" /></div>
+                    <NavLink to="/explore" title="Explore" className='nav-btn'>
+                        <img src={getIconImg('explore')} alt="explore" />
+                    </NavLink>
 
                     <div className='nav-btn' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
 
@@ -122,7 +124,9 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('home')} alt="home" />
                     </NavLink>
 
-                    <div className='nav-btn' title="Explore"><img src={getIconImg('explore')} alt="explore" /></div>
+                    <NavLink to="/explore" title="Explore" className='nav-btn'>
+                        <img src={getIconImg('explore')} alt="explore" />
+                    </NavLink>
 
                     <div className='nav-btn' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
 
@@ -146,12 +150,10 @@ export function Nav({ onAdd }) {
                 </section>
             </div>
 
-
             {openCreate && (
                 <MobileCreatePortal>
                     <CreateEntry onClose={() => setOpenCreate(false)} onAdd={onAdd} />
                 </MobileCreatePortal>
             )}
-
         </section>)
 }

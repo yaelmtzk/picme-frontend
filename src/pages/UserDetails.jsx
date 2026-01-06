@@ -1,6 +1,5 @@
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useLocation, useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { getIconImg } from '../services/image.service.js'
 
@@ -71,9 +70,9 @@ export function UserDetails() {
 
 
               <ul className="profile-stats">
-                <li><span>{userStories?.length || 0}</span> posts</li>
-                <li><span>{user?.followers || 0}</span>  followers</li>
-                <li><span>{user?.following || 0}</span> following</li>
+                <li key="posts"><span>{userStories?.length || 0}</span> posts</li>
+                <li key="followers"><span>{user?.followers || 0}</span>  followers</li>
+                <li key="following"><span>{user?.following || 0}</span> following</li>
               </ul>
 
               {user.bio &&

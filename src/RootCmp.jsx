@@ -1,8 +1,9 @@
 import React from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
-import { AppHeader } from './cmps/AppHeader.jsx'
+// import { AppHeader } from './cmps/AppHeader.jsx'
 import { StoryIndex } from './pages/StoryIndex.jsx'
-import { StoryDetails } from './pages/StoryDetails.jsx'
+import {Explore} from './pages/Explore.jsx'
+// import { StoryDetails } from './pages/StoryDetails.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
@@ -42,6 +43,7 @@ export function RootCmp() {
                         <Route path="/" element={<StoryIndex />} />
                         <Route path="/:username" element={<UserDetails />} />
                          <Route path="/p/:id" element={<StoryEntry />} />
+                         <Route path="/explore" element={<Explore />}/>
                     </Route>
 
                 </Routes>

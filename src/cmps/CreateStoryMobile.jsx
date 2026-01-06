@@ -1,25 +1,18 @@
 import { useState, useRef } from "react";
-import { useNavigate } from 'react-router-dom'
 import { userService } from '../services/user/user.service.local.js'
 import { getIconImg } from '../services/image.service.js'
 import { uploadImg } from '../services/upload.service.js'
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import spinner from '../assets/img/icons/spinner.png'
-import spinnerChecked from '../assets/img/icons/spinnerchecked.png'
+
 
 export function CreateStoryMobile({ onAdd, onClose }) {
-
     const fileInputRef = useRef(null)
-    const navigate = useNavigate()
-
     const [imgUrl, setImgUrl] = useState('')
     const [imgFile, setImgFile] = useState('')
     const [txt, setTxt] = useState('')
     const [next, setNext] = useState(false)
-    const [saved, setSaved] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-
-    const user = userService.getLoggedinUser()
 
     async function onSaveStory() {
 
@@ -28,9 +21,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
             const uploadedUrl = await uploadImg(imgFile)
 
             onAdd(txt, uploadedUrl)
-
-            // setSaved(true)
-
         } catch (err) {
             console.error(err)
         } finally {
@@ -74,7 +64,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
     return (
         <div className="mobile-create">
 
-            {/* TOP BAR */}
             <header className="mobile-create-header">
                 <button className="create-close" onClick={onClose}>✕</button>
                 <span>New post</span>
@@ -88,7 +77,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
 
             <main className={`mobile-create-body ${next && 'selected-img'}`}>
 
-                {/* PREVIEW — always visible */}
                 <section className={`mobile-create-preview ${next && 'selected-img'}`}>
                     {imgUrl && (
                         <img src={imgUrl} alt="preview" />
@@ -96,7 +84,8 @@ export function CreateStoryMobile({ onAdd, onClose }) {
 
                 </section>
 
-                {next && (<EmojiTextArea txt={txt} setTxt={setTxt} />)}
+                {next && (
+                    <EmojiTextArea txt={txt} setTxt={setTxt} />)}
 
                 {!next &&
                     (
@@ -107,7 +96,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
                         </section>
                     )}
 
-                {/* CAPTION STEP */}
                 {imgUrl && next && (
                     <section className="mobile-create-caption">
 
@@ -126,11 +114,7 @@ export function CreateStoryMobile({ onAdd, onClose }) {
                     style={{ display: "none" }}
                     onChange={handleFileChange}
                 />
-
             </main>
-
         </div>
-
     )
-
 }

@@ -1,0 +1,52 @@
+.explore {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.explore-stories-grid {
+    grid-column: 2;
+
+    width: 74%;
+    height: 100vh;
+    padding-top: 30px;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.3px;
+
+    .story-tile {
+        background-color: var(--border-clr2);
+        aspect-ratio: 1/1;
+    }
+}
+
+.explore .story-preview-icons {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+
+    color: white;
+    font-weight: 600;
+
+    opacity: 0;
+    z-index: 1;
+    transition: opacity .25s ease;
+}
+
+.explore-icon {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.story-tile:hover .story-preview-icons {
+    opacity: 1;
+}

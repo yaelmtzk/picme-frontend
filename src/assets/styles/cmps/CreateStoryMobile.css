@@ -163,6 +163,7 @@
     svg{
         justify-self: end;
         align-self: center;
+        display: none;
     }
 }
 
