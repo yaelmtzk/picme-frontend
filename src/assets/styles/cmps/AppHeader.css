@@ -1,3 +1,6 @@
+.app-header{
+    position: relative;
+}
 .app-header nav{
     position: fixed;
     z-index: 20;
@@ -7,12 +10,23 @@
 
     height: 60px;
     padding: 0 16px;
-    background-color: white;
+    background-color: var(--bg-clr1);
 
     width: 100%;
 }
 
-.search-bar-mobile{
+.app-header .logo{
+    padding: 0;
+}
+
+.app-header svg{
+    color: #8E8E8E;
+    margin-right: 8px;
+    height: 16px;
+    width: 16px; 
+}
+
+.search-mobile{
     position:relative;
     display: flex;
     align-items: center;
@@ -32,22 +46,4 @@
         border-radius: 25px;
         background-color: var(--border-clr2);
     }
-
-}
-
-.search-bar-main{
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.app-header .logo{
-    padding: 0;
-}
-
-.app-header svg{
-    color: #8E8E8E;
-    margin-right: 8px;
-    height: 16px;
-    width: 16px; 
 }

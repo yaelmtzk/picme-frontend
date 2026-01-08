@@ -3,12 +3,24 @@
     width: 100%;
 
     padding: 8px 12px 20px 12px;
-    background-color: white;
+    background-color: var(--bg-clr1);
     color: #0C1014;
 
     overflow-y: hidden;
 
     border-right: solid 1px var(--border-clr);
+}
+
+.nav-section.open-search {
+    width: 72px;
+
+    .nav-desktop {
+        display: none;
+    }
+
+    .nav-md-device {
+        display: block;
+    }
 }
 
 .nav-btns {
@@ -62,7 +74,6 @@
         &:hover {
             background-color: transparent;
         }
-
     }
 }
 
@@ -70,8 +81,8 @@
 .nav-desktop,
 .nav-md-device,
 .nav-mobile {
-  transform: none !important;
-  filter: none !important;
-  will-change: auto !important;
-  opacity: 1 !important;
+    transform: none;
+    filter: none;
+    will-change: auto;
+    opacity: 1;
 }

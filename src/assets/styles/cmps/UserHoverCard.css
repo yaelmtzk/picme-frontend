@@ -8,12 +8,12 @@
   top: calc(100% + 10px);
   left: 0;
   width: 320px;
-  background: #fff;
+  background: var(--bg-clr1);
   border: 1px solid rgba(0,0,0,.08);
   border-radius: 14px;
-  box-shadow: 0 14px 40px rgba(0,0,0,.18);
+  box-shadow: 0 14px 40px var(--box-shadow-clr);
   padding: 14px;
-  z-index: 50;
+  z-index: 300;
   transform-origin: top left;
   animation: uhc-pop .12s ease-out;
 }
@@ -47,13 +47,11 @@
 .uhc-username {
   font-weight: 700;
   font-size: 14px;
-  color: #111;
 }
 
 .uhc-fullname {
   margin-top: 2px;
   font-size: 13px;
-  color: #222;
 }
 
 .uhc-stats {
@@ -72,7 +70,6 @@
 .uhc-num {
   font-weight: 700;
   font-size: 14px;
-  color: #111;
 }
 
 .uhc-label {
@@ -80,61 +77,20 @@
   color: rgba(0,0,0,.6);
 }
 
-.uhc-actions {
-  margin-top: 12px;
-  display: flex;
-  gap: 10px;
-}
-
-.uhc-btn {
-  flex: 1;
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  background: #1a73e8;
-  color: #fff;
-}
-
-.uhc-btn--ghost {
-  background: rgba(0,0,0,.06);
-  color: #111;
-}
-.uhc-btn:hover { filter: brightness(.98); }
-
-
-.user-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-}
-.user-chip-avatar {
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-/* ===== STORIES GRID ===== */
-
 .hover-stories-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-flow: dense;
   margin: 20px 0;
   width: 100%;
-  gap: 1.5px;
+  gap: 1.3px;
 }
 
 .hover-story-tile {
   aspect-ratio: 1 / 1.335;
-  background-color: var(--border-clr2);
   width: 100%;
+  background-color: var(--border-clr2);
   cursor: pointer;
-  position: relative;
 }
 
 .hover-story-tile img {

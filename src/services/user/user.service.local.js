@@ -11,9 +11,9 @@ const gUsers = [
     imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1766429740/euouexswhoqvv941s7wg.png',
     bio: 'Judaica designer | מאמינה בפרטים הקטנים',
     highlights: [
-        {txt: 'My art', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766872380/ei3wcairo4sfb0zebogo.png'}, 
-        {txt: 'Daily', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766866901/jox0xmh8lxs3pborluiy.jpg'}, 
-        {txt: 'My book', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766871007/cniimpq8tfzmzqubl6qw.png'}],
+      { txt: 'My art', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766872380/ei3wcairo4sfb0zebogo.png' },
+      { txt: 'Daily', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766866901/jox0xmh8lxs3pborluiy.jpg' },
+      { txt: 'My book', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1766871007/cniimpq8tfzmzqubl6qw.png' }],
     followers: 1340,
     following: 512
   },
@@ -336,7 +336,7 @@ const gUsers = [
     followers: 21890,
     following: 502
   },
-    {
+  {
     _id: 'u32',
     username: 'avital.judaica',
     fullname: 'אביטל יהודייקה',
@@ -344,7 +344,7 @@ const gUsers = [
     imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1767020987/frmiziaylddsr5g8ek0p.png',
     bio: 'הידור מצוות עם מותגים אלגנטיים',
     highlights: [
-      {txt: 'קולקציה לפסח', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1767020137/hpm7n0v4kjvyb5f22ske.png'}
+      { txt: 'קולקציה לפסח', coverImg: 'https://res.cloudinary.com/picmeapp/image/upload/v1767020137/hpm7n0v4kjvyb5f22ske.png' }
     ],
     followers: 30623,
     following: 192
@@ -354,78 +354,89 @@ const gUsers = [
 saveLoggedinUser(gUsers[0])
 
 export const userService = {
-    login,
-    logout,
-    signup,
-    getUsers,
-    getById,
-    remove,
-    update,
-    getLoggedinUser,
-    saveLoggedinUser
+  login,
+  logout,
+  signup,
+  getUsers,
+  getById,
+  remove,
+  update,
+  getLoggedinUser,
+  saveLoggedinUser,
+  getDefaultFilter
 }
 
-async function getUsers() {
-    return gUsers.map(user => {
-        return user
-    })
+async function getUsers(filterBy = {}) {
+  let usersToReturn = [...gUsers]
+
+  if (filterBy?.username) {
+    usersToReturn = usersToReturn.filter(user =>
+      user.username.toLowerCase().includes(filterBy.username.toLowerCase()))
+  }
+  return usersToReturn
 }
+
 function getById(userId) {
-    return gUsers.find(user => user._id == userId)
+  return gUsers.find(user => user._id == userId)
 }
 
 function remove(userId) {
-    return storageService.remove('user', userId)
+  return storageService.remove('user', userId)
 }
 
 async function update({ _id, score }) {
-    const user = await storageService.get('user', _id)
-    user.score = score
-    await storageService.put('user', user)
+  const user = await storageService.get('user', _id)
+  user.score = score
+  await storageService.put('user', user)
 
-    // When admin updates other user's details, do not update loggedinUser
-    const loggedinUser = getLoggedinUser()
-    if (loggedinUser._id === user._id) saveLoggedinUser(user)
+  const loggedinUser = getLoggedinUser()
+  if (loggedinUser._id === user._id) saveLoggedinUser(user)
 
-    return user
+  return user
 }
 
 async function login(id) {
-    const users = await getUsers()
-    const user = users.find(user => user._id === id)
+  const users = await getUsers()
+  const user = users.find(user => user._id === id)
 
-    if (user) return saveLoggedinUser(user)
+  if (user) return saveLoggedinUser(user)
 }
 
 async function signup(userCred) {
-    if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-    userCred.score = 10000
+  if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
+  userCred.score = 10000
 
-    const user = await storageService.post('user', userCred)
-    return saveLoggedinUser(user)
+  const user = await storageService.post('user', userCred)
+  return saveLoggedinUser(user)
 }
 
 async function logout() {
-    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+  sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
+  return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER))
 }
 
 function saveLoggedinUser(user) {
-    user = {
-        _id: user._id,
-        username: user.username,
-        fullname: user.fullname,
-        isAdmin: user.isAdmin,
-        followers: user.followers,
-        following: user.following,
-        bio: user.bio,
-        highlights: user.highlights,
-        imgUrl: user.imgUrl
-    }
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
+  user = {
+    _id: user._id,
+    username: user.username,
+    fullname: user.fullname,
+    isAdmin: user.isAdmin,
+    followers: user.followers,
+    following: user.following,
+    bio: user.bio,
+    highlights: user.highlights,
+    imgUrl: user.imgUrl
+  }
+  sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
 
-    return user
+  return user
+}
+
+function getDefaultFilter() {
+  return {
+    username: ''
+  }
 }

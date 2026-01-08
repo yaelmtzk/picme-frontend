@@ -30,7 +30,8 @@
 
     }
 
-    .profile-main, .explore-stories-grid {
+    .profile-main,
+    .explore-stories-grid {
         width: 100%;
     }
 
@@ -101,7 +102,7 @@
         display: block;
     }
 
-    .nav-nav-md-device {
+    .nav-md-device {
         display: none;
     }
 

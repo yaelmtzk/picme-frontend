@@ -20,27 +20,6 @@ export function getEmptyStory() {
 	}
 }
 
-    // {
-    //     _id: '01',
-    //     txt: 'Best trip ever',
-    //     imgUrl: 'trip.jpg',
-    //     by: {
-    //         byId: 'u01',
-    //         username: 'daniel.coh',
-    //     },
-    //     createdAt: 1765788862000,
-    //     loc: {},
-    //     comments: [
-    //         {
-    //             byId: 'u02',
-    //      :       username: 'maya.levine',
-    //             txt: 'Is that in the South? Looks familiar'
-    //         }
-    //     ],
-    //     likedBy: [],
-    //     tags: ['trip', 'outdoor', 'fun']
-
-    // }
 
 export function getDefaultFilter() {
     return {

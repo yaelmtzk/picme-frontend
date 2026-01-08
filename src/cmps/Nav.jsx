@@ -1,19 +1,23 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { NavLink } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
+import { Search } from './Search.jsx'
 import { CreateEntry } from "./CreateEntry.jsx"
 import { MobileCreatePortal } from "./MobileCreatePortal.jsx"
 import { useSelector } from 'react-redux'
 
 export function Nav({ onAdd }) {
+    const toggleRef = useRef(null)
     const [openCreate, setOpenCreate] = useState(false)
+    const [openSearch, setOpenSearch] = useState(false)
     const user = useSelector(storeState => storeState.userModule.user)
 
     const userId = user._id
     const username = user.username
 
     return (
-        <section className='nav-section'>
+        <section className={`nav-section  ${openSearch && 'open-search'}`}>
+
 
             <div className="nav-desktop">
                 <div className='logo'>
@@ -35,7 +39,11 @@ export function Nav({ onAdd }) {
                         <div>Home</div>
                     </NavLink>
 
-                    <div className='nav-btn'><img src={getIconImg('search')} alt="search" /> <div>Search</div></div>
+                    <div ref={toggleRef} onClick={() => setOpenSearch(!openSearch)}
+                        className='nav-btn'>
+                        <img src={getIconImg('search')} alt="search" />
+                        <div>Search</div>
+                    </div>
 
                     <NavLink to="/explore" title="Explore" className='nav-btn'>
                         <img src={getIconImg('explore')} alt="explore" /> <div>Explore</div>
@@ -47,7 +55,8 @@ export function Nav({ onAdd }) {
 
                     <div className='nav-btn'><img src={getIconImg('like')} alt="like" /> <div>Notifications</div></div>
 
-                    <div onClick={setOpenCreate}
+                    <div onClick={() => { setOpenCreate(true) }}
+                        title="New post"
                         className='nav-btn'>
                         <img src={getIconImg('create')} alt="create" />
                         <div>Create</div>
@@ -86,7 +95,10 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('home')} alt="home" />
                     </NavLink>
 
-                    <div className='nav-btn' title="Search"><img src={getIconImg('search')} alt="search" /></div>
+                    <div ref={toggleRef} onClick={() => setOpenSearch(!openSearch)}
+                        className='nav-btn'>
+                        <img src={getIconImg('search')} alt="search" />
+                    </div>
 
                     <NavLink to="/explore" title="Explore" className='nav-btn'>
                         <img src={getIconImg('explore')} alt="explore" />
@@ -155,5 +167,8 @@ export function Nav({ onAdd }) {
                     <CreateEntry onClose={() => setOpenCreate(false)} onAdd={onAdd} />
                 </MobileCreatePortal>
             )}
+
+            {openSearch && (<Search onClose={() => setOpenSearch(false)} btnRef={toggleRef} />)}
+
         </section>)
 }
