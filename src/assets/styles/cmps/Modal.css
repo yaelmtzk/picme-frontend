@@ -1,13 +1,20 @@
 /* Base modal */
-.modal-overlay{
+
+.modal-overlay {
   position: fixed;
   inset: 0;
-  display: grid;
-  place-items: center;
 
-  overscroll-behavior: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background: var(--overlay-clr);
-  z-index: 300; 
-
+  overscroll-behavior: contain;
   overflow: hidden;
+  z-index: 300;
+}
+
+.modal-content{
+  display: flex;
+  justify-content: center;
 }

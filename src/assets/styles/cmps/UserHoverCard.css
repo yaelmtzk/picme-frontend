@@ -86,11 +86,12 @@
   gap: 1.3px;
 }
 
-.hover-story-tile {
+li.hover-story-tile {
   aspect-ratio: 1 / 1.335;
   width: 100%;
   background-color: var(--border-clr2);
   cursor: pointer;
+  padding: 0;
 }
 
 .hover-story-tile img {
@@ -106,7 +107,6 @@
 }
 
 .profile-stories .no-stories {
-  /* margin-top: 150px; */
   font-size: 18px;
   font-weight: 600;
 

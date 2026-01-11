@@ -28,7 +28,7 @@ export function Nav({ onAdd }) {
 
                     <NavLink to="/">
                         <svg
-                            src={getIconImg('home')} alt="home"
+                            alt="home"
                             fill="currentColor"
                             height="24"
                             viewBox="0 0 24 24"
@@ -92,7 +92,14 @@ export function Nav({ onAdd }) {
 
 
                     <NavLink to="/" title="Home">
-                        <img src={getIconImg('home')} alt="home" />
+                        <svg
+                            alt="home"
+                            fill="currentColor"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            width="24">
+                            <path d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z"></path>
+                        </svg>
                     </NavLink>
 
                     <div ref={toggleRef} onClick={() => setOpenSearch(!openSearch)}
@@ -133,7 +140,13 @@ export function Nav({ onAdd }) {
 
 
                     <NavLink to="/" title="Home">
-                        <img src={getIconImg('home')} alt="home" />
+                        <svg 
+                        fill="currentColor" 
+                        height="24" 
+                        viewBox="0 0 24 24" 
+                        width="24">
+                            <path d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z"></path>
+                        </svg>
                     </NavLink>
 
                     <NavLink to="/explore" title="Explore" className='nav-btn'>
