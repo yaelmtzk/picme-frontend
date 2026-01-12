@@ -10,15 +10,11 @@
 @import "basics/forms";
 
 /* pages */
-@import "pages/AboutUs";
 @import "pages/StoryIndex";
-@import "pages/CommentIndex";
 @import "pages/UserDetails";
 @import "pages/StoryDetails.css";
 @import "pages/StoryDetailsMobile.css";
 @import "pages/Explore.css";
-@import "pages/LoginSignup";
-@import "pages/Chat";
 
 /* Components */
 @import "cmps/StoryPreview.css";
@@ -26,7 +22,6 @@
 @import "cmps/Nav.css";
 
 @import "cmps/AppHeader";
-@import "cmps/AppFooter";
 @import "cmps/UserMsg";
 
 @import "cmps/Search.css";
@@ -43,19 +38,14 @@
 /* Media Queries */
 @import "setup/mq.css";
 
-/* Icons */
-@import "@fortawesome/fontawesome-free/css/all.css";
-
 .epr-category-nav {
   display: none !important;
 }
 
-/* 1. FIX CUT EMOJIS (CRITICAL) */
 .EmojiPickerReact button.epr-emoji {
   overflow: visible !important;
 }
 
-/* 2. FIX LABEL FONT SIZE       */
 .EmojiPickerReact .epr-emoji-category-label {
   font-size: 12px !important;
 }

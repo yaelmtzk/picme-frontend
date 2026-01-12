@@ -35,6 +35,9 @@ export function StoryDetails() {
   const loggedinUser = userService.getLoggedinUser()
   const storyUser = userService.getById(loadedStory.by.byId)
 
+  console.log(state.backgroundLocation) ////////////////
+
+
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
@@ -71,7 +74,7 @@ export function StoryDetails() {
     }
   }
 
-  function onUserDetails(userId, username) {    
+  function onUserDetails(userId, username) {
     navigate(`/${username}`, {
       state: {
         userId
@@ -82,10 +85,15 @@ export function StoryDetails() {
   function onStoryDetails(story) {
     dispatch({ type: SET_STORY, story })
 
+    const isAlreadyModal = state?.modal === true
+
     navigate(`/p/${story._id}`, {
+      replace: true,
       state: {
         modal: true,
-        backgroundLocation: state?.background || location,
+        backgroundLocation: isAlreadyModal
+          ? state.backgroundLocation
+          : location,
         story,
         stories,
         openOpts: true
@@ -98,7 +106,7 @@ export function StoryDetails() {
   }
 
   return (
-    <Modal onClose={onCloseDetails} className="details-modal">
+    <Modal key={storyId} onClose={onCloseDetails} className="details-modal">
 
       <button className="details-close" onClick={onCloseDetails}>✕</button>
 
@@ -183,10 +191,10 @@ export function StoryDetails() {
               </div>
             </div>
 
-            <CommentList 
-            comments={loadedStory.comments} 
-            stories={stories} 
-            onOpenStory={onStoryDetails}/>
+            <CommentList
+              comments={loadedStory.comments}
+              stories={stories}
+              onOpenStory={onStoryDetails} />
           </section>
 
           <section className='preview-action-btns'>
@@ -227,16 +235,13 @@ export function StoryDetails() {
       </div>
 
       {openOpts && (
-        <Modal
-          onClose={() => setOpenOpts(false)}
-          className="opts-modal"
-        >
+        <div className="opts-overlay" onClick={() => setOpenOpts(false)}>
           <StoryMoreOpt
             storyId={storyId}
             onRemove={() => onRemoveStory(storyId)}
             onClose={() => setOpenOpts(false)}
             isOwner={loggedinUser._id === storyUser._id} />
-        </Modal>
+        </div>
       )}
 
     </Modal>

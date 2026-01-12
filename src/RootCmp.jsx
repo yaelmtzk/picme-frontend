@@ -39,7 +39,7 @@ export function RootCmp() {
                     <Route element={<LayoutWithNav onAdd={onAddStory} />}>
                         <Route path="/" element={<StoryIndex />} />
                         <Route path="/:username" element={<UserDetails />} />
-                         <Route path="/p/:id" element={<StoryEntry />} />
+                         {/* <Route path="/p/:id" element={<StoryEntry />} /> */}
                          <Route path="/explore" element={<Explore />}/>
                     </Route>
 

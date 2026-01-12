@@ -37,14 +37,17 @@ export function CommentPreview({ comment, stories, onOpenStory }) {
             <div className='comment-content'>
                 <div
                     className='pointer'
-                    onClick={() => { onUserDetails(byId, username) }}>
-
+                >
                     <UserHoverCard
                         user={user}
                         onOpenProfile={onUserDetails}
                         onOpenStory={onOpenStory}
                         storyList={stories}>
-                        <div className='username small'>{username}</div>
+                        <div
+                            className='username small'
+                            onClick={() => { onUserDetails(byId, username) }}
+                        >{username}
+                        </div>
                     </UserHoverCard> {txt}
                 </div>
 
