@@ -1,9 +1,7 @@
 import React from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
-// import { AppHeader } from './cmps/AppHeader.jsx'
 import { StoryIndex } from './pages/StoryIndex.jsx'
-import {Explore} from './pages/Explore.jsx'
-// import { StoryDetails } from './pages/StoryDetails.jsx'
+import { Explore } from './pages/Explore.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
@@ -34,7 +32,6 @@ export function RootCmp() {
 
     return (
         <div className="main-container">
-            {/* <AppHeader /> */}
             <UserMsg />
             <main>
                 <Routes location={state?.modal ? state.backgroundLocation : location}>
