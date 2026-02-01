@@ -351,7 +351,7 @@ const gUsers = [
   }
 ]
 
-saveLoggedinUser(gUsers[0])
+// saveLoggedinUser(gUsers[0])
 
 export const userService = {
   login,

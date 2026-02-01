@@ -1,28 +1,29 @@
 /* Setup */
 @import "setup/vars.css";
-@import "setup/typography";
+@import "setup/typography.css";
 @import "setup/animations.css";
 
 /* Basics */
-@import "basics/helpers";
-@import "basics/layout";
-@import "basics/base";
-@import "basics/forms";
+@import "basics/helpers.css";
+@import "basics/layout.css";
+@import "basics/base.css";
+@import "basics/forms.css";
 
 /* pages */
-@import "pages/StoryIndex";
-@import "pages/UserDetails";
+@import "pages/Login.css";
+@import "pages/StoryIndex.css";
+@import "pages/UserDetails.css";
 @import "pages/StoryDetails.css";
 @import "pages/StoryDetailsMobile.css";
 @import "pages/Explore.css";
 
 /* Components */
 @import "cmps/StoryPreview.css";
-@import "cmps/StoryList";
+@import "cmps/StoryList.css";
 @import "cmps/Nav.css";
 
-@import "cmps/AppHeader";
-@import "cmps/UserMsg";
+@import "cmps/AppHeader.css";
+@import "cmps/UserMsg.css";
 
 @import "cmps/Search.css";
 @import "cmps/CommentList.css";
