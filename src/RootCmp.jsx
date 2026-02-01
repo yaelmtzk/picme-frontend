@@ -1,21 +1,29 @@
-import React from 'react'
+import { useEffect } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
+
 import { StoryIndex } from './pages/StoryIndex.jsx'
-import { Explore } from './pages/Explore.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
+import { Explore } from './pages/Explore.jsx'
+
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
 import { StoryEntry } from './cmps/StoryEntry.jsx'
+
 import { addStory } from './store/actions/story.actions.js'
 import { getEmptyStory } from './services/story/index.js'
 import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
 
+import { loadInitialData } from "./store/actions/app.actions"
 
 export function RootCmp() {
 
     const location = useLocation()
     const state = location.state
     const navigate = useNavigate()
+
+    useEffect(() => {
+       loadInitialData()
+    }, [])
 
     async function onAddStory(txt, imgUrl) {
         const story = getEmptyStory()
@@ -39,8 +47,7 @@ export function RootCmp() {
                     <Route element={<LayoutWithNav onAdd={onAddStory} />}>
                         <Route path="/" element={<StoryIndex />} />
                         <Route path="/:username" element={<UserDetails />} />
-                         {/* <Route path="/p/:id" element={<StoryEntry />} /> */}
-                         <Route path="/explore" element={<Explore />}/>
+                        <Route path="/explore" element={<Explore />} />
                     </Route>
 
                 </Routes>
@@ -55,5 +62,3 @@ export function RootCmp() {
         </div>
     )
 }
-
-
