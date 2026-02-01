@@ -1,34 +1,51 @@
+import { useEffect } from "react"
 import { useSelector } from 'react-redux'
 import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch } from "react-redux"
 import { getIconImg } from '../services/image.service.js'
-
 import { SET_STORY } from '../store/reducers/story.reducer'
-import { userService } from '../services/user/user.service.local.js'
+// import { userService } from '../services/user/user.service.local.js'
+import { userService } from '../services/user/user.service.remote.js'
+import { getOid } from '../services/util.service'
+import spinner from '../assets/img/icons/spinner.png'
+import { loadWatchedUser, clearWatchedUser } from "../store/actions/user.actions"
+import { loadStory } from "../store/actions/story.actions.js"
 
 export function UserDetails() {
-  const { username } = useParams()
-  const dispatch = useDispatch()
   const location = useLocation()
   const state = location.state
   const navigate = useNavigate()
 
-  const loggedinUser = useSelector(storeState => storeState.userModule.user)
-  const userId = state?.userId
-  const user = userService.getById(userId)
+  const userId = location.state?.userId
 
+  const loggedinUser = userService.getLoggedinUser()
+  const watchedUser = useSelector(storeState => storeState.userModule.watchedUser)
   const stories = useSelector(storeState => storeState.storyModule.stories)
-  const userStories = stories.filter(story => story.by.byId === userId).sort((a, b) => b.createdAt - a.createdAt)
+
+  useEffect(() => {
+    clearWatchedUser()
+    loadWatchedUser(userId)
+
+    return () => clearWatchedUser()
+  }, [userId])
+
+  if (!watchedUser) {
+    return <div className="profile-page">
+      <div className='loader-section'>
+        <img className="spinner" src={spinner} alt="Loading…" />
+      </div>
+    </div>
+  }
+
+  const userStories = stories.filter(story => getOid(story.by.byId) === getOid(watchedUser._id)).sort((a, b) => b.createdAt - a.createdAt)
 
   function onDetails(story) {
-    dispatch({ type: SET_STORY, story })
 
     navigate(`/p/${story._id}`, {
       state: {
         modal: true,
         backgroundLocation: state?.background || location,
         story,
-        stories,
         openOpts: true
       }
     })
@@ -45,7 +62,7 @@ export function UserDetails() {
 
             <div className="profile-avatar">
               <img
-                src={user.imgUrl}
+                src={watchedUser.imgUrl}
                 alt="profile avatar"
                 className="avatar-img"
               />
@@ -55,9 +72,9 @@ export function UserDetails() {
 
               <div className="profile-top-row">
 
-                <div className="username">{username}</div>
+                <div className="username">{watchedUser.username}</div>
 
-                {loggedinUser._id === userId &&
+                {loggedinUser._id === watchedUser._id &&
                   (
                     <div className="btn">
                       <img src={getIconImg('settings')} alt="settings" />
@@ -66,18 +83,18 @@ export function UserDetails() {
 
               </div>
 
-              <div className='profile-fullname'>{user.fullname}</div>
+              <div className='profile-fullname'>{watchedUser.fullname}</div>
 
 
               <ul className="profile-stats">
                 <li key="posts"><span>{userStories?.length || 0}</span> posts</li>
-                <li key="followers"><span>{user?.followers || 0}</span>  followers</li>
-                <li key="following"><span>{user?.following || 0}</span> following</li>
+                <li key="followers"><span>{watchedUser?.followers || 0}</span>  followers</li>
+                <li key="following"><span>{watchedUser?.following || 0}</span> following</li>
               </ul>
 
-              {user.bio &&
+              {watchedUser.bio &&
                 (<div className="profile-bio">
-                  <p>{user.bio}</p>
+                  <p>{watchedUser.bio}</p>
                 </div>)
               }
 
@@ -85,13 +102,13 @@ export function UserDetails() {
 
           </div>
 
-          {user.bio &&
+          {watchedUser.bio &&
             (<div className="profile-bio-mobile">
-              <p>{user.bio}</p>
+              <p>{watchedUser.bio}</p>
             </div>)
           }
 
-          {loggedinUser._id === userId ?
+          {loggedinUser._id === watchedUser._id ?
             (
               <div className='profile-btn-section'>
                 <button className="profile-btn">Edit profile</button>
@@ -101,9 +118,11 @@ export function UserDetails() {
 
           <section className="profile-highlights">
 
-            {user.highlights && (
-              user.highlights.map(hl =>
-                <div className='highlight-container'>
+            {watchedUser.highlights && (
+              watchedUser.highlights.map(hl =>
+                <div
+                  className='highlight-container'
+                  key={hl.txt}>
                   <div className='highlight-circle-outer'>
 
                     <div className="highlight-circle-inner">
@@ -117,7 +136,7 @@ export function UserDetails() {
 
               ))}
 
-            {loggedinUser._id === userId ?
+            {loggedinUser._id === watchedUser._id ?
               (
                 <div className='highlight-container'>
                   <div className='highlight-circle-outer'>
@@ -169,7 +188,7 @@ export function UserDetails() {
             </div>
           </div>
 
-          {loggedinUser._id === userId &&
+          {loggedinUser._id === watchedUser._id &&
             (
               <div className="saved-tab tab ">
                 <div className='inner-tab'>

@@ -1,6 +1,6 @@
 import { CommentPreview } from './CommentPreview.jsx'
 
-export function CommentList({ comments, stories, onOpenStory, onRemoveComment }) {
+export function CommentList({ comments, stories, users, onOpenStory, onRemoveComment }) {
 
     if (!comments.length) return <div className='no-comments'><span>No comments to show</span></div>
     
@@ -8,7 +8,11 @@ export function CommentList({ comments, stories, onOpenStory, onRemoveComment })
             {comments.map(comment =>
                 <li key={comment._id}>
 
-                    <CommentPreview comment={comment} stories={stories} onOpenStory={onOpenStory}/>
+                    <CommentPreview
+                    user={users.find(user => user._id === comment.byId)}
+                    comment={comment} 
+                    stories={stories} 
+                    onOpenStory={onOpenStory}/>
                 </li>)
             }
         </ul>

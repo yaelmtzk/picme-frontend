@@ -1,19 +1,36 @@
-import { useState, useRef } from "react"
-import { NavLink } from 'react-router-dom'
+import { useState, useRef } from 'react'
+import { useLocation, NavLink, useNavigate } from "react-router-dom"
 import { getIconImg } from '../services/image.service.js'
 import { Search } from './Search.jsx'
-import { CreateEntry } from "./CreateEntry.jsx"
-import { MobileCreatePortal } from "./MobileCreatePortal.jsx"
-import { useSelector } from 'react-redux'
+import { CreateEntry } from './CreateEntry.jsx'
+import { MobileCreatePortal } from './MobileCreatePortal.jsx'
+import { userService } from '../services/user/user.service.remote.js'
+import { loadWatchedUser } from '../store/actions/user.actions.js'
 
 export function Nav({ onAdd }) {
+
+    const loggedinUser = userService.getLoggedinUser()
+
+    if (!loggedinUser) return
+
     const toggleRef = useRef(null)
+    const navigate = useNavigate()
     const [openCreate, setOpenCreate] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
-    const user = useSelector(storeState => storeState.userModule.user)
 
+    const user = userService.getLoggedinUser()
     const userId = user._id
     const username = user.username
+
+    function onUserDetails(userId, username) {
+        loadWatchedUser(userId)
+
+        navigate(`/${username}`, {
+            state: {
+                userId
+            }
+        })
+    }
 
     return (
         <section className={`nav-section  ${openSearch && 'open-search'}`}>
@@ -62,15 +79,12 @@ export function Nav({ onAdd }) {
                         <div>Create</div>
                     </div>
 
-                    <NavLink
-                        className='nav-btn'
-                        to={`/${username}`}
-                        state={{
-                            userId
-                        }}>
+                    <div
+                        onClick={onUserDetails}
+                        className='nav-btn'>
                         <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
                         <div>Profile</div>
-                    </NavLink>
+                    </div>
 
                 </section>
 
@@ -123,14 +137,13 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('create')} alt="create" />
                     </div>
 
-                    <NavLink
-                        className='nav-btn'
-                        to={`/${username}`}
-                        state={{
-                            userId
-                        }}>
+                    <div
+                        onClick={() => onUserDetails(userId, username)}
+                        className='nav-btn'>
                         <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
-                    </NavLink>
+
+                    </div>
+
 
                 </section>
             </div>
@@ -140,11 +153,11 @@ export function Nav({ onAdd }) {
 
 
                     <NavLink to="/" title="Home">
-                        <svg 
-                        fill="currentColor" 
-                        height="24" 
-                        viewBox="0 0 24 24" 
-                        width="24">
+                        <svg
+                            fill="currentColor"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            width="24">
                             <path d="m21.762 8.786-7-6.68C13.266.68 10.734.68 9.238 2.106l-7 6.681A4.017 4.017 0 0 0 1 11.68V20c0 1.654 1.346 3 3 3h5.005a1 1 0 0 0 1-1L10 15c0-1.103.897-2 2-2 1.09 0 1.98.877 2 1.962L13.999 22a1 1 0 0 0 1 1H20c1.654 0 3-1.346 3-3v-8.32a4.021 4.021 0 0 0-1.238-2.894ZM21 20a1 1 0 0 1-1 1h-4.001L16 15c0-2.206-1.794-4-4-4s-4 1.794-4 4l.005 6H4a1 1 0 0 1-1-1v-8.32c0-.543.226-1.07.62-1.447l7-6.68c.747-.714 2.013-.714 2.76 0l7 6.68c.394.376.62.904.62 1.448V20Z"></path>
                         </svg>
                     </NavLink>
@@ -163,14 +176,12 @@ export function Nav({ onAdd }) {
 
                     <div className='nav-btn' title="Messages"><img src={getIconImg('send')} alt="send" /></div>
 
-                    <NavLink
-                        className='nav-btn'
-                        to={`/${username}`}
-                        state={{
-                            userId
-                        }}>
+                    <div
+                        onClick={onUserDetails}
+                        className='nav-btn'>
                         <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
-                    </NavLink>
+
+                    </div>
 
                 </section>
             </div>

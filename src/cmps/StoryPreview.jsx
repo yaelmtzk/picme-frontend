@@ -1,47 +1,41 @@
 import { useState } from "react";
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
-import { Link, useLocation, useNavigate } from "react-router-dom"
-import { userService } from '../services/user/user.service.local.js'
-import { useDispatch } from "react-redux"
-import { toggleStoryLike } from '../services/story/story.service.local.js'
+import { useLocation, useNavigate } from "react-router-dom"
+// import { userService } from '../services/user/user.service.local.js'
+import { userService } from '../services/user/user.service.remote.js'
+// import { toggleStoryLike } from '../services/story/story.service.local.js'
+import { toggleStoryLike } from '../services/story/story.service.remote.js'
 import { LikeButton } from "./LikeButton.jsx"
-import { SET_STORY } from '../store/reducers/story.reducer'
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "./UserHoverCard.jsx";
 
-export function StoryPreview({ story, stories, onUpdate, onRemove }) {
+export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) {
 
-    const [openOpts, setOpenOpts] = useState(false)
+    if (!storyUser) return null
 
-    const { by, txt, imgUrl, createdAt, comments, _id, likedBy } = story
-
-    const loggedinUser = userService.getLoggedinUser()
-    const storyUser = userService.getById(by.byId)
-    const storyUserId = storyUser._id
-    const storyUsername = storyUser.username
-
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
     const state = location.state
 
-    function onStoryDetails(story) {
-        dispatch({ type: SET_STORY, story })
+    const [openOpts, setOpenOpts] = useState(false)
+    const { by, txt, imgUrl, createdAt, comments, _id, likedBy } = story
 
+    const loggedinUser = userService.getLoggedinUser()
+
+    function onStoryDetails(story) {
         navigate(`/p/${story._id}`, {
             state: {
                 modal: true,
                 backgroundLocation: state?.background || location,
                 story,
-                stories,
                 openOpts: true
             }
         })
     }
 
-    function onUserDetails(userId, username) {
+    function onUserDetails(userId, username) {        
         navigate(`/${username}`, {
             state: {
                 userId
@@ -59,7 +53,7 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
                         onOpenStory={onStoryDetails}
                         storyList={stories}>
                         <img className="avatar-img md pointer"
-                            onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                            onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}
                             src={storyUser?.imgUrl || getIconImg('avatar')}
                             alt="avatar" />
                     </UserHoverCard>
@@ -72,7 +66,7 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
                         onOpenStory={onStoryDetails}
                         storyList={stories}>
                         <a className='username small pointer'
-                            onClick={() => { onUserDetails(storyUserId, storyUsername) }}>
+                            onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
                             {by.username}
                         </a>
                     </UserHoverCard>
@@ -129,7 +123,7 @@ export function StoryPreview({ story, stories, onUpdate, onRemove }) {
                     storyList={stories}
                     onOpenStory={onStoryDetails}>
                     <span
-                        onClick={() => { onUserDetails(storyUserId, storyUsername) }}
+                        onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}
                         className="username small pointer">
                         {by.username}</span>
                 </UserHoverCard> <span>{txt}</span>

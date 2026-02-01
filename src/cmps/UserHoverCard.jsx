@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState } from "react"
+import { getOid } from "../services/util.service.js";
 
 export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, children }) {
     const [isOpen, setIsOpen] = useState(false)
     const openTimerRef = useRef(null)
     const closeTimerRef = useRef(null)
-    const userStories = [...storyList].filter(story => story.by.byId === user._id)
+
+    const userStories =
+        storyList?.filter(
+            story => getOid(story.by.byId) === getOid(user?._id)
+        ) || []
     const userStoriesPrev = userStories.slice(0, 3)
 
     useEffect(() => {
@@ -13,6 +18,8 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
             clearTimeout(closeTimerRef.current)
         }
     }, [])
+
+    if (!user) return <span className="uhc-wrap">Loading...</span>
 
     function openWithDelay() {
         clearTimeout(closeTimerRef.current)
@@ -83,12 +90,12 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
 
                     </div>
 
-                    {userStoriesPrev ?
+                    {userStoriesPrev.length > 0 &&
                         (<ul className="hover-stories-grid">
                             {userStoriesPrev.map(story =>
                                 <li key={story._id}
                                     className="hover-story-tile"
-                                    onClick={() => onOpenStory(story) }>
+                                    onClick={() => onOpenStory(story)}>
 
                                     <img src={story.imgUrl} alt="user-post" />
 
@@ -96,7 +103,7 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
                             }
 
                         </ul>
-                        ) : ('')
+                        )
                     }
 
                 </div>

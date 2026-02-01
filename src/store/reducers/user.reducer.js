@@ -2,18 +2,20 @@ import { userService } from '../../services/user'
 
 export const SET_USER = 'SET_USER'
 export const SET_WATCHED_USER = 'SET_WATCHED_USER'
+export const CLEAR_WATCHED_USER = 'CLEAR_WATCHED_USER'
 export const REMOVE_USER = 'REMOVE_USER'
 export const SET_USERS = 'SET_USERS'
 export const CLEAR_USERS = 'CLEAR_USERS'
 
 const initialState = {
     user: userService.getLoggedinUser(),
-    users: userService.getUsers(),
+    users: [],
     watchedUser: null
 }
 
 export function userReducer(state = initialState, action) {
     var newState = state
+
     switch (action.type) {
 
         case SET_USER:
@@ -21,6 +23,9 @@ export function userReducer(state = initialState, action) {
             break
         case SET_WATCHED_USER:
             newState = { ...state, watchedUser: action.user }
+            break
+        case CLEAR_WATCHED_USER:
+            newState = { ...state, watchedUser: null }
             break
         case REMOVE_USER:
             newState = {

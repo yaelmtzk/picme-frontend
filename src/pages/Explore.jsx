@@ -1,31 +1,43 @@
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, useParams, useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux"
-import { SET_STORY } from '../store/reducers/story.reducer'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { loadStories, loadStory } from '../store/actions/story.actions'
+import spinner from '../assets/img/icons/spinner.png'
 
 export function Explore() {
-
-    const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
 
     const stories = useSelector(storeState => storeState.storyModule.stories)
     const loggedinUser = useSelector(storeState => storeState.userModule.user)
 
+    useEffect(() => {
+        loadStories({})
+    }, [stories.length])
+
+    if (!stories) {
+        return <main className="story-index ">
+            <div className='loader-section'>
+                <img className="spinner" src={spinner} alt="Loading…" />
+            </div>
+        </main>
+    }
+
     const storiesExplore = stories.filter(story => story.by.byId !== loggedinUser._id).sort((a, b) => b.createdAt - a.createdAt)
 
     function onDetails(story) {
-        dispatch({ type: SET_STORY, story })
+        loadStory(story._id)
+            .then(() => {
+                navigate(`/p/${story._id}`, {
+                    state: {
+                        modal: true,
+                        backgroundLocation: location.state?.background || location,
+                        story,
+                        openOpts: true
+                    }
+                })
+            })
 
-        navigate(`/p/${story._id}`, {
-            state: {
-                modal: true,
-                backgroundLocation: location.state?.background || location,
-                story,
-                stories,
-                openOpts: true
-            }
-        })
     }
 
     if (!storiesExplore) {
@@ -39,7 +51,7 @@ export function Explore() {
 
                     <li key={story._id}
                         className="story-tile"
-                        onClick={() => { onDetails(story) }}>
+                        onClick={() => onDetails(story)}>
 
                         <img src={story.imgUrl} alt="user-post" />
 

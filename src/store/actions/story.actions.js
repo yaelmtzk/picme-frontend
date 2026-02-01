@@ -1,7 +1,10 @@
-import { storyService } from '../../services/story/story.service.local'
-import { userService } from '../../services/user/user.service.local'
+// import { storyService } from '../../services/story/story.service.local'
+// import { userService } from '../../services/user/user.service.local'
+import { storyService } from '../../services/story/story.service.remote'
+import { userService } from '../../services/user/user.service.remote'
 import { store } from '../store'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY } from '../reducers/story.reducer'
+import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, CLEAR_STORY } from '../reducers/story.reducer'
+import { getOid } from "../../services/util.service"
 
 export async function loadStories(filterBy = {}) {
     try {
@@ -14,11 +17,30 @@ export async function loadStories(filterBy = {}) {
 }
 
 export async function loadStory(storyId) {
+  try {
+    const state = store.getState()
+    const stories = state.storyModule.stories
+    const localStory = stories.find(s => getOid(s._id) === getOid(storyId) )
+
+    if (localStory) {
+      store.dispatch(getCmdSetStory(localStory))
+      return localStory
+    }
+    const story = await storyService.getById(storyId)
+    store.dispatch(getCmdSetStory(story))
+    return story
+
+  } catch (err) {
+    console.log("Cannot load story", err)
+    throw err
+  }
+}
+
+export async function clearStory() {
     try {
-        const story = await storyService.getById(storyId)
-        store.dispatch(getCmdSetStory(story))
+        store.dispatch(getCmdClearStory(null))
     } catch (err) {
-        console.log('Cannot load story', err)
+        console.log('Cannot clear story', err)
         throw err
     }
 }
@@ -85,6 +107,12 @@ function getCmdSetStories(stories) {
 function getCmdSetStory(story) {
     return {
         type: SET_STORY,
+        story
+    }
+}
+function getCmdClearStory(story) {
+    return {
+        type: CLEAR_STORY,
         story
     }
 }

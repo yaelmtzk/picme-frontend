@@ -55,9 +55,26 @@ export function loadFromStorage(key) {
 }
 
 export function timeAgo(ts) {
+
+    // console.log('ts', ts)
+
+    if (!ts) return ""
+
+    // if (typeof ts === "string") {
+    //     ts = new Date(ts).getTime()
+    // }
+
+
+    // else if (typeof ts === "string") {
+    //     ts = new Date(ts).getTime()
+    // }
+
+    // if (isNaN(ts)) return ""
+
     const now = Date.now()
     const diffMs = now - ts
     const diffMin = Math.floor(diffMs / 1000 / 60)
+
 
     if (diffMin < 1) return "just now"
 
@@ -80,9 +97,12 @@ export function timeAgo(ts) {
 }
 
 export async function readJsonFile(path) {
-  const url = new URL(path, import.meta.env.BASE_URL).href
-  const res = await fetch(url)
-  if (!res.ok) throw new Error(`Failed to load ${url}`)
-  return res.json()
+    const url = new URL(path, import.meta.env.BASE_URL).href
+    const res = await fetch(url)
+    if (!res.ok) throw new Error(`Failed to load ${url}`)
+    return res.json()
 }
 
+export function getOid(val) {
+    return typeof val === 'object' ? val?.$oid : val
+}

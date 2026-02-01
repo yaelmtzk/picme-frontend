@@ -1,5 +1,6 @@
 export const SET_STORIES = 'SET_STORIES'
 export const SET_STORY = 'SET_STORY'
+export const CLEAR_STORY = 'CLEAR_STORY'
 export const REMOVE_STORY = 'REMOVE_STORY'
 export const ADD_STORY = 'ADD_STORY'
 export const UPDATE_STORY = 'UPDATE_STORY'
@@ -19,6 +20,9 @@ export function storyReducer(state = initialState, action) {
         case SET_STORY:
             newState = { ...state, story: action.story }
             break
+        case CLEAR_STORY:
+            newState = { ...state, story: action.story }
+            break
         case REMOVE_STORY:
             const lastRemovedStory = state.stories.find(story => story._id === action.storyId)
             stories = state.stories.filter(story => story._id !== action.storyId)
@@ -33,7 +37,7 @@ export function storyReducer(state = initialState, action) {
             const updatedStory = state.story && state.story._id === action.story._id
                 ? action.story
                 : state.story
-            newState = { ...state, stories, story: updatedStory}
+            newState = { ...state, stories, story: updatedStory }
             break
 
         default:

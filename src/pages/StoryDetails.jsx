@@ -9,44 +9,73 @@ import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
-import { updateStory, loadStory, removeStory, addStoryComment } from '../store/actions/story.actions'
-import { SET_STORY } from '../store/reducers/story.reducer'
+import { updateStory, loadStory, clearStory, removeStory, addStoryComment } from '../store/actions/story.actions'
+import { SET_STORY } from "../store/reducers/story.reducer"
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
+import { getOid } from "../services/util.service.js"
 import { toggleStoryLike } from '../services/story/story.service.local.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { userService } from '../services/user/user.service.local.js'
-
+import spinner from '../assets/img/icons/spinner.png'
+// import { userService } from '../services/user/user.service.local.js'
+import { userService } from '../services/user/user.service.remote.js'
 
 export function StoryDetails() {
-
   const location = useLocation()
+  const state = location.state
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const state = location.state
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
-  const storyId = useParams().id
-  const stories = state?.stories
+  const stories = useSelector(storeState => storeState.storyModule.stories)
+  const users = useSelector(state => state.userModule.users)
 
+  const storyId = useParams().id
+  const [storyUser, setStoryUser] = useState(null)
   const [txt, setTxt] = useState('')
   const [openOpts, setOpenOpts] = useState(false)
-
-  const loggedinUser = userService.getLoggedinUser()
-  const storyUser = userService.getById(loadedStory.by.byId)
-
-  console.log(state.backgroundLocation) ////////////////
 
 
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
 
+
+  useEffect(() => {
+    if (!loadedStory?.by?.byId) return
+
+    const userId = loadedStory.by.byId
+    const localUser = users.find(u => getOid(u._id) === getOid(userId))
+
+    if (localUser) {
+      setStoryUser(localUser)
+      return
+    }
+
+    userService.getById(userId).then(setStoryUser)
+
+  }, [loadedStory?.by?.byId, users])
+
+
+
+
+  if (!loadedStory) {
+    return <div className="details-overlay">
+      <div className='loader-section'>
+        <img className="spinner" src={spinner} alt="Loading…" />
+      </div>
+    </div>
+  }
+
+  const loggedinUser = userService.getLoggedinUser()
+
   function onCloseDetails() {
     const bg = state?.backgroundLocation
 
     if (bg) navigate(bg.pathname, { replace: true, state: bg.state })
     else navigate("/", { replace: true })
+
+    clearStory()
   }
 
   async function onLike() {
@@ -83,7 +112,6 @@ export function StoryDetails() {
   }
 
   function onStoryDetails(story) {
-    dispatch({ type: SET_STORY, story })
 
     const isAlreadyModal = state?.modal === true
 
@@ -95,14 +123,9 @@ export function StoryDetails() {
           ? state.backgroundLocation
           : location,
         story,
-        stories,
         openOpts: true
       }
     })
-  }
-
-  if (!loadedStory) {
-    return <div className="details-overlay"><div>loading...</div></div>
   }
 
   return (
@@ -194,6 +217,7 @@ export function StoryDetails() {
             <CommentList
               comments={loadedStory.comments}
               stories={stories}
+              users={users}
               onOpenStory={onStoryDetails} />
           </section>
 

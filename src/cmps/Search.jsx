@@ -22,10 +22,12 @@ export function Search({ onClose = () => { }, btnRef = null }) {
 
     const users = useSelector(storeState => storeState.userModule.users)
 
-    useEffect(() => {
-        clearUsers()
-        debouncedLoadUsers.cancel?.()
-    }, [])
+    // useEffect(() => {
+    //     clearUsers()
+    //     debouncedLoadUsers.cancel?.()
+    // }, [])
+
+
 
     useEffect(() => {
         function handleClickOutside(ev) {
@@ -45,19 +47,33 @@ export function Search({ onClose = () => { }, btnRef = null }) {
     }, [isMobile, onClose])
 
 
+    // useEffect(() => {
+    //     if (isMobile) {
+    //         setOpenSearchList(!!txt.trim())
+    //     }
+
+    //     if (!txt.trim()) {
+    //         clearUsers()
+    //         debouncedLoadUsers.cancel?.()
+    //         return
+    //     }
+
+    //     debouncedLoadUsers(filterBy)
+    // }, [filterBy, txt, isMobile])
+
     useEffect(() => {
         if (isMobile) {
             setOpenSearchList(!!txt.trim())
         }
 
         if (!txt.trim()) {
-            clearUsers()
             debouncedLoadUsers.cancel?.()
             return
         }
 
         debouncedLoadUsers(filterBy)
-    }, [filterBy, txt, isMobile])
+
+    }, [filterBy, txt])
 
 
     function handleChange(ev) {

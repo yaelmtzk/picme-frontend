@@ -15,7 +15,6 @@ export const storyService = {
 window.cs = storyService
 
 const gStories =[
-    
     {
         "_id": "s301",
         "txt": "New ceramic mezuzah prototype. Hand-glazed, inspired by old Jerusalem tiles.",
@@ -5601,7 +5600,7 @@ const gStories =[
     }
 
 ]
-_createStories()
+// _createStories()
 
 async function query(filterBy = {}) {
 

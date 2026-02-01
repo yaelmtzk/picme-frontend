@@ -9,4 +9,10 @@
     button {
         margin-inline-end: 0;
     }
+
+    .loader-section {
+        height: 600px;
+        display: grid;
+        place-items: center;
+    }
 }

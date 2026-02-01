@@ -20,7 +20,6 @@ export function getEmptyStory() {
 	}
 }
 
-
 export function getDefaultFilter() {
     return {
         txt: '',
