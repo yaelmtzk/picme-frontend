@@ -4,10 +4,11 @@ import { timeAgo } from '../services/util.service.js'
 // import { userService } from '../services/user/user.service.local.js'
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 import { loadWatchedUser } from "../store/actions/user.actions.js"
+import defaultImg from "../assets/img/icons/avatar.svg"
 
 export function CommentPreview({ comment, user, stories, onOpenStory }) {
     const navigate = useNavigate()
-    const { username, txt, byId } = comment
+    const { username, txt } = comment
 
     function onUserDetails(userId, username) {
         loadWatchedUser(userId)
@@ -31,7 +32,7 @@ export function CommentPreview({ comment, user, stories, onOpenStory }) {
                     storyList={stories}>
                     <img
                         onClick={() => { onUserDetails(user._id, user.username) }}
-                        className="avatar-img md pointer" src={user?.imgUrl || getIconImg('avatar')} alt="avatar" />
+                        className="avatar-img md pointer" src={user?.imgUrl ?? defaultImg} alt="avatar" />
                 </UserHoverCard>
 
             </div>

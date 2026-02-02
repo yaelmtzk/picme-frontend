@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { getOid } from "../services/util.service.js";
+import defaultImg from "../assets/img/icons/avatar.svg"
 
 export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, children }) {
     const [isOpen, setIsOpen] = useState(false)
@@ -19,7 +20,7 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
         }
     }, [])
 
-    if (!user) return <span className="uhc-wrap">Loading...</span>
+    if (!user) return null
 
     function openWithDelay() {
         clearTimeout(closeTimerRef.current)
@@ -55,7 +56,7 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
                                 ev.stopPropagation()
                                 onOpenProfile?.(user._id, user.username)
                             }}
-                            className="uhc-avatar pointer" src={user.imgUrl} alt={user.fullname} />
+                            className="uhc-avatar pointer" src={user?.imgUrl || defaultImg} alt={user.fullname} />
                         <div className="uhc-main">
                             <div className="uhc-row">
                                 <span

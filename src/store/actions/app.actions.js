@@ -1,6 +1,8 @@
 import { store } from "../store"
 import { loadUsers } from "./user.actions"
 import { loadStories } from "./story.actions"
+import { userService } from "../../services/user/user.service.remote"
+import { SET_USER } from '../reducers/user.reducer'
 
 export async function loadInitialData() {
   try {
@@ -10,6 +12,9 @@ export async function loadInitialData() {
 
     const users = state.userModule.users
     const stories = state.storyModule.stories
+    const loggedinUser = userService.getLoggedinUser()
+
+    if (loggedinUser) store.dispatch(store.dispatch({ type: SET_USER, user: loggedinUser }))
 
     if (!users || !users.length) {
       await loadUsers()

@@ -10,7 +10,6 @@ import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 
 import { updateStory, loadStory, clearStory, removeStory, addStoryComment } from '../store/actions/story.actions'
-import { SET_STORY } from "../store/reducers/story.reducer"
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { getOid } from "../services/util.service.js"
@@ -24,7 +23,6 @@ export function StoryDetails() {
   const location = useLocation()
   const state = location.state
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
   const stories = useSelector(storeState => storeState.storyModule.stories)

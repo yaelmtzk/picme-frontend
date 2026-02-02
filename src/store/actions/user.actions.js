@@ -43,7 +43,6 @@ export async function login(credentials) {
     }
 }
 
-
 export async function signup(credentials) {
     try {
         const user = await userService.signup(credentials)
