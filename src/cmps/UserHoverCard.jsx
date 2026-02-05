@@ -7,6 +7,11 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
     const openTimerRef = useRef(null)
     const closeTimerRef = useRef(null)
 
+    const triggerRef = useRef(null)
+    const cardRef = useRef(null)
+    const [pos, setPos] = useState(null)
+
+
     const userStories =
         storyList?.filter(
             story => getOid(story.by.byId) === getOid(user?._id)
@@ -24,7 +29,22 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
 
     function openWithDelay() {
         clearTimeout(closeTimerRef.current)
-        openTimerRef.current = setTimeout(() => setIsOpen(true), 140)
+
+        openTimerRef.current = setTimeout(() => {
+            if (!triggerRef.current) return
+
+            const rect = triggerRef.current.getBoundingClientRect()
+
+            setPos({
+                top: rect.bottom + 8,
+                left: rect.left
+            })
+
+            setIsOpen(true)
+
+        }, 140)
+
+
     }
 
     function closeWithDelay() {
@@ -34,15 +54,21 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
 
     return (
         <span
+            ref={triggerRef}
             className="uhc-wrap"
             onMouseEnter={openWithDelay}
             onMouseLeave={closeWithDelay}
         >
             {children}
 
-            {isOpen && (
+            {isOpen && pos && (
                 <div
+                    ref={cardRef}
                     className="uhc-card"
+                    style={{
+                        top: `${pos.top}px`,
+                        left: `${pos.left}px`
+                    }}
                     onMouseEnter={() => {
                         clearTimeout(closeTimerRef.current)
                         setIsOpen(true)

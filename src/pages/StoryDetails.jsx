@@ -174,50 +174,54 @@ export function StoryDetails() {
               src={getIconImg('more')} alt="more-icon" />
           </header>
 
-          <section className='comment-section'>
+          <div className="comments-wrapper">
+            <section className='comment-section'>
 
-            <div className="story-txt">
+              <div className="story-txt">
 
-              <div className='avatar'>
-                <UserHoverCard
-                  user={storyUser}
-                  onOpenProfile={onUserDetails}
-                  onOpenStory={onStoryDetails}
-                  storyList={stories}>
-                  <img
-                    className="avatar-img md pointer"
-                    src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
-                    onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
-                </UserHoverCard>
-
-              </div>
-
-              <div className="story-txt-main">
-
-                <div>
+                <div className='avatar'>
                   <UserHoverCard
                     user={storyUser}
                     onOpenProfile={onUserDetails}
                     onOpenStory={onStoryDetails}
                     storyList={stories}>
+                    <img
+                      className="avatar-img md pointer"
+                      src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                      onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+                  </UserHoverCard>
 
-                    <div className="username small pointer"
-                      onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
-                      {loadedStory.by.username}</div>
-
-                  </UserHoverCard> {loadedStory.txt}
                 </div>
 
-                <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
-              </div>
-            </div>
+                <div className="story-txt-main">
 
-            <CommentList
-              comments={loadedStory.comments}
-              stories={stories}
-              users={users}
-              onOpenStory={onStoryDetails} />
-          </section>
+                  <div>
+                    <UserHoverCard
+                      user={storyUser}
+                      onOpenProfile={onUserDetails}
+                      onOpenStory={onStoryDetails}
+                      storyList={stories}>
+
+                      <div className="username small pointer"
+                        onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                        {loadedStory.by.username}</div>
+
+                    </UserHoverCard> {loadedStory.txt}
+                  </div>
+
+                  <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
+                </div>
+              </div>
+
+              <CommentList
+                comments={loadedStory.comments}
+                stories={stories}
+                users={users}
+                onOpenStory={onStoryDetails} />
+            </section>
+          </div>
+
+
 
           <section className='preview-action-btns'>
 

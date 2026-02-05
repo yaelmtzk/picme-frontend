@@ -1,12 +1,9 @@
 .uhc-wrap {
-  position: relative;
   display: inline-flex;
 }
 
 .uhc-card {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
+  position: fixed;
   width: 320px;
   background: var(--bg-clr1);
   border: 1px solid rgba(0,0,0,.08);
