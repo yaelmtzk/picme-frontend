@@ -10,9 +10,9 @@ import { LikeButton } from "./LikeButton.jsx"
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "./UserHoverCard.jsx";
+import { loadStory } from "../store/actions/story.actions.js";
 
 export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) {
-
     if (!storyUser) return null
 
     const navigate = useNavigate()
@@ -25,6 +25,7 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
     const loggedinUser = userService.getLoggedinUser()
 
     function onStoryDetails(story) {
+
         navigate(`/p/${story._id}`, {
             state: {
                 modal: true,

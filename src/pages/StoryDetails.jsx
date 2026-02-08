@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import { CommentList } from "../cmps/CommentList.jsx"
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
@@ -33,11 +33,9 @@ export function StoryDetails() {
   const [txt, setTxt] = useState('')
   const [openOpts, setOpenOpts] = useState(false)
 
-
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
-
 
   useEffect(() => {
     if (!loadedStory?.by?.byId) return
@@ -53,9 +51,6 @@ export function StoryDetails() {
     userService.getById(userId).then(setStoryUser)
 
   }, [loadedStory?.by?.byId, users])
-
-
-
 
   if (!loadedStory) {
     return <div className="details-overlay">
@@ -174,53 +169,50 @@ export function StoryDetails() {
               src={getIconImg('more')} alt="more-icon" />
           </header>
 
-          <div className="comments-wrapper">
-            <section className='comment-section'>
+          <section className='comment-section'>
 
-              <div className="story-txt">
+            <div className="story-txt">
 
-                <div className='avatar'>
+              <div className='avatar'>
+                <UserHoverCard
+                  user={storyUser}
+                  onOpenProfile={onUserDetails}
+                  onOpenStory={onStoryDetails}
+                  storyList={stories}>
+                  <img
+                    className="avatar-img md pointer"
+                    src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
+                    onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
+                </UserHoverCard>
+
+              </div>
+
+              <div className="story-txt-main">
+
+                <div>
                   <UserHoverCard
                     user={storyUser}
                     onOpenProfile={onUserDetails}
                     onOpenStory={onStoryDetails}
                     storyList={stories}>
-                    <img
-                      className="avatar-img md pointer"
-                      src={storyUser?.imgUrl || getIconImg('avatar')} alt="avatar"
-                      onClick={() => { onUserDetails(storyUser._id, storyUser.username) }} />
-                  </UserHoverCard>
 
+                    <div className="username small pointer"
+                      onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
+                      {loadedStory.by.username}</div>
+
+                  </UserHoverCard> {loadedStory.txt}
                 </div>
 
-                <div className="story-txt-main">
-
-                  <div>
-                    <UserHoverCard
-                      user={storyUser}
-                      onOpenProfile={onUserDetails}
-                      onOpenStory={onStoryDetails}
-                      storyList={stories}>
-
-                      <div className="username small pointer"
-                        onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}>
-                        {loadedStory.by.username}</div>
-
-                    </UserHoverCard> {loadedStory.txt}
-                  </div>
-
-                  <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
-                </div>
+                <span className="story-date">{timeAgo(loadedStory.createdAt)}</span>
               </div>
+            </div>
 
-              <CommentList
-                comments={loadedStory.comments}
-                stories={stories}
-                users={users}
-                onOpenStory={onStoryDetails} />
-            </section>
-          </div>
-
+            <CommentList
+              comments={loadedStory.comments}
+              stories={stories}
+              users={users}
+              onOpenStory={onStoryDetails} />
+          </section>
 
 
           <section className='preview-action-btns'>
@@ -271,6 +263,5 @@ export function StoryDetails() {
       )}
 
     </Modal>
-
   )
 }

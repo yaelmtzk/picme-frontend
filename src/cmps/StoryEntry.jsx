@@ -10,7 +10,7 @@ export function StoryEntry() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const { story, stories, backgroundLocation } = location.state || {}
+  const { story, backgroundLocation } = location.state || {}
 
   function closeModal() {
     navigate(-1)
@@ -26,8 +26,6 @@ export function StoryEntry() {
 
     ) : (
       <MobileCommentsModal
-        story={story}
-        stories={stories}
         onClose={closeModal}
       />
     )

@@ -15,7 +15,7 @@ export function UserDetails() {
 
   const userId = location.state?.userId
 
-  const loggedinUser = userService.getLoggedinUser()
+  const loggedinUser = useSelector(state => state.userModule.user)
   const watchedUser = useSelector(storeState => storeState.userModule.watchedUser)
   const stories = useSelector(storeState => storeState.storyModule.stories)
 

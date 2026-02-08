@@ -1,29 +1,58 @@
+import { useParams } from 'react-router-dom'
 import { Modal } from "./Modal.jsx"
 import { CommentList } from "./CommentList.jsx"
 import { showErrorMsg } from "../services/event-bus.service"
 import { userService } from "../services/user/user.service.local.js"
 import { addStoryComment, loadStory } from '../store/actions/story.actions'
 import { useEffect, useState } from "react"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { getIconImg } from "../services/image.service.js"
+import { getOid } from "../services/util.service.js"
 
-export function MobileCommentsModal({ stories, onClose, onOpenStory }) {
+export function MobileCommentsModal({ onClose }) {
 
     const [txt, setTxt] = useState('')
-
-    const story = useSelector(storeState => storeState.storyModule.story)
+    const story = useSelector(state => state.storyModule.story)
+    const stories = useSelector(state => state.storyModule.stories)
+    const users = useSelector(state => state.userModule.users)
     const loggedinUser = userService.getLoggedinUser()
+    const storyId = useParams().id
 
-    useEffect(() => {
-        loadStory(story._id)
-    }, [story._id])
+useEffect(() => {
+    if (!storyId) return
+
+    if (story?._id === storyId) return
+
+    const localStory = stories?.find(
+        st => getOid(st._id) === getOid(storyId)
+    )
+
+    if (localStory) {
+        loadStory(localStory._id) 
+        return
+    }
+
+    loadStory(storyId)
+
+}, [storyId])
+    if (!story) {
+        return (
+            <Modal className="comments-sheet" onClose={onClose}>
+                <header className="comments-header">
+                    <span>Comments</span>
+                </header>
+                <section className="comments-list">
+                    Loading comments…
+                </section>
+            </Modal>
+        )
+    }
 
     async function onAddComment(storyId, txt) {
-        console.log(storyId, txt);
-
         try {
             await addStoryComment(storyId, txt)
             setTxt('')
-        } catch (err) {
+        } catch {
             showErrorMsg('Cannot add comment')
         }
     }
@@ -35,33 +64,36 @@ export function MobileCommentsModal({ stories, onClose, onOpenStory }) {
         ev.target.querySelector("input")?.blur()
     }
 
-    if (!story) return null
-
     return (
         <Modal className="comments-sheet" onClose={onClose}>
-
             <header className="comments-header">
                 <span>Comments</span>
             </header>
 
             <section className="comments-list">
-
                 <CommentList
-                    comments={story.comments}
+                    comments={story?.comments || []}
                     stories={stories}
-                    onOpenStory={onOpenStory} />
-
+                    users={users}
+                />
             </section>
 
-            <form className="comment-input"
-                onSubmit={handleSubmit}>
-                <img className="avatar-img md" src={loggedinUser.imgUrl ? loggedinUser.imgUrl : getIconImg('avatar')} alt="avatar" />
+            <form className="comment-input" onSubmit={handleSubmit}>
+                <img
+                    className="avatar-img md"
+                    src={loggedinUser?.imgUrl || getIconImg('avatar')}
+                    alt="avatar"
+                />
 
                 <input
                     type="text"
                     value={txt}
                     onChange={e => setTxt(e.target.value)}
-                    placeholder={`Add a comment for ${story.by.username}`}
+                    placeholder={
+                        story?.by?.username
+                            ? `Add a comment for ${story.by.username}`
+                            : 'Add a comment'
+                    }
                     enterKeyHint="send"
                 />
             </form>

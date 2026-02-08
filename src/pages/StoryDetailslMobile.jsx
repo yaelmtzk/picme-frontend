@@ -12,8 +12,10 @@ import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { toggleStoryLike } from '../services/story/story.service.local.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-import { userService } from '../services/user/user.service.local.js'
-
+// import { userService } from '../services/user/user.service.local.js'
+import { userService } from '../services/user/user.service.remote.js'
+import { getOid } from "../services/util.service.js"
+import spinner from '../assets/img/icons/spinner.png'
 
 export function StoryDetailsMobile() {
   const location = useLocation()
@@ -21,18 +23,41 @@ export function StoryDetailsMobile() {
   const state = location.state
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
+  const stories = useSelector(storeState => storeState.storyModule.stories)
+  const users = useSelector(state => state.userModule.users)
   const storyId = useParams().id
-  const stories = state?.stories
-
   const [openOpts, setOpenOpts] = useState(false)
   const [openComments, setOpenComments] = useState(false)
-
-  const loggedinUser = userService.getLoggedinUser()
-  const storyUser = userService.getById(loadedStory.by.byId)
+  const [storyUser, setStoryUser] = useState(null)
 
   useEffect(() => {
     loadStory(storyId)
   }, [storyId])
+
+  useEffect(() => {
+    if (!loadedStory?.by?.byId) return
+
+    const userId = loadedStory.by.byId
+    const localUser = users.find(u => getOid(u._id) === getOid(userId))
+
+    if (localUser) {
+      setStoryUser(localUser)
+      return
+    }
+
+    userService.getById(userId).then(setStoryUser)
+
+  }, [loadedStory?.by?.byId, users])
+
+  if (!loadedStory) {
+    return <div className="mobile-details-section">
+      <div className='loader-section'>
+        <img className="spinner" src={spinner} alt="Loading…" />
+      </div>
+    </div>
+  }
+
+  const loggedinUser = userService.getLoggedinUser()
 
   function onCloseDetails() {
     const bg = state?.backgroundLocation
@@ -183,6 +208,7 @@ export function StoryDetailsMobile() {
 
         {openComments &&
           (<MobileCommentsModal
+            storyId={storyId}
             story={loadedStory}
             stories={stories}
             onClose={() => setOpenComments(false)} />)
