@@ -1,5 +1,3 @@
-
-
 export function makeId(length = 6) {
     var txt = ''
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
@@ -55,21 +53,7 @@ export function loadFromStorage(key) {
 }
 
 export function timeAgo(ts) {
-
-    // console.log('ts', ts)
-
     if (!ts) return ""
-
-    // if (typeof ts === "string") {
-    //     ts = new Date(ts).getTime()
-    // }
-
-
-    // else if (typeof ts === "string") {
-    //     ts = new Date(ts).getTime()
-    // }
-
-    // if (isNaN(ts)) return ""
 
     const now = Date.now()
     const diffMs = now - ts
@@ -105,4 +89,17 @@ export async function readJsonFile(path) {
 
 export function getOid(val) {
     return typeof val === 'object' ? val?.$oid : val
+}
+
+export function toggleStoryLike(story, user) {
+    const alreadyLiked = story.likedBy.some(u => u.byId === user._id)
+
+    const likedBy = alreadyLiked
+        ? story.likedBy.filter(u => u.byId !== user._id)
+        : [...story.likedBy, { byId: user._id, username: user.username }]
+
+    return {
+        ...story,
+        likedBy
+    }
 }

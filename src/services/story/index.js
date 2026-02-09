@@ -1,14 +1,9 @@
 const { DEV, VITE_LOCAL } = import.meta.env
-
-import { createDispatchHook } from 'react-redux'
-import { getRandomIntInclusive, makeId } from '../util.service'
-
 import { storyService as local } from './story.service.local'
 import { storyService as remote } from './story.service.remote'
 
 export function getEmptyStory() {
 	return {
-        _id: '',
 		txt: '',
 		imgUrl: '',
         by: {},

@@ -5,7 +5,8 @@ export const storyService = {
     getById,
     save,
     remove,
-    addStoryComment
+    addStoryComment,
+    toggleLike
 }
 
 async function query(filterBy = { txt: '', userId: '' }) {
@@ -34,15 +35,7 @@ async function addStoryComment(storyId, txt) {
     return savedComment
 }
 
-export function toggleStoryLike(story, user) {
-    const alreadyLiked = story.likedBy.some(u => u.byId === user._id)
-
-    const likedBy = alreadyLiked
-        ? story.likedBy.filter(u => u.byId !== user._id)
-        : [...story.likedBy, { byId: user._id, username: user.username }]
-
-    return {
-        ...story,
-        likedBy
-    }
+async function toggleLike(storyId) {
+    const likedStory = await httpService.put(`story/${storyId}/like`)
+    return likedStory
 }

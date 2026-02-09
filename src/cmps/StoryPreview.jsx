@@ -1,16 +1,15 @@
 import { useState } from "react";
+import { useSelector } from 'react-redux'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
+import { toggleLikeStory } from '../store/actions/story.actions'
 import { useLocation, useNavigate } from "react-router-dom"
 // import { userService } from '../services/user/user.service.local.js'
-import { userService } from '../services/user/user.service.remote.js'
-// import { toggleStoryLike } from '../services/story/story.service.local.js'
-import { toggleStoryLike } from '../services/story/story.service.remote.js'
 import { LikeButton } from "./LikeButton.jsx"
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "./UserHoverCard.jsx";
-import { loadStory } from "../store/actions/story.actions.js";
+import { showErrorMsg } from '../services/event-bus.service'
 
 export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) {
     if (!storyUser) return null
@@ -22,10 +21,9 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
     const [openOpts, setOpenOpts] = useState(false)
     const { by, txt, imgUrl, createdAt, comments, _id, likedBy } = story
 
-    const loggedinUser = userService.getLoggedinUser()
+    const loggedinUser = useSelector(state => state.userModule.user)
 
     function onStoryDetails(story) {
-
         navigate(`/p/${story._id}`, {
             state: {
                 modal: true,
@@ -36,7 +34,7 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
         })
     }
 
-    function onUserDetails(userId, username) {        
+    function onUserDetails(userId, username) {
         navigate(`/${username}`, {
             state: {
                 userId
@@ -44,6 +42,11 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
         })
     }
 
+    function onLike(story) {
+        toggleLikeStory(story).catch(() => {
+            showErrorMsg('Cannot like story')
+        })
+    }
     return <article className="preview">
         <header>
             <div className="preview-header">
@@ -93,7 +96,7 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
 
             <LikeButton
                 isLiked={story.likedBy.some(u => u.byId === loggedinUser._id)}
-                onLike={() => onUpdate(toggleStoryLike(story, loggedinUser))}
+                onLike={() => onLike(story)}
             />
 
             <span>{likedBy.length > 0 ? likedBy.length : ''}</span>
@@ -116,21 +119,23 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
             </div>
         </div>
 
-        <div className='story-txt-short'>
-            <p>
-                <UserHoverCard
-                    user={storyUser}
-                    onOpenProfile={onUserDetails}
-                    storyList={stories}
-                    onOpenStory={onStoryDetails}>
-                    <span
-                        onClick={() => { onUserDetails(storyUser._id, storyUser.username) }}
-                        className="username small pointer">
-                        {by.username}</span>
-                </UserHoverCard> <span>{txt}</span>
-            </p>
-
+        <div className="story-txt-short">
+            <UserHoverCard
+                user={storyUser}
+                onOpenProfile={onUserDetails}
+                storyList={stories}
+                onOpenStory={onStoryDetails}
+            >
+                <span
+                    onClick={() => onUserDetails(storyUser._id, storyUser.username)}
+                    className="username small pointer"
+                >
+                    {by.username}
+                </span>{' '}
+                <span>{txt}</span>
+            </UserHoverCard>
         </div>
+
 
         {openOpts &&
             (<Modal

@@ -50,14 +50,15 @@
 }
 
 .story-txt-short {
-    display: flex;
-    gap: 5px;
     font-size: 14px;
     padding: 0 12px;
+    line-height: 1.4;
+    white-space: normal;
+    word-break: break-word;
+}
 
-    span {
-        font-size: 14px;
-    }
+.story-txt-short span {
+    display: inline;
 }
 
 .story-pic {

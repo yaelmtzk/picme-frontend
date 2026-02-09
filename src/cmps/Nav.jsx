@@ -1,29 +1,25 @@
 import { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { useLocation, NavLink, useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 import { getIconImg } from '../services/image.service.js'
 import { Search } from './Search.jsx'
 import { CreateEntry } from './CreateEntry.jsx'
 import { MobileCreatePortal } from './MobileCreatePortal.jsx'
-import { userService } from '../services/user/user.service.remote.js'
 import { loadWatchedUser } from '../store/actions/user.actions.js'
-import { getOid } from '../services/util.service'
+
 
 export function Nav({ onAdd }) {
-
-    const user = useSelector(state => state.userModule.user)
-    
-    if (!user) return
-
     const toggleRef = useRef(null)
     const navigate = useNavigate()
     const [openCreate, setOpenCreate] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
 
+    const user = useSelector(state => state.userModule.user)
+
+    if (!user) return
+
     const userId = user._id
     const username = user.username
-
-        console.log(username);
 
     function onUserDetails(userId, username) {
         loadWatchedUser(userId)
@@ -88,9 +84,7 @@ export function Nav({ onAdd }) {
                         <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
                         <div>Profile</div>
                     </div>
-
                 </section>
-
             </div>
 
             <div className="nav-md-device">
@@ -105,9 +99,8 @@ export function Nav({ onAdd }) {
 
                     </NavLink>
                 </div>
+
                 <section className='nav-btns'>
-
-
                     <NavLink to="/" title="Home">
                         <svg
                             alt="home"
@@ -144,17 +137,12 @@ export function Nav({ onAdd }) {
                         onClick={() => onUserDetails(userId, username)}
                         className='nav-btn'>
                         <img className="avatar-img small" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
-
                     </div>
-
-
                 </section>
             </div>
 
             <div className="nav-mobile">
                 <section className='nav-btns'>
-
-
                     <NavLink to="/" title="Home">
                         <svg
                             fill="currentColor"

@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react"
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-
 import { CommentList } from "../cmps/CommentList.jsx"
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import { LikeButton } from "../cmps/LikeButton.jsx"
 import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
-
-import { updateStory, loadStory, clearStory, removeStory, addStoryComment } from '../store/actions/story.actions'
+import { loadStory, clearStory, removeStory, addStoryComment, toggleLikeStory } from '../store/actions/story.actions'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { getOid } from "../services/util.service.js"
-import { toggleStoryLike } from '../services/story/story.service.local.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import spinner from '../assets/img/icons/spinner.png'
 // import { userService } from '../services/user/user.service.local.js'
@@ -27,6 +24,7 @@ export function StoryDetails() {
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
   const stories = useSelector(storeState => storeState.storyModule.stories)
   const users = useSelector(state => state.userModule.users)
+  const loggedinUser = useSelector(state => state.userModule.user)
 
   const storyId = useParams().id
   const [storyUser, setStoryUser] = useState(null)
@@ -60,8 +58,6 @@ export function StoryDetails() {
     </div>
   }
 
-  const loggedinUser = userService.getLoggedinUser()
-
   function onCloseDetails() {
     const bg = state?.backgroundLocation
 
@@ -71,10 +67,11 @@ export function StoryDetails() {
     clearStory()
   }
 
-  async function onLike() {
-    const updated = toggleStoryLike(loadedStory, loggedinUser)
-    await updateStory(updated)
-  }
+function onLike(story) {
+    toggleLikeStory(story).catch(() => {
+        showErrorMsg('Cannot like story')
+    })
+}
 
   async function onRemoveStory(storyId) {
     try {
@@ -105,7 +102,6 @@ export function StoryDetails() {
   }
 
   function onStoryDetails(story) {
-
     const isAlreadyModal = state?.modal === true
 
     navigate(`/p/${story._id}`, {
@@ -219,7 +215,7 @@ export function StoryDetails() {
 
             <LikeButton
               isLiked={loadedStory.likedBy.some(u => u.byId === loggedinUser._id)}
-              onLike={onLike}
+              onLike={() => onLike(loadedStory)}
             />
 
             <div><img className='btn' title='Comment'
