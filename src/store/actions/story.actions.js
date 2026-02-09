@@ -1,10 +1,9 @@
 // import { storyService } from '../../services/story/story.service.local'
 // import { userService } from '../../services/user/user.service.local'
 import { storyService } from '../../services/story/story.service.remote'
-import { userService } from '../../services/user/user.service.remote'
 import { store } from '../store'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, CLEAR_STORY } from '../reducers/story.reducer'
-import { getOid } from "../../services/util.service"
+import { getOid, makeId, toggleStoryLike } from "../../services/util.service"
 
 export async function loadStories(filterBy = {}) {
     try {
@@ -17,23 +16,23 @@ export async function loadStories(filterBy = {}) {
 }
 
 export async function loadStory(storyId) {
-  try {
-    const state = store.getState()
-    const stories = state.storyModule.stories
-    const localStory = stories.find(s => getOid(s._id) === getOid(storyId) )
+    try {
+        const state = store.getState()
+        const stories = state.storyModule.stories
+        const localStory = stories.find(s => getOid(s._id) === getOid(storyId))
 
-    if (localStory) {
-      store.dispatch(getCmdSetStory(localStory))
-      return localStory
+        if (localStory) {
+            store.dispatch(getCmdSetStory(localStory))
+            return localStory
+        }
+        const story = await storyService.getById(storyId)
+        store.dispatch(getCmdSetStory(story))
+        return story
+
+    } catch (err) {
+        console.log("Cannot load story", err)
+        throw err
     }
-    const story = await storyService.getById(storyId)
-    store.dispatch(getCmdSetStory(story))
-    return story
-
-  } catch (err) {
-    console.log("Cannot load story", err)
-    throw err
-  }
 }
 
 export async function clearStory() {
@@ -47,10 +46,11 @@ export async function clearStory() {
 
 export async function removeStory(storyId) {
     try {
-        const loggedInUser = userService.getLoggedinUser()
+        const state = store.getState()
+        const loggedInUser = state.userModule.user
         const story = await storyService.getById(storyId)
 
-        if (story.by.byId !== loggedInUser._id){
+        if (story.by.byId !== loggedInUser._id) {
             throw new Error('Not authorized')
         }
 
@@ -86,13 +86,53 @@ export async function updateStory(story) {
 }
 
 export async function addStoryComment(storyId, txt) {
+    const state = store.getState()
+    const story = state.storyModule.story
+    const user = state.userModule.user
+
+    if (!story || story._id !== storyId) return
+
+    const optimisticComment = {
+        _id: makeId(),
+        txt,
+        byId: user._id,
+        username: user.username,
+        imgUrl: user.imgUrl,
+        optimistic: true
+    }
+
+    const optimisticStory = {
+        ...story,
+        comments: [...story.comments, optimisticComment]
+    }
+    
+    store.dispatch(getCmdUpdateStory(optimisticStory))
+
     try {
         const updatedStory = await storyService.addStoryComment(storyId, txt)
         store.dispatch(getCmdUpdateStory(updatedStory))
-        
         return updatedStory
+
     } catch (err) {
-        console.log('Cannot add comment', err)
+        store.dispatch(getCmdUpdateStory(story))
+        throw err
+    }
+}
+
+export async function toggleLikeStory(story) {
+    const state = store.getState()
+    const user = state.userModule.user
+
+    const optimisticStory = toggleStoryLike(story, user)
+    store.dispatch(getCmdUpdateStory(optimisticStory))
+
+    try {
+        const updatedStory = await storyService.toggleLike(story._id)
+        store.dispatch(getCmdUpdateStory(updatedStory))
+        return updatedStory
+
+    } catch (err) {
+        store.dispatch(getCmdUpdateStory(story))
         throw err
     }
 }
