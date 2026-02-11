@@ -2,31 +2,18 @@
 import { userService } from '../../services/user/user.service.remote'
 import { socketService } from '../../services/socket.service'
 import { store } from '../store'
-
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
-import { REMOVE_USER, SET_USER, SET_USERS, CLEAR_USERS, SET_WATCHED_USER, CLEAR_WATCHED_USER } from '../reducers/user.reducer'
-
-export async function loadUsers(filterBy={}) {
-    try {
-        store.dispatch({ type: LOADING_START })
-        const users = await userService.getUsers(filterBy)
-        store.dispatch({ type: SET_USERS, users })
-    } catch (err) {
-        console.log('UserActions: err in loadUsers', err)
-    } finally {
-        store.dispatch({ type: LOADING_DONE })
-    }
-}
-
-export async function removeUser(userId) {
-    try {
-        await userService.remove(userId)
-        store.dispatch({ type: REMOVE_USER, userId })
-    } catch (err) {
-        console.log('UserActions: err in removeUser', err)
-    }
-}
+import {
+    REMOVE_USER,
+    SET_USER,
+    SET_USERS,
+    SET_WATCHED_USER,
+    CLEAR_WATCHED_USER,
+    CLEAR_USERS,
+    SET_SEARCH_USERS,
+    CLEAR_SEARCH_USERS
+} from '../reducers/user.reducer'
 
 export async function login(credentials) {
     try {
@@ -82,22 +69,23 @@ export async function loadUser(userId) {
     }
 }
 
-export function clearUsers() {
+export async function removeUser(userId) {
     try {
-        store.dispatch({ type: CLEAR_USERS })
+        await userService.remove(userId)
+        store.dispatch({ type: REMOVE_USER, userId })
     } catch (err) {
-        console.log('UserActions: err in clearUsers', err)
-  }
+        console.log('UserActions: err in removeUser', err)
+    }
 }
 
 export async function loadWatchedUser(userId) {
-  try {
-    const user = await userService.getById(userId)
-    store.dispatch({ type: SET_WATCHED_USER, user })
-  } catch (err) {
-    showErrorMsg('Cannot load user')
-    console.log('Cannot load user', err)
-  }
+    try {
+        const user = await userService.getById(userId)
+        store.dispatch({ type: SET_WATCHED_USER, user })
+    } catch (err) {
+        showErrorMsg('Cannot load user')
+        console.log('Cannot load user', err)
+    }
 }
 
 export function clearWatchedUser() {
@@ -105,5 +93,42 @@ export function clearWatchedUser() {
         store.dispatch({ type: CLEAR_WATCHED_USER })
     } catch (err) {
         console.log('UserActions: err in clearWatchedUser', err)
-  }
+    }
+}
+
+export async function loadUsers(filterBy = {}) {
+    try {
+        store.dispatch({ type: LOADING_START })
+        const users = await userService.getUsers(filterBy)
+        store.dispatch({ type: SET_USERS, users })
+    } catch (err) {
+        console.log('UserActions: err in loadUsers', err)
+    } finally {
+        store.dispatch({ type: LOADING_DONE })
+    }
+}
+
+export function clearUsers() {
+    try {
+        store.dispatch({ type: CLEAR_USERS })
+    } catch (err) {
+        console.log('UserActions: err in clearUsers', err)
+    }
+}
+
+export async function loadSearchUsers(filterBy = {}) {
+    try {
+        const searchUsers = await userService.getUsers(filterBy)
+        store.dispatch({ type: SET_SEARCH_USERS, searchUsers })
+    } catch (err) {
+        console.log('UserActions: err in loadSearchUsers', err)
+    }
+}
+
+export function clearSearchUsers() {
+    try {
+        store.dispatch({ type: CLEAR_SEARCH_USERS })
+    } catch (err) {
+        console.log('UserActions: err in clearSearchUsers', err)
+    }
 }
