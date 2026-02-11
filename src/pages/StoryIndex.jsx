@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { AppHeader } from '../cmps/AppHeader.jsx'
-
 import { loadStories, updateStory, removeStory, addStoryComment } from '../store/actions/story.actions'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { getDefaultFilter, getEmptyStory } from '../services/story/index.js'
@@ -23,7 +22,7 @@ export function StoryIndex() {
 
     if (!loggedinUser) return <Login />
 
-    if (!stories || !users || !users.length) {
+    if (!stories || !users ) {
         return <main className="story-index ">
             <div className='loader-section'>
                 <img className="spinner" src={spinner} alt="Loading…" />

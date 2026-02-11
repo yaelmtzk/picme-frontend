@@ -1,6 +1,5 @@
 
-export function SearchBar({ txt, onChange, inputRef = null }) {
-
+export function SearchBar({ txt, onChange, inputRef = null, onFocus}) {
     return (
         <div className='search-bar'>
             <input
@@ -9,9 +8,9 @@ export function SearchBar({ txt, onChange, inputRef = null }) {
                 name='text'
                 value={txt}
                 onChange={onChange}
+                onFocus={onFocus}
                 autoComplete="off"
                 placeholder='Search' />
         </div>
     )
-
 }

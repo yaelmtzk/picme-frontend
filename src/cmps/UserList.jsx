@@ -1,7 +1,6 @@
 import { UserPreview } from "./UserPreview"
 
 export function UserList({users, onDetails}) {
-
     return (
         <ul className="users-list">
             {users && users.length > 0 ? (
@@ -18,5 +17,4 @@ export function UserList({users, onDetails}) {
             ) : null}
         </ul>
     )
-
 }

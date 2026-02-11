@@ -14,7 +14,8 @@ export async function loadInitialData() {
     const stories = state.storyModule.stories
     const loggedinUser = userService.getLoggedinUser()
 
-    if (loggedinUser) store.dispatch(store.dispatch({ type: SET_USER, user: loggedinUser }))
+    if (loggedinUser) store.dispatch({ type: SET_USER, user: loggedinUser })
+
 
     if (!users || !users.length) {
       await loadUsers()

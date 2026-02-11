@@ -437,6 +437,6 @@ function saveLoggedinUser(user) {
 
 function getDefaultFilter() {
   return {
-    username: ''
+    txt: ''
   }
 }

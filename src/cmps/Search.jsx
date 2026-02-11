@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { userService } from '../services/user/user.service.local.js'
-import { loadUsers, clearUsers } from '../store/actions/user.actions.js'
+import { loadSearchUsers, clearSearchUsers } from '../store/actions/user.actions.js'
 import { debounce } from "../services/util.service.js"
 import { UserList } from './UserList.jsx'
 import { SearchBar } from './SearchBar.jsx'
@@ -11,23 +11,24 @@ import { useMediaQuery } from "../customHooks/useMediaQuery.js"
 export function Search({ onClose = () => { }, btnRef = null }) {
     const isMobile = useMediaQuery("(max-width: 767px)")
     const navigate = useNavigate()
+
     const ref = useRef(null)
     const inputRef = useRef(null)
 
     const [txt, setTxt] = useState('')
-    const [filterBy, setFilterBy] = useState(userService.getDefaultFilter())
     const [openSearchList, setOpenSearchList] = useState(false)
 
-    const debouncedLoadUsers = useRef(debounce(loadUsers, 400)).current
+    const searchUsers = useSelector(state => state.userModule.searchUsers)
 
-    const users = useSelector(storeState => storeState.userModule.users)
+    const debouncedLoadUsers = useRef(
+        debounce(filterBy => loadSearchUsers(filterBy), 400)
+    ).current
 
-    // useEffect(() => {
-    //     clearUsers()
-    //     debouncedLoadUsers.cancel?.()
-    // }, [])
-
-
+    useEffect(() => {
+        return () => {
+            debouncedLoadUsers.cancel?.()
+        }
+    }, [])
 
     useEffect(() => {
         function handleClickOutside(ev) {
@@ -46,45 +47,30 @@ export function Search({ onClose = () => { }, btnRef = null }) {
         return () => document.removeEventListener("click", handleClickOutside)
     }, [isMobile, onClose])
 
-
-    // useEffect(() => {
-    //     if (isMobile) {
-    //         setOpenSearchList(!!txt.trim())
-    //     }
-
-    //     if (!txt.trim()) {
-    //         clearUsers()
-    //         debouncedLoadUsers.cancel?.()
-    //         return
-    //     }
-
-    //     debouncedLoadUsers(filterBy)
-    // }, [filterBy, txt, isMobile])
-
     useEffect(() => {
         if (isMobile) {
             setOpenSearchList(!!txt.trim())
         }
 
         if (!txt.trim()) {
+            clearSearchUsers()
             debouncedLoadUsers.cancel?.()
             return
         }
-
-        debouncedLoadUsers(filterBy)
-
-    }, [filterBy, txt])
+        debouncedLoadUsers({ txt })
+    }, [txt])
 
 
     function handleChange(ev) {
         const value = ev.target.value
-
         setTxt(value)
+    }
 
-        setFilterBy(prev => ({
-            ...prev,
-            username: value
-        }))
+    function handleFocus() {
+        if (isMobile && txt.trim()) {
+            setOpenSearchList(true)
+            console.log('openList');
+        }
     }
 
     function onUserDetails(userId, username) {
@@ -93,7 +79,6 @@ export function Search({ onClose = () => { }, btnRef = null }) {
                 userId
             }
         })
-
         onClose()
     }
 
@@ -101,9 +86,9 @@ export function Search({ onClose = () => { }, btnRef = null }) {
         (
             <section className="search search-mobile" ref={ref}>
 
-                <SearchBar txt={txt} onChange={handleChange} inputRef={inputRef} />
+                <SearchBar txt={txt} onChange={handleChange} onFocus={handleFocus} inputRef={inputRef} />
 
-                {openSearchList && <UserList users={users} onDetails={onUserDetails} />}
+                {openSearchList && <UserList users={searchUsers} onDetails={onUserDetails} />}
 
             </section >
         )
@@ -115,7 +100,7 @@ export function Search({ onClose = () => { }, btnRef = null }) {
 
                 <SearchBar txt={txt} onChange={handleChange} />
 
-                <UserList users={users} onDetails={onUserDetails} />
+                <UserList users={searchUsers} onDetails={onUserDetails} />
 
             </section >
         )
