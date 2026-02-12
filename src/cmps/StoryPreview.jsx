@@ -19,7 +19,7 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
     const state = location.state
 
     const [openOpts, setOpenOpts] = useState(false)
-    const { by, txt, imgUrl, createdAt, comments, _id, likedBy } = story
+    const { by, txt, img, createdAt, comments, _id, likedBy } = story
 
     const loggedinUser = useSelector(state => state.userModule.user)
 
@@ -90,7 +90,7 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
                 alt="more-icon" />
         </header>
 
-        <img className="story-pic" src={imgUrl} alt="story-pic" />
+        <img className="story-pic" src={img.url} alt="story-pic" />
 
         <div className='preview-action-btns'>
 

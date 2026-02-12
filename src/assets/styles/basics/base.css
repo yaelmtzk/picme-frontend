@@ -202,3 +202,9 @@ svg {
     width: 320px;
     overflow: visible;
 }
+
+.loader-section {
+    height: 600px;
+    display: grid;
+    place-items: center;
+}

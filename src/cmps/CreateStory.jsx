@@ -7,17 +7,17 @@ import { Modal } from "../cmps/Modal.jsx"
 import spinner from '../assets/img/icons/spinner.png'
 import spinnerChecked from '../assets/img/icons/spinnerchecked.png'
 
-
 export function CreateStory({ onClose, onAdd }) {
+    const fileInputRef = useRef(null)
+
     const [imgUrl, setImgUrl] = useState('')
     const [imgFile, setImgFile] = useState('')
     const [txt, setTxt] = useState('')
     const [next, setNext] = useState(false)
-    const fileInputRef = useRef(null)
     const [saved, setSaved] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
 
-    const user = userService.getLoggedinUser()
+    const loggedinUser = useSelector(state => state.userModule.user)
 
     useEffect(() => {
         document.body.style.overflow = "hidden"
@@ -32,16 +32,28 @@ export function CreateStory({ onClose, onAdd }) {
         return () => window.removeEventListener("keydown", handleEsc)
     }, [])
 
-    async function onSaveStory() {
+    // async function onSaveStory() {
+    //     try {
+    //         setIsLoading(true)
+    //         const uploadedUrl = await uploadImg(imgFile)
+    //         onAdd(txt, uploadedUrl)
+    //         setSaved(true)
+    //     } catch (err) {
+    //         console.error(err)
+    //     } finally {
+    //         setIsLoading(false)
+    //     }
+    // }
 
+    async function onSaveStory() {
         try {
             setIsLoading(true)
-            const uploadedUrl = await uploadImg(imgFile)
-
-            onAdd(txt, uploadedUrl)
-
+            let imgData = null
+            if (imgFile) {
+                imgData = await uploadImg(imgFile)  // returns { url, publicId }
+            }
+            await onAdd(txt, imgData)
             setSaved(true)
-
         } catch (err) {
             console.error(err)
         } finally {
@@ -145,8 +157,8 @@ export function CreateStory({ onClose, onAdd }) {
                     {next && (
                         <div className="create-text-section">
                             <div className='avatar'>
-                                <img className="avatar-img small2" src={user.imgUrl ? user.imgUrl : getIconImg('avatar')} alt="avatar" />
-                                <div className="username small">{user.username}</div>
+                                <img className="avatar-img small2" src={loggedinUser.imgUrl ? loggedinUser.imgUrl : getIconImg('avatar')} alt="avatar" />
+                                <div className="username small">{loggedinUser.username}</div>
                             </div>
 
                             <EmojiTextArea txt={txt} setTxt={setTxt} />

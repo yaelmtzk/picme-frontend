@@ -4,12 +4,6 @@
     display: flex;
     justify-content: center;
     overflow-y: auto;
-
-    .loader-section {
-        height: 600px;
-        display: grid;
-        place-items: center;
-    }
 }
 
 .explore-stories-grid {

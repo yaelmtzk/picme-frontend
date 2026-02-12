@@ -21,13 +21,12 @@ export function RootCmp() {
        loadInitialData()
     }, [])
 
-    async function onAddStory(txt, imgUrl) {
+    async function onAddStory(txt, imgData) {
         const story = getEmptyStory()
         story.txt = txt
-        story.imgUrl = imgUrl
-
+        story.img = imgData
         try {
-            const savedStory = await addStory(story)
+            await addStory(story)
             showSuccessMsg('Story added')
         } catch (err) {
             showErrorMsg('Cannot add story')

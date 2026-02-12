@@ -3,16 +3,19 @@ import { storyService as local } from './story.service.local'
 import { storyService as remote } from './story.service.remote'
 
 export function getEmptyStory() {
-	return {
-		txt: '',
-		imgUrl: '',
+    return {
+        txt: '',
+        img: {
+            url: '',
+            publicId: ''
+        },
         by: {},
         createdAt: '',
         loc: {},
         comments: [],
-        likedBy:[],
+        likedBy: [],
         tags: []
-	}
+    }
 }
 
 export function getDefaultFilter() {

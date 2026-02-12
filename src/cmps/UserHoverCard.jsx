@@ -124,7 +124,7 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
                                     className="hover-story-tile"
                                     onClick={() => onOpenStory(story)}>
 
-                                    <img src={story.imgUrl} alt="user-post" />
+                                    <img src={story.img.url} alt="user-post" />
 
                                 </li>)
                             }

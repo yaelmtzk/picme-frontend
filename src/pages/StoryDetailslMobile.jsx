@@ -7,10 +7,9 @@ import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { MobileCommentsModal } from "../cmps/MobileCommentsModal.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 
-import { updateStory, loadStory, removeStory } from '../store/actions/story.actions'
+import { loadStory, removeStory, clearStory, toggleLikeStory } from '../store/actions/story.actions'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
-import { toggleStoryLike } from '../services/story/story.service.local.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 // import { userService } from '../services/user/user.service.local.js'
 import { userService } from '../services/user/user.service.remote.js'
@@ -25,6 +24,8 @@ export function StoryDetailsMobile() {
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
   const stories = useSelector(storeState => storeState.storyModule.stories)
   const users = useSelector(state => state.userModule.users)
+  const loggedinUser = useSelector(state => state.userModule.user)
+
   const storyId = useParams().id
   const [openOpts, setOpenOpts] = useState(false)
   const [openComments, setOpenComments] = useState(false)
@@ -57,18 +58,19 @@ export function StoryDetailsMobile() {
     </div>
   }
 
-  const loggedinUser = userService.getLoggedinUser()
-
   function onCloseDetails() {
     const bg = state?.backgroundLocation
 
     if (bg) navigate(bg.pathname, { replace: true, state: bg.state })
     else navigate("/", { replace: true })
+
+    clearStory()
   }
 
-  async function onLike() {
-    const updated = toggleStoryLike(loadedStory, loggedinUser)
-    await updateStory(updated)
+  function onLike(story) {
+    toggleLikeStory(story).catch(() => {
+      showErrorMsg('Cannot like story')
+    })
   }
 
   async function onRemove(storyId) {
@@ -89,7 +91,6 @@ export function StoryDetailsMobile() {
       }
     })
   }
-
 
   if (!loadedStory) {
     return <div className="mobile-details-section"><div>loading...</div></div>
@@ -142,13 +143,13 @@ export function StoryDetailsMobile() {
             alt="more-icon" />
         </header>
 
-        <img className="story-pic" src={loadedStory.imgUrl} alt="story-pic" />
+        <img className="story-pic" src={loadedStory.img.url} alt="story-pic" />
 
         <div className='preview-action-btns'>
 
           <LikeButton
             isLiked={loadedStory.likedBy.some(u => u.byId === loggedinUser._id)}
-            onLike={onLike}
+            onLike={() => onLike(loadedStory)}
           />
 
           <span>{loadedStory.likedBy.length > 0 ? loadedStory.likedBy.length : ''}</span>

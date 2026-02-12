@@ -55,7 +55,7 @@ export function Explore() {
                         className="story-tile"
                         onClick={() => onDetails(story)}>
 
-                        <img src={story.imgUrl} alt="user-post" />
+                        <img src={story.img.url} alt="user-post" />
 
                         <div className='story-preview-icons'>
 

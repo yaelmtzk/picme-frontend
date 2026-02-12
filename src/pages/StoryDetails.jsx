@@ -67,11 +67,11 @@ export function StoryDetails() {
     clearStory()
   }
 
-function onLike(story) {
+  function onLike(story) {
     toggleLikeStory(story).catch(() => {
-        showErrorMsg('Cannot like story')
+      showErrorMsg('Cannot like story')
     })
-}
+  }
 
   async function onRemoveStory(storyId) {
     try {
@@ -124,7 +124,7 @@ function onLike(story) {
 
       <div className="details-content">
         <div className="details-img">
-          <img alt="preview-img" src={loadedStory.imgUrl} />
+          <img alt="preview-img" src={loadedStory.img.url} />
         </div>
 
         <div className="side-details-section">
