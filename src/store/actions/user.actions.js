@@ -18,10 +18,7 @@ import {
 export async function login(credentials) {
     try {
         const user = await userService.login(credentials)
-        store.dispatch({
-            type: SET_USER,
-            user
-        })
+        store.dispatch({ type: SET_USER, user })
         socketService.login(user._id)
         return user
     } catch (err) {

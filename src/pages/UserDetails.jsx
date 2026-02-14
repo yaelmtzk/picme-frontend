@@ -1,12 +1,15 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useSelector } from 'react-redux'
-import { useLocation, useParams, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
 // import { userService } from '../services/user/user.service.local.js'
-import { userService } from '../services/user/user.service.remote.js'
 import { getOid } from '../services/util.service'
 import spinner from '../assets/img/icons/spinner.png'
 import { loadWatchedUser, clearWatchedUser } from "../store/actions/user.actions"
+import { Modal } from "../cmps/Modal.jsx"
+import { UserDetailsMoreOpt } from "../cmps/UserDetailsOpt.jsx"
+import { ProfilePicOpt } from "../cmps/ProfilePicOpt.jsx"
+import { logout } from '../store/actions/user.actions'
 
 export function UserDetails() {
   const location = useLocation()
@@ -19,12 +22,16 @@ export function UserDetails() {
   const watchedUser = useSelector(storeState => storeState.userModule.watchedUser)
   const stories = useSelector(storeState => storeState.storyModule.stories)
 
+  const [openOpts, setOpenOpts] = useState(false)
+  const [openProfPicOpts, setOpenProfPicOpts] = useState(false)
+
   useEffect(() => {
     clearWatchedUser()
     loadWatchedUser(userId)
 
     return () => clearWatchedUser()
   }, [userId])
+
 
   if (!watchedUser) {
     return <div className="profile-page">
@@ -37,7 +44,6 @@ export function UserDetails() {
   const userStories = stories.filter(story => getOid(story.by.byId) === getOid(watchedUser._id)).sort((a, b) => b.createdAt - a.createdAt)
 
   function onDetails(story) {
-
     navigate(`/p/${story._id}`, {
       state: {
         modal: true,
@@ -62,6 +68,10 @@ export function UserDetails() {
                 src={watchedUser.imgUrl}
                 alt="profile avatar"
                 className="avatar-img"
+                // title="Change profile photo"
+                // onClick={() => {
+                //   setOpenProfPicOpts(true)
+                // }}
               />
             </div>
 
@@ -74,14 +84,18 @@ export function UserDetails() {
                 {loggedinUser._id === watchedUser._id &&
                   (
                     <div className="btn">
-                      <img src={getIconImg('settings')} alt="settings" />
+                      <img
+                        onClick={() => {
+                          setOpenOpts(true)
+                        }}
+                        src={getIconImg('settings')}
+                        alt="settings" title="Options" />
                     </div>
                   )}
 
               </div>
 
               <div className='profile-fullname'>{watchedUser.fullname}</div>
-
 
               <ul className="profile-stats">
                 <li key="posts"><span>{userStories?.length || 0}</span> posts</li>
@@ -105,13 +119,13 @@ export function UserDetails() {
             </div>)
           }
 
-          {loggedinUser._id === watchedUser._id ?
+          {/* {loggedinUser._id === watchedUser._id ?
             (
               <div className='profile-btn-section'>
                 <button className="profile-btn">Edit profile</button>
                 <button className="profile-btn">View archive</button>
               </div>
-            ) : ('')}
+            ) : ('')} */}
 
           <section className="profile-highlights">
 
@@ -133,7 +147,7 @@ export function UserDetails() {
 
               ))}
 
-            {loggedinUser._id === watchedUser._id ?
+            {/* {loggedinUser._id === watchedUser._id ?
               (
                 <div className='highlight-container'>
                   <div className='highlight-circle-outer'>
@@ -159,7 +173,7 @@ export function UserDetails() {
                 </div>
               ) :
               ('')
-            }
+            } */}
 
           </section>
 
@@ -228,7 +242,7 @@ export function UserDetails() {
 
         <section className="profile-stories">
 
-          {userStories ?
+          {userStories?.length ?
             (<ul className="profile-stories-grid">
               {userStories.map(story =>
                 <li key={story._id}
@@ -254,11 +268,35 @@ export function UserDetails() {
               }
 
             </ul>
-            ) : (<div className='no'>Share your first photo</div>)
+            ) : (<div className='no-stories'>Share your first photo</div>)
           }
 
         </section>
       </div>
+
+      {openOpts &&
+        (<Modal
+          onClose={() => setOpenOpts(false)}
+          className="opts-modal"
+        >
+          <UserDetailsMoreOpt
+            userId={loggedinUser._id}
+            onLogOut={logout}
+            onClose={() => setOpenOpts(false)} />
+        </Modal>
+        )}
+
+      {/* {openProfPicOpts &&
+        (<Modal
+          onClose={() => setOpenProfPicOpts(false)}
+          className="opts-modal"
+        >
+          <ProfilePicOpt
+            userId={loggedinUser._id}
+            onUpdate={() => console.log('update')}
+            onClose={() => setOpenProfPicOpts(false)} />
+        </Modal>
+        )} */}
 
     </section>
   )

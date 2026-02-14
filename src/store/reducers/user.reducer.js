@@ -9,7 +9,7 @@ export const SET_SEARCH_USERS = 'SET_SEARCH_USERS'
 export const CLEAR_SEARCH_USERS = 'CLEAR_SEARCH_USERS '
 
 const initialState = {
-    user: userService.getLoggedinUser(),
+    user: userService.getLoggedinUser() || null,
     watchedUser: null,
     users: [],
     searchUsers: [],

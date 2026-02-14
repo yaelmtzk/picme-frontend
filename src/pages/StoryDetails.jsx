@@ -221,11 +221,11 @@ export function StoryDetails() {
             <div><img className='btn' title='Comment'
               src={getIconImg('comment')} alt="comment-icon" />
             </div>
-            <div><img className='btn' title='Share'
+            {/* <div><img className='btn disabled' title='Share'
               src={getIconImg('send')} alt="send-icon" /></div>
 
-            <div className="save-btn"><img className='btn' title='Save'
-              src={getIconImg('save')} alt="save-icon" /></div>
+            <div className="save-btn disabled"><img className='btn' title='Save'
+              src={getIconImg('save')} alt="save-icon" /></div> */}
           </section>
 
           <div className="details-stats">

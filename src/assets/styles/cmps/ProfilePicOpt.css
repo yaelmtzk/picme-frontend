@@ -1,0 +1,17 @@
+.profile-pic-opts-container {
+    >:first-child {
+        cursor: default;
+        font-size: 20px;
+        padding: 16px;
+    }
+
+    :nth-child(2) {
+        color: rgb(74, 93, 249);
+        font-weight: 700;
+    }
+
+    :nth-child(3) {
+        color: rgb(237, 73, 86);
+        font-weight: 700;
+    }
+}

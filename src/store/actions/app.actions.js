@@ -9,7 +9,6 @@ export async function loadInitialData() {
     console.log("Loading initial app data...")
 
     const state = store.getState()
-
     const users = state.userModule.users
     const stories = state.storyModule.stories
     const loggedinUser = userService.getLoggedinUser()

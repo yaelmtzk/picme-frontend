@@ -1,6 +1,6 @@
 
 import { useState } from 'react'
-import { uploadService } from '../services/upload.service'
+import { uploadImgtoCloud } from '../services/upload.service'
 
 export function ImgUploader({ onUploaded = null }) {
   const [imgData, setImgData] = useState({
@@ -12,7 +12,7 @@ export function ImgUploader({ onUploaded = null }) {
 
   async function uploadImg(ev) {
     setIsUploading(true)
-    const { secure_url, height, width } = await uploadService.uploadImg(ev)
+    const { secure_url, height, width } = await uploadImgtoCloud(ev)
     setImgData({ imgUrl: secure_url, width, height })
     setIsUploading(false)
     onUploaded && onUploaded(secure_url)

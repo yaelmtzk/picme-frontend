@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
-import { userService } from '../services/user/user.service.local.js'
 import { getIconImg } from '../services/image.service.js'
-import { uploadImg } from '../services/upload.service.js'
+import { uploadImgtoCloud } from '../services/upload.service.js'
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import spinner from '../assets/img/icons/spinner.png'
 
@@ -18,7 +17,7 @@ export function CreateStoryMobile({ onAdd, onClose }) {
 
         try {
             setIsLoading(true)
-            const uploadedUrl = await uploadImg(imgFile)
+            const uploadedUrl = await uploadImgtoCloud(imgFile)
 
             onAdd(txt, uploadedUrl)
         } catch (err) {

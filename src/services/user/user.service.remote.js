@@ -39,13 +39,12 @@ async function update({ username, fullname, imgUrl, highlights, bio }) {
 
 async function login(userCred) {
 	const user = await httpService.post('auth/login', userCred)
-	if (user) return saveLoggedinUser(user)
+	if (user){
+		return saveLoggedinUser(user)
+	}
 }
 
 async function signup(userCred) {
-	if (!userCred.imgUrl) userCred.imgUrl = 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png'
-	userCred.score = 10000
-
     const user = await httpService.post('auth/signup', userCred)
 	return saveLoggedinUser(user)
 }

@@ -9,7 +9,8 @@ import { loadWatchedUser } from '../store/actions/user.actions.js'
 
 
 export function Nav({ onAdd }) {
-    const toggleRef = useRef(null)
+    const desktopToggleRef = useRef(null)
+    const mdToggleRef = useRef(null)
     const navigate = useNavigate()
     const [openCreate, setOpenCreate] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
@@ -34,14 +35,15 @@ export function Nav({ onAdd }) {
     return (
         <section className={`nav-section  ${openSearch && 'open-search'}`}>
 
-
             <div className="nav-desktop">
                 <div className='logo'>
-                    <NavLink to="/"><img src={getIconImg('picme-logo.png')} alt="logo" /></NavLink>
+                    <NavLink to="/">
+                        <img src={getIconImg('picme-logo.png')}
+                            alt="logo" />
+                    </NavLink>
                 </div>
+
                 <section className='nav-btns'>
-
-
                     <NavLink to="/">
                         <svg
                             alt="home"
@@ -55,7 +57,7 @@ export function Nav({ onAdd }) {
                         <div>Home</div>
                     </NavLink>
 
-                    <div ref={toggleRef} onClick={() => setOpenSearch(!openSearch)}
+                    <div ref={desktopToggleRef} onClick={() => setOpenSearch(prev => !prev)}
                         className='nav-btn'>
                         <img src={getIconImg('search')} alt="search" />
                         <div>Search</div>
@@ -65,11 +67,11 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" /> <div>Explore</div>
                     </NavLink>
 
-                    <div className='nav-btn'><img src={getIconImg('reel')} alt="reel" /><div>Reels</div></div>
+                    {/* <div className='nav-btn disabled'><img src={getIconImg('reel')} alt="reel" /><div>Reels</div></div>
 
-                    <div className='nav-btn'><img src={getIconImg('send')} alt="send" /> <div>Messages</div></div>
+                    <div  className='nav-btn disabled'><img src={getIconImg('send')} alt="send" /> <div>Messages</div></div>
 
-                    <div className='nav-btn'><img src={getIconImg('like')} alt="like" /> <div>Notifications</div></div>
+                    <div className='nav-btn disabled'><img src={getIconImg('like')} alt="like" /> <div>Notifications</div></div> */}
 
                     <div onClick={() => { setOpenCreate(true) }}
                         title="New post"
@@ -112,7 +114,7 @@ export function Nav({ onAdd }) {
                         </svg>
                     </NavLink>
 
-                    <div ref={toggleRef} onClick={() => setOpenSearch(!openSearch)}
+                    <div ref={mdToggleRef} onClick={() => setOpenSearch(prev => !prev)}
                         className='nav-btn'>
                         <img src={getIconImg('search')} alt="search" />
                     </div>
@@ -121,11 +123,11 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" />
                     </NavLink>
 
-                    <div className='nav-btn' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
+                    {/* <div className='nav-btn disabled' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
 
-                    <div className='nav-btn' title="Messages"><img src={getIconImg('send')} alt="send" /></div>
+                    <div className='nav-btn disabled' title="Messages"><img src={getIconImg('send')} alt="send" /></div>
 
-                    <div className='nav-btn' title="Notifications"><img src={getIconImg('like')} alt="like" /></div>
+                    <div className='nav-btn disabled' title="Notifications"><img src={getIconImg('like')} alt="like" /></div> */}
 
                     <div onClick={() => { setOpenCreate(true) }}
                         title="New post"
@@ -157,7 +159,7 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" />
                     </NavLink>
 
-                    <div className='nav-btn' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
+                    {/* <div className='nav-btn disabled' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div> */}
 
                     <div onClick={() => setOpenCreate(true)}
                         title="New post"
@@ -165,7 +167,7 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('create')} alt="create" />
                     </div>
 
-                    <div className='nav-btn' title="Messages"><img src={getIconImg('send')} alt="send" /></div>
+                    {/* <div className='nav-btn disabled' title="Messages"><img src={getIconImg('send')} alt="send" /></div> */}
 
                     <div
                         onClick={() => onUserDetails(userId, username)}
@@ -183,7 +185,10 @@ export function Nav({ onAdd }) {
                 </MobileCreatePortal>
             )}
 
-            {openSearch && (<Search onClose={() => setOpenSearch(false)} btnRef={toggleRef} />)}
+            {openSearch && 
+            (<Search 
+            onClose={() => setOpenSearch(false)} 
+            btnRef={desktopToggleRef || mdToggleRef} />)}
 
         </section>)
 }

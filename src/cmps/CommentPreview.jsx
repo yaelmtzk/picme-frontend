@@ -63,7 +63,7 @@ export function CommentPreview({ comment, user, stories, onOpenStory }) {
 
         </div>
 
-        <img title='Like' className='comment-like-btn' src={getIconImg('like')} alt="like-btn" />
+        {/* <img title='Like' className='comment-like-btn disabled' src={getIconImg('like')} alt="like-btn" /> */}
 
     </article>
 }

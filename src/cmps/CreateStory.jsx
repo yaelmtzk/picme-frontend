@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
+import { useSelector } from 'react-redux'
 import { getIconImg } from '../services/image.service.js'
-import { userService } from '../services/user/user.service.local.js'
-import { uploadImg } from '../services/upload.service.js'
+import { uploadImgtoCloud } from '../services/upload.service.js'
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 import spinner from '../assets/img/icons/spinner.png'
@@ -32,25 +32,12 @@ export function CreateStory({ onClose, onAdd }) {
         return () => window.removeEventListener("keydown", handleEsc)
     }, [])
 
-    // async function onSaveStory() {
-    //     try {
-    //         setIsLoading(true)
-    //         const uploadedUrl = await uploadImg(imgFile)
-    //         onAdd(txt, uploadedUrl)
-    //         setSaved(true)
-    //     } catch (err) {
-    //         console.error(err)
-    //     } finally {
-    //         setIsLoading(false)
-    //     }
-    // }
-
     async function onSaveStory() {
         try {
             setIsLoading(true)
             let imgData = null
             if (imgFile) {
-                imgData = await uploadImg(imgFile)  // returns { url, publicId }
+                imgData = await uploadImgtoCloud(imgFile)  // returns { url, publicId }
             }
             await onAdd(txt, imgData)
             setSaved(true)
