@@ -89,6 +89,26 @@
     .profile-header {
         width: 68%;
     }
+
+    .left-panel-login-signup{
+        display: block;
+        grid-column: 1;
+    }
+
+    .login-signup-main{
+        grid-column: 2;
+    }
+
+    .login-section, .signup-section{
+        place-content: center;
+        img{
+            display: none;
+        }
+    }
+
+    .login-form, .signup-form {
+        margin: 0;
+    }
 }
 
 /* Extra large devices */

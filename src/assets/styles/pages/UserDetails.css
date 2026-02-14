@@ -63,6 +63,10 @@
   border-radius: 50%;
   object-fit: cover;
   border: 1px solid var(--txt-clr2);
+  
+  /* &:hover{
+    cursor: pointer;
+  } */
 }
 
 .profile-top-row {
@@ -132,7 +136,7 @@
   object-fit: cover;
 }
 
-.profile-highlights  span {
+.profile-highlights span {
   display: block;
   font-size: 14px;
   font-weight: 600;
@@ -161,7 +165,7 @@
   align-items: center;
   justify-content: center;
 
-  cursor: pointer;
+  /* cursor: pointer; */
   overflow: hidden;
 }
 
@@ -312,6 +316,7 @@
 }
 
 .profile-stories .no-stories {
+  margin-top: 100px;
   font-size: 18px;
   font-weight: 600;
 }

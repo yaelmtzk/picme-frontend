@@ -1,24 +1,29 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
 import { StoryIndex } from './pages/StoryIndex.jsx'
 import { UserDetails } from './pages/UserDetails.jsx'
 import { Explore } from './pages/Explore.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
-import { LayoutWithNav } from './cmps/LayoutwithNav.jsx'
+import { LayoutWithNav } from './cmps/LayoutWithNav.jsx'
 import { StoryEntry } from './cmps/StoryEntry.jsx'
+import { LoginSignUp } from './pages/LoginSignUp.jsx'
 import { addStory } from './store/actions/story.actions.js'
 import { getEmptyStory } from './services/story/index.js'
 import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
 import { loadInitialData } from "./store/actions/app.actions"
+import { Navigate } from "react-router"
 
 export function RootCmp() {
-
     const location = useLocation()
     const state = location.state
     const navigate = useNavigate()
 
+    const loggedinUser = useSelector(state => state.userModule.user)
+
     useEffect(() => {
-       loadInitialData()
+        if (!loggedinUser) return
+        loadInitialData()
     }, [])
 
     async function onAddStory(txt, imgData) {
@@ -38,13 +43,15 @@ export function RootCmp() {
             <UserMsg />
             <main>
                 <Routes location={state?.modal ? state.backgroundLocation : location}>
-
-                    <Route element={<LayoutWithNav onAdd={onAddStory} />}>
-                        <Route path="/" element={<StoryIndex />} />
-                        <Route path="/:username" element={<UserDetails />} />
-                        <Route path="/explore" element={<Explore />} />
-                    </Route>
-
+                    {!loggedinUser ? (
+                        <Route path="/" element={<LoginSignUp />} />
+                    ) : (
+                        <Route element={<LayoutWithNav onAdd={onAddStory} />}>
+                            <Route path="/" element={<StoryIndex />} />
+                            <Route path="/:username" element={<UserDetails />} />
+                            <Route path="/explore" element={<Explore />} />
+                        </Route>
+                    )}
                 </Routes>
 
                 {state?.modal && (
@@ -57,3 +64,5 @@ export function RootCmp() {
         </div>
     )
 }
+
+

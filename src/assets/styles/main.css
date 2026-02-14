@@ -7,10 +7,9 @@
 @import "basics/helpers.css";
 @import "basics/layout.css";
 @import "basics/base.css";
-@import "basics/forms.css";
 
 /* pages */
-@import "pages/Login.css";
+@import "pages/LoginSignUp.css";
 @import "pages/StoryIndex.css";
 @import "pages/UserDetails.css";
 @import "pages/StoryDetails.css";
@@ -35,6 +34,10 @@
 @import "cmps/UserHoverCard.css";
 @import "cmps/MobileCommentsModal.css";
 @import "cmps/CreateStoryMobile.css";
+@import "cmps/Login.css";
+@import "cmps/Signup.css";
+@import "cmps/ProfilePicOpt.css";
+
 
 /* Media Queries */
 @import "setup/mq.css";
