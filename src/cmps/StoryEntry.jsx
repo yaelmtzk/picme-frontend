@@ -4,6 +4,7 @@ import { StoryDetails } from "../pages/StoryDetails.jsx"
 import { StoryDetailsMobile } from "../pages/StoryDetailslMobile.jsx"
 import { MobileCommentsModal } from "./MobileCommentsModal.jsx"
 import { MobileCreatePortal } from "./MobileCreatePortal.jsx"
+import { removeStoryComment } from "../store/actions/story.actions.js"
 
 export function StoryEntry() {
   const isMobile = useMediaQuery("(max-width: 767px)")
@@ -14,6 +15,14 @@ export function StoryEntry() {
 
   function closeModal() {
     navigate(-1)
+  }
+
+  async function onRemoveComment(storyId, commentId) {
+    try {
+      await removeStoryComment(storyId, commentId)
+    } catch (err) {
+      showErrorMsg('Cannot remove comment')
+    }
   }
 
   if (!story) return null
@@ -27,10 +36,10 @@ export function StoryEntry() {
     ) : (
       <MobileCommentsModal
         onClose={closeModal}
+        onRemoveComment={onRemoveComment}
       />
     )
   ) : (
     <StoryDetails />
   )
-
 }

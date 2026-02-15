@@ -7,7 +7,7 @@ import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { MobileCommentsModal } from "../cmps/MobileCommentsModal.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 
-import { loadStory, removeStory, clearStory, toggleLikeStory } from '../store/actions/story.actions'
+import { loadStory, removeStory, clearStory, removeStoryComment, toggleLikeStory } from '../store/actions/story.actions'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
@@ -22,7 +22,6 @@ export function StoryDetailsMobile() {
   const state = location.state
 
   const loadedStory = useSelector(storeState => storeState.storyModule.story)
-  const stories = useSelector(storeState => storeState.storyModule.stories)
   const users = useSelector(state => state.userModule.users)
   const loggedinUser = useSelector(state => state.userModule.user)
 
@@ -84,6 +83,14 @@ export function StoryDetailsMobile() {
     }
   }
 
+  async function onRemoveComment(storyId, commentId) {
+    try {
+      await removeStoryComment(storyId, commentId)
+    } catch (err) {
+      showErrorMsg('Cannot remove comment')
+    }
+  }
+
   function onUserDetails(userId, username) {
     navigate(`/${username}`, {
       state: {
@@ -111,7 +118,6 @@ export function StoryDetailsMobile() {
 
         <div>Post</div>
       </div>
-
 
       <article className="preview">
         <header>
@@ -165,7 +171,6 @@ export function StoryDetailsMobile() {
               src={getIconImg('comment')} alt="comment-icon" />
           </div>
 
-
           <span>{loadedStory.comments.length > 0 ? loadedStory.comments.length : ''}</span>
 
           <div><img className='btn' title='Share'
@@ -192,7 +197,7 @@ export function StoryDetailsMobile() {
 
         </div>
 
-        <span className='date'> {timeAgo(loadedStory.createdAt)}</span>
+        <span className='date'> { timeAgo(loadedStory.createdAt) }</span>
 
         {openOpts &&
           (<Modal
@@ -209,9 +214,7 @@ export function StoryDetailsMobile() {
 
         {openComments &&
           (<MobileCommentsModal
-            storyId={storyId}
-            story={loadedStory}
-            stories={stories}
+            onRemoveComment={onRemoveComment}
             onClose={() => setOpenComments(false)} />)
         }
 

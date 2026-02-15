@@ -120,6 +120,39 @@ export async function addStoryComment(storyId, txt) {
     }
 }
 
+export async function removeStoryComment(storyId, commentId) {
+    const state = store.getState()
+    const story = state.storyModule.story
+    const user = state.userModule.user
+
+    if (!story || story._id !== storyId || !user) return
+
+    const comment = story.comments.find(c => c._id === commentId)
+    if (!comment) return
+
+    if (comment.byId !== user._id) return
+
+    const originalStory = story
+
+    const optimisticStory = {
+        ...story,
+        comments: story.comments.filter(c => c._id !== commentId)
+    }
+
+    store.dispatch(getCmdUpdateStory(optimisticStory))
+
+    try {
+        const updatedStory = await storyService.removeStoryComment(storyId, commentId)
+        store.dispatch(getCmdUpdateStory(updatedStory))
+        return updatedStory
+
+    } catch (err) {
+        store.dispatch(getCmdUpdateStory(originalStory))
+        throw err
+    }
+}
+
+
 export async function toggleLikeStory(story) {
     const state = store.getState()
     const user = state.userModule.user

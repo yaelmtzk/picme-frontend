@@ -6,6 +6,7 @@ export const storyService = {
     save,
     remove,
     addStoryComment,
+    removeStoryComment,
     toggleLike
 }
 
@@ -20,6 +21,7 @@ function getById(storyId) {
 async function remove(storyId) {
     return httpService.delete(`story/${storyId}`)
 }
+
 async function save(story) {
     var savedStory
     if (story._id) {
@@ -33,6 +35,10 @@ async function save(story) {
 async function addStoryComment(storyId, txt) {
     const savedComment = await httpService.post(`story/${storyId}/comment`, {txt})
     return savedComment
+}
+
+async function removeStoryComment(storyId, commentId) { 
+    return await httpService.delete(`story/${storyId}/comment/${commentId}`)
 }
 
 async function toggleLike(storyId) {

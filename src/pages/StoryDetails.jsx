@@ -7,7 +7,7 @@ import { LikeButton } from "../cmps/LikeButton.jsx"
 import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
 import { Modal } from "../cmps/Modal.jsx"
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
-import { loadStory, clearStory, removeStory, addStoryComment, toggleLikeStory } from '../store/actions/story.actions'
+import { loadStory, clearStory, removeStory, addStoryComment, removeStoryComment, toggleLikeStory } from '../store/actions/story.actions'
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { getOid } from "../services/util.service.js"
@@ -90,6 +90,14 @@ export function StoryDetails() {
       setTxt('')
     } catch (err) {
       showErrorMsg('Cannot add comment')
+    }
+  }
+
+    async function onRemoveComment(storyId, commentId) {
+    try {
+      await removeStoryComment(storyId, commentId)
+    } catch (err) {
+      showErrorMsg('Cannot remove comment')
     }
   }
 
@@ -206,8 +214,11 @@ export function StoryDetails() {
             <CommentList
               comments={loadedStory.comments}
               stories={stories}
+              storyId={storyId}
               users={users}
-              onOpenStory={onStoryDetails} />
+              onOpenStory={onStoryDetails} 
+              onRemoveComment={onRemoveComment}/>
+              
           </section>
 
 

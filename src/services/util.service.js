@@ -59,7 +59,6 @@ export function timeAgo(ts) {
     const diffMs = now - ts
     const diffMin = Math.floor(diffMs / 1000 / 60)
 
-
     if (diffMin < 1) return "just now"
 
     if (diffMin < 60) {

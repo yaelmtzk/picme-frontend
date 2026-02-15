@@ -1,14 +1,23 @@
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { useState } from "react"
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 // import { userService } from '../services/user/user.service.local.js'
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 import { loadWatchedUser } from "../store/actions/user.actions.js"
 import defaultImg from "../assets/img/icons/avatar.svg"
+import { CommentOpt } from './CommentOpt.jsx';
 
-export function CommentPreview({ comment, user, stories, onOpenStory }) {
+export function CommentPreview({ comment, user, stories, storyId, onOpenStory, onRemoveComment }) {
     const navigate = useNavigate()
+
     const { username, txt } = comment
+    const loggedinUser = useSelector(state => state.userModule.user)
+
+    const isOwner = comment.byId === loggedinUser._id
+
+    const [openOpts, setOpenOpts] = useState(false)
 
     function onUserDetails(userId, username) {
         loadWatchedUser(userId)
@@ -56,8 +65,29 @@ export function CommentPreview({ comment, user, stories, onOpenStory }) {
 
                 <div className='comment-preview-btns date'>
                     <span>{timeAgo(comment.createdAt)}</span>
-                    <span>like</span>
-                    <span>Reply</span>
+                    {/* <span>like</span>
+                    <span>Reply</span> */}
+                    {isOwner && !comment.isProtected && (
+                        // <span>
+                        //     <img
+                        //         onClick={(ev) => {
+                        //             ev.stopPropagation()
+                        //             setOpenOpts(true)
+                        //         }}
+                        //         className='btn' title='More options'
+                        //         src={getIconImg('more')} alt="more-icon" />
+                        // </span>
+                        <span
+                            onClick={(ev) => {
+                                ev.stopPropagation()
+                                setOpenOpts(true)
+                            }}
+                            className='btn' title='More options'
+                            src={getIconImg('more')} alt="more-icon">
+                                ⋯
+                        </span>
+                    )}
+
                 </div>
             </div>
 
@@ -65,5 +95,14 @@ export function CommentPreview({ comment, user, stories, onOpenStory }) {
 
         {/* <img title='Like' className='comment-like-btn disabled' src={getIconImg('like')} alt="like-btn" /> */}
 
+        {openOpts && (
+            <div className="opts-overlay" onClick={() => setOpenOpts(false)}>
+                <CommentOpt
+                    storyId={storyId}
+                    commentId={comment._id}
+                    onRemove={() => onRemoveComment(storyId, comment._id)}
+                    onClose={() => setOpenOpts(false)} />
+            </div>
+        )}
     </article>
 }

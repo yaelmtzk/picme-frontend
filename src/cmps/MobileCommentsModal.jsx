@@ -9,8 +9,7 @@ import { useSelector } from 'react-redux'
 import { getIconImg } from "../services/image.service.js"
 import { getOid } from "../services/util.service.js"
 
-export function MobileCommentsModal({ onClose }) {
-
+export function MobileCommentsModal({ onClose, onRemoveComment }) {
     const [txt, setTxt] = useState('')
     const story = useSelector(state => state.storyModule.story)
     const stories = useSelector(state => state.storyModule.stories)
@@ -72,7 +71,9 @@ useEffect(() => {
 
             <section className="comments-list">
                 <CommentList
+                    storyId={story._id}
                     comments={story?.comments || []}
+                    onRemoveComment={onRemoveComment}
                     stories={stories}
                     users={users}
                 />
