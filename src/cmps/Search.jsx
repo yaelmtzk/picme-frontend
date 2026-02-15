@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { userService } from '../services/user/user.service.local.js'
 import { loadSearchUsers, clearSearchUsers } from '../store/actions/user.actions.js'
 import { debounce } from "../services/util.service.js"
 import { UserList } from './UserList.jsx'
@@ -45,7 +44,7 @@ export function Search({ onClose = () => { }, btnRef = null }) {
 
         document.addEventListener("click", handleClickOutside)
         return () => document.removeEventListener("click", handleClickOutside)
-    }, [isMobile, onClose])
+    }, [ isMobile, onClose, btnRef ])
 
     useEffect(() => {
         if (isMobile) {
@@ -69,7 +68,6 @@ export function Search({ onClose = () => { }, btnRef = null }) {
     function handleFocus() {
         if (isMobile && txt.trim()) {
             setOpenSearchList(true)
-            console.log('openList');
         }
     }
 
@@ -85,23 +83,16 @@ export function Search({ onClose = () => { }, btnRef = null }) {
     return isMobile ?
         (
             <section className="search search-mobile" ref={ref}>
-
                 <SearchBar txt={txt} onChange={handleChange} onFocus={handleFocus} inputRef={inputRef} />
-
                 {openSearchList && <UserList users={searchUsers} onDetails={onUserDetails} />}
-
             </section >
         )
         :
         (
             <section className="search search-desktop" ref={ref}>
-
                 <div className='title'>Search</div >
-
                 <SearchBar txt={txt} onChange={handleChange} />
-
                 <UserList users={searchUsers} onDetails={onUserDetails} />
-
             </section >
         )
 }

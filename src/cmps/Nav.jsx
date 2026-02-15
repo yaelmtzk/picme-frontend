@@ -11,6 +11,7 @@ import { loadWatchedUser } from '../store/actions/user.actions.js'
 export function Nav({ onAdd }) {
     const desktopToggleRef = useRef(null)
     const mdToggleRef = useRef(null)
+    const [activeSearchRef, setActiveSearchRef] = useState(null)
     const navigate = useNavigate()
     const [openCreate, setOpenCreate] = useState(false)
     const [openSearch, setOpenSearch] = useState(false)
@@ -24,7 +25,6 @@ export function Nav({ onAdd }) {
 
     function onUserDetails(userId, username) {
         loadWatchedUser(userId)
-
         navigate(`/${username}`, {
             state: {
                 userId
@@ -57,7 +57,7 @@ export function Nav({ onAdd }) {
                         <div>Home</div>
                     </NavLink>
 
-                    <div ref={desktopToggleRef} onClick={() => setOpenSearch(prev => !prev)}
+                    <div ref={desktopToggleRef} onClick={() => { setActiveSearchRef(desktopToggleRef); setOpenSearch(prev => !prev) }}
                         className='nav-btn'>
                         <img src={getIconImg('search')} alt="search" />
                         <div>Search</div>
@@ -114,7 +114,7 @@ export function Nav({ onAdd }) {
                         </svg>
                     </NavLink>
 
-                    <div ref={mdToggleRef} onClick={() => setOpenSearch(prev => !prev)}
+                    <div ref={mdToggleRef} onClick={() => { setActiveSearchRef(mdToggleRef); setOpenSearch(prev => !prev) }}
                         className='nav-btn'>
                         <img src={getIconImg('search')} alt="search" />
                     </div>
@@ -185,10 +185,10 @@ export function Nav({ onAdd }) {
                 </MobileCreatePortal>
             )}
 
-            {openSearch && 
-            (<Search 
-            onClose={() => setOpenSearch(false)} 
-            btnRef={desktopToggleRef || mdToggleRef} />)}
+            {openSearch &&
+                (<Search
+                    onClose={() => setOpenSearch(false)}
+                    btnRef={activeSearchRef} />)}
 
         </section>)
 }

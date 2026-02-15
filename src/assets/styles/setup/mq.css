@@ -1,8 +1,8 @@
 /* Medium devices */
 @media (max-width: 767px) {
-    .nav-md-device {
+    /* .nav-md-device {
         display: none;
-    }
+    } */
 
     .nav-section {
         grid-row: 2;
@@ -16,7 +16,6 @@
     .nav-btns {
         display: flex;
         justify-content: space-evenly;
-        ;
 
         .nav-btn,
         a {
@@ -27,7 +26,6 @@
 
     .story-list-section {
         padding-top: 60px;
-
     }
 
     .profile-main,
@@ -90,23 +88,26 @@
         width: 68%;
     }
 
-    .left-panel-login-signup{
+    .left-panel-login-signup {
         display: block;
         grid-column: 1;
     }
 
-    .login-signup-main{
+    .login-signup-main {
         grid-column: 2;
     }
 
-    .login-section, .signup-section{
+    .login-section,
+    .signup-section {
         place-content: center;
-        img{
+
+        img {
             display: none;
         }
     }
 
-    .login-form, .signup-form {
+    .login-form,
+    .signup-form {
         margin: 0;
     }
 }
@@ -128,6 +129,18 @@
 
     .nav-mobile {
         display: none;
+    }
+
+    .nav-section.open-search {
+
+        /* width: 72px; */
+        .nav-desktop {
+            display: none;
+        }
+
+        .nav-md-device {
+            display: block;
+        }
     }
 
     .app-header {
@@ -180,6 +193,17 @@
 
         .nav-btn {
             background-color: none;
+        }
+    }
+
+    .nav-section.open-search {
+        /* width: 72px; */
+        .nav-desktop {
+            display: none;
+        }
+
+        .nav-md-device {
+            display: block;
         }
     }
 

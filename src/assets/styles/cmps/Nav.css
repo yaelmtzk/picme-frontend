@@ -1,24 +1,17 @@
 .nav-section {
     grid-column: 1;
     width: 100%;
-
     padding: 8px 12px 20px 12px;
     background-color: var(--bg-clr1);
     color: #0C1014;
-
     overflow-y: hidden;
-
     border-right: solid 1px var(--border-clr);
 }
 
 .nav-section.open-search {
-    width: 72px;
-    .nav-desktop {
+    /* width: 72px; */
+    .nav-desktop{
         display: none;
-    }
-
-    .nav-md-device {
-        display: block;
     }
 }
 
