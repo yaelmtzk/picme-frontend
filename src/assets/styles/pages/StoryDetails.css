@@ -3,20 +3,17 @@
     height: 100%;
     max-height: 90vh;
     max-width: 90vw;
-
-    background: var(--bg-clr1);
+    background: var(--bg-primary);
     overflow: visible;
-
-    box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+    box-shadow: 0 8px 30px var(--shadow);
     border-radius: 8px;
 }
 
 .details-img {
-    background: #000;
+    background: var(--black);
     display: flex;
     align-items: center;
     justify-content: center;
-
     max-height: 774px;
     aspect-ratio: 1 / 1;
 }
@@ -31,7 +28,6 @@
     flex-grow: 1;
     display: flex;
     flex-direction: column;
-
     max-width: 500px;
     min-width: 305px;
     min-height: 0;
@@ -49,25 +45,23 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
     padding-right: 8px;
     border-bottom: 1.3px solid var(--border-clr2);
+}
 
-    .avatar {
-        display: flex;
-        gap: 16px;
-        align-items: center;
+.side-details-section header .avatar {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    padding: 14px 4px 14px 16px;
+}
 
-        padding: 14px 4px 14px 16px;
-    }
+.side-details-section header .btn {
+    margin: 8px;
+    cursor: pointer;
 
-    .btn {
-        margin: 8px;
-        cursor: pointer;
-
-        &:hover {
-            color: var(--icon-btn-hover);
-        }
+    &:hover {
+        color: var(--btn-icon-hover);
     }
 }
 
@@ -77,23 +71,23 @@
     right: 27px;
     z-index: 200;
     background: transparent;
-    color: var(--txt-clr3);
+    color: var(--white);
     border: none;
     font-size: 1.3rem;
     font-weight: 600;
     cursor: pointer;
-
-    &:hover {
-        scale: 1.05;
-        transition: scale 0.3s;
-    }
 }
+
+.details-close:hover {
+    scale: 1.05;
+    transition: scale 0.3s;
+}
+
 .comment-section {
     flex: 1;
     overflow-y: auto;
     scrollbar-width: none;
     padding: 16px;
-
     font-size: 14px;
     border-bottom: 1.3px solid var(--border-clr2);
 }
@@ -102,21 +96,20 @@
     display: flex;
     align-content: start;
     gap: 16px;
-
     padding: 12px 0 16px;
     margin: -5px -2px 0 0;
+}
 
-    .story-date {
-        color: var(--txt-clr2);
-        font-size: 12px;
-    }
+.comment-section .story-txt .story-date {
+    color: var(--text-secondary);
+    font-size: 12px;
+}
 
-    .story-txt-main {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        min-height: 43px;
-    }
+.comment-section .story-txt .story-txt-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 43px;
 }
 
 .side-details-section .preview-action-btns {
@@ -127,53 +120,52 @@
 .new-comment-section {
     display: flex;
     align-items: center;
-    border-top: 1.3px solid var(--border-clr2);
+    border-top: 1.3px solid var(--border-secondary);
     padding: 0px 16px;
     min-height: 55px;
+}
 
-    img {
-        width: 24px;
-        height: 24px;
-        margin-right: 16px;
-        cursor: pointer;
-    }
+.new-comment-section img {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    cursor: pointer;
+}
 
-    .emoji-text-area {
-        width: 100%;
-        display: flex;
-        align-items: center;
-    }
+.new-comment-section .emoji-text-area {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
 
-    textarea {
-        padding-top: 16px;
-        line-height: 1.4;
+.new-comment-section textarea {
+    padding-top: 16px;
+    line-height: 1.4;
+    width: 100%;
+    max-height: 80px;
+    resize: none;
+    font-size: 14px;
+    font-family: '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', Helvetica, Arial, sans-serif;
+    line-height: 16px;
+    border: none;
+    outline: none;
+}
 
-        width: 100%;
-        max-height: 80px;
-        resize: none;
-        font-size: 14px;
-        font-family: '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', Helvetica, Arial, sans-serif;
-        line-height: 16px;
-        border: none;
-        outline: none;
-    }
+.new-comment-section a {
+    color: var(--text-accent);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
 
-    a {
-        color: var(--txt-clr4);
-        font-weight: 600;
-        font-size: 14px;
-        cursor: pointer;
-
-        &:hover {
-            text-decoration: underline;
-        }
+    &:hover {
+        text-decoration: underline;
     }
 }
 
 .details-stats {
     padding: 0 16px 8px 16px;
+}
 
-    p {
-        font-size: 14px;
-    }
+.details-stats p {
+    font-size: 14px;
 }

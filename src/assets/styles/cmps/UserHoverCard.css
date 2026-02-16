@@ -5,19 +5,14 @@
 .uhc-card {
   position: fixed;
   width: 320px;
-  background: var(--bg-clr1);
-  border: 1px solid rgba(0,0,0,.08);
+  background: var(--bg-primary);
+  border: 1px solid var(--border-subtle);
   border-radius: 14px;
-  box-shadow: 0 14px 40px var(--box-shadow-clr);
+  box-shadow: 0 14px 40px var(--shadow);
   padding: 14px;
   z-index: 300;
   transform-origin: top left;
   animation: uhc-pop .12s ease-out;
-}
-
-@keyframes uhc-pop {
-  from { transform: translateY(-4px) scale(.985); opacity: 0; }
-  to   { transform: translateY(0) scale(1); opacity: 1; }
 }
 
 .uhc-top {
@@ -32,7 +27,7 @@
   height: 52px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(0,0,0,.08);
+  border: 1px solid var(--border-subtle);
 }
 
 .uhc-row {
@@ -71,7 +66,7 @@
 
 .uhc-label {
   font-size: 12px;
-  color: rgba(0,0,0,.6);
+  color: var(--text-subtle);
 }
 
 .hover-stories-grid {
@@ -106,5 +101,16 @@ li.hover-story-tile {
 .profile-stories .no-stories {
   font-size: 18px;
   font-weight: 600;
+}
 
+@keyframes uhc-pop {
+  from {
+    transform: translateY(-4px) scale(.985);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }

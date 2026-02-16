@@ -20,15 +20,13 @@
 @import "cmps/StoryPreview.css";
 @import "cmps/StoryList.css";
 @import "cmps/Nav.css";
-
 @import "cmps/AppHeader.css";
 @import "cmps/UserMsg.css";
-
 @import "cmps/Search.css";
 @import "cmps/CommentList.css";
 @import "cmps/CommentPreview.css";
 @import "cmps/FeedSideBar.css";
-@import "cmps/CreateStory.css/";
+@import "cmps/CreateStory.css";
 @import "cmps/Modal.css";
 @import "cmps/StoryMoreOpt.css";
 @import "cmps/UserHoverCard.css";
@@ -36,7 +34,6 @@
 @import "cmps/CreateStoryMobile.css";
 @import "cmps/Login.css";
 @import "cmps/Signup.css";
-@import "cmps/ProfilePicOpt.css";
 
 
 /* Media Queries */

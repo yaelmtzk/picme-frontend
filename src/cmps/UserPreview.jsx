@@ -1,7 +1,6 @@
 import {getIconImg} from "../services/image.service.js"
 
 export function UserPreview({user}) {
-
     return (
         <>
             <section className="avatar">

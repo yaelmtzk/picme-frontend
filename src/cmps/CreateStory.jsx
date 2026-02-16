@@ -37,7 +37,7 @@ export function CreateStory({ onClose, onAdd }) {
             setIsLoading(true)
             let imgData = null
             if (imgFile) {
-                imgData = await uploadImgtoCloud(imgFile)  // returns { url, publicId }
+                imgData = await uploadImgtoCloud(imgFile)
             }
             await onAdd(txt, imgData)
             setSaved(true)
@@ -86,7 +86,6 @@ export function CreateStory({ onClose, onAdd }) {
                         </div>
                     </div>
                 </div>
-
             </Modal >
         )
     }
@@ -106,7 +105,6 @@ export function CreateStory({ onClose, onAdd }) {
                         </div>
                     </div>
                 </div>
-
             </Modal >
         )
     }
@@ -149,11 +147,6 @@ export function CreateStory({ onClose, onAdd }) {
                             </div>
 
                             <EmojiTextArea txt={txt} setTxt={setTxt} />
-
-                            <div className="add-location">
-                                <p>Add location</p>
-                                <img title="Add location" src={getIconImg('location')} alt="location" />
-                            </div>
                         </div>
 
                     )}

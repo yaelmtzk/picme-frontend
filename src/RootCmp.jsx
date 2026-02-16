@@ -12,7 +12,6 @@ import { addStory } from './store/actions/story.actions.js'
 import { getEmptyStory } from './services/story/index.js'
 import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
 import { loadInitialData } from "./store/actions/app.actions"
-import { Navigate } from "react-router"
 
 export function RootCmp() {
     const location = useLocation()

@@ -1,4 +1,3 @@
-import { useLocation, useNavigate } from "react-router-dom"
 import { useMediaQuery } from "../customHooks/useMediaQuery.js"
 import { CreateStory } from "./CreateStory.jsx"
 import { CreateStoryMobile } from "./CreateStoryMobile.jsx"

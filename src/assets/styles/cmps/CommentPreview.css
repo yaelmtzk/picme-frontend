@@ -8,16 +8,15 @@
 	display: flex;
 	gap: 18px;
 	min-height: 43px;
+}
 
-	.comment-content {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-	}
+.comment-main .comment-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .comment-preview-btns {
-
 	>* {
 		margin-right: 12px;
 	}
@@ -29,8 +28,8 @@
 	margin-top: 10px;
 	margin-left: 5px;
 	cursor: pointer;
+}
 
-	&:hover {
-		transform: scale(1.04);
-	}
+.comment-like-btn:hover {
+	transform: scale(1.04);
 }

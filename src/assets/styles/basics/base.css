@@ -15,7 +15,7 @@ body {
 
 html {
     line-height: 18px;
-    color: var(--txt-clr1);
+    color: var(--text-primary);
 }
 
 body {
@@ -49,7 +49,7 @@ p {
 
 a {
     text-decoration: none;
-    color: rgb(12, 16, 20);
+    color: var(--text-primary);
 }
 
 ul {
@@ -64,7 +64,7 @@ input {
 
 button {
     border: 0;
-    background-color: var(--btn-clr1);
+    background-color: var(--btn-primary);
     cursor: pointer;
 }
 
@@ -75,24 +75,19 @@ button {
 img.avatar-img,
 .profile-avatar img {
     height: initial;
-    /* or unset */
     max-width: none;
 }
 
 .avatar-img {
-    border: solid 1px var(--avatar-bg-clr);
+    border: solid 1px var(--avatar-bg);
     border-radius: 50%;
-    background-color: var(--avatar-bg-clr);
+    background-color: var(--avatar-bg);
     width: 100%;
     height: 100%;
     object-fit: cover;
     flex-shrink: 0;
-
-
     aspect-ratio: 1 / 1;
-
     align-self: center;
-
 }
 
 .avatar-img.small {
@@ -117,23 +112,24 @@ img.avatar-img,
 
 .username {
     font-weight: bold;
+}
 
-    &.small {
-        font-size: 14px;
-    }
+.username.small {
+    font-size: 14px;
 }
 
 .fullname {
-    color: var(--txt-clr2);
-
-    &.small {
-        font-size: 14px;
-    }
+    color: var(--text-secondary);
 }
+
+.fullname.small {
+    font-size: 14px;
+}
+
 
 .rights {
     font-size: 12px;
-    color: var(--txt-clr2);
+    color: var(--text-secondary);
 }
 
 .heart-icon {
@@ -143,7 +139,7 @@ img.avatar-img,
 }
 
 .heart-filled {
-    fill: rgb(255, 48, 64);
+    fill: var(--text-danger);
 }
 
 a.disabled {
@@ -164,20 +160,19 @@ main {
     font-size: 14px;
     padding: 0 4px;
     margin: 4px 0;
+}
 
-    .save-btn {
-        margin-left: auto;
-    }
+.preview-action-btns .save-btn {
+    margin-left: auto;
 }
 
 .delete-btn {
-    color: var(--txt-red);
+    color: var(--text-danger);
     font-weight: 600;
 }
 
 svg {
     cursor: pointer;
-    /* color: var(--txt-clr1); */
     height: 24px;
     width: 24px;
     transition: fill 0.2s ease, stroke 0.2s ease, color 0.2s ease;
@@ -189,7 +184,7 @@ svg {
 }
 
 .date {
-    color: var(--txt-clr2);
+    color: var(--text-secondary);
     font-size: 12px;
 }
 

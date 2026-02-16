@@ -2,14 +2,13 @@
     grid-column: 1;
     width: 100%;
     padding: 8px 12px 20px 12px;
-    background-color: var(--bg-clr1);
-    color: #0C1014;
+    background-color: var(--bg-primary);
+    color: var(--text-gray-dark);
     overflow-y: hidden;
     border-right: solid 1px var(--border-clr);
 }
 
 .nav-section.open-search {
-    /* width: 72px; */
     .nav-desktop{
         display: none;
     }
@@ -35,6 +34,10 @@
         }
     }
 
+
+}
+
+.nav-btns{
     .active {
         font-weight: 700;
     }
@@ -45,7 +48,7 @@
 }
 
 .nav-btn {
-    color: #0C1014;
+    color: var(--text-gray-dark);
 }
 
 .nav-desktop {
@@ -58,7 +61,7 @@
 
 .nav-mobile {
     display: block;
-    border-top: solid 1px var(--border-clr);
+    border-top: solid 1px var(--border-primary);
 
     .nav-btn,
     a {

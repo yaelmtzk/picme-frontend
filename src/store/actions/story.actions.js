@@ -1,8 +1,5 @@
-// import { storyService } from '../../services/story/story.service.local'
-// import { userService } from '../../services/user/user.service.local'
 import { storyService } from '../../services/story/story.service.remote'
 import { store } from '../store'
-import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, CLEAR_STORY } from '../reducers/story.reducer'
 import { getOid, makeId, toggleStoryLike } from "../../services/util.service"
 
@@ -151,7 +148,6 @@ export async function removeStoryComment(storyId, commentId) {
         throw err
     }
 }
-
 
 export async function toggleLikeStory(story) {
     const state = store.getState()

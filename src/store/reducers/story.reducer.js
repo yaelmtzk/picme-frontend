@@ -11,8 +11,9 @@ const initialState = {
 }
 
 export function storyReducer(state = initialState, action) {
-    var newState = state
-    var stories
+    let newState = state
+    let stories
+
     switch (action.type) {
         case SET_STORIES:
             newState = { ...state, stories: action.stories }
@@ -48,7 +49,7 @@ export function storyReducer(state = initialState, action) {
 // unitTestReducer()
 
 function unitTestReducer() {
-    var state = initialby
+    let state = initialby
     const story1 = { _id: 'b101', text: 'Story ', imgUrl: 'story.jpg', by: null, comments: [] }
     const story2 = { _id: 'b102', text: 'Story ', imgUrl: 'story.jpg', by: null, comments: [] }
 
@@ -66,9 +67,5 @@ function unitTestReducer() {
 
     state = storyReducer(state, { type: SET_STORY, story: story1 })
     console.log('After SET_STORY:', state)
-
-    // const comment = { id: 'm' + parseInt('' + Math.random() * 100), txt: 'Some comment', by: { _id: 'u123', username: 'test' } }
-    // state = storyReducer(state, { type: ADD_STORY_COMMENT, storyId: story1._id, comment })
-    // console.log('After ADD_STORY_COMMENT:', state)
 }
 

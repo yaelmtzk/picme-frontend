@@ -1,24 +1,49 @@
 :root {
-    --bg-clr1: #FFFFFF;
+    /* === Base Colors === */
+    --white: #ffffff;
+    --black: #000000;
 
-    --txt-clr1: rgb(12, 16, 20);
-    --txt-clr2: #6A717A;
-    --txt-clr3: #FFFFFF;
-    --txt-clr4: #4150F7;
-    --txt-red: #ED4956;
+    /* === Background Colors === */
+    --bg-primary: #ffffff;
+    --bg-secondary: #f0f0f0;
+    --bg-tertiary: #f3f5f7;
 
-    --btn-clr1: #4A5DF9;
-    --btn-clr2: #F0F2F5;
+    /* === Text Colors === */
+    --text-primary: rgb(12, 16, 20);
+    --text-secondary: #6a717a;
+    --text-accent: #4150f7;
+    --text-danger: #ed4956;
+    --text-dark: #262626;
+    --text-gray: #8e8e8e;
+    --text-gray-dark: #0c1014;
+    --text-subtle: rgba(0, 0, 0, 0.6);
 
-    --btn-hover: #3143E3;
-    --icon-btn-hover: #CCD0D5;
-    --btn-hover: #3143E3;
+    /* === Button Colors === */
+    --btn-primary: #4a5df9;
+    --btn-secondary: #f0f2f5;
+    --btn-primary-hover: #3143e3;
+    --btn-secondary-dark: #0064e0;
+    --btn-icon-hover: #ccd0d5;
+
+    /* === Navigation === */
     --nav-hover: rgba(0, 0, 0, 0.05);
 
-    --border-clr: #DBDBDB;
-    --border-clr2: #F3F5F7;
-    --avatar-bg-clr: #CCD0D5;
+    /* === Border Colors === */
+    --border-primary: #dbdbdb;
+    --border-secondary: #f3f5f7;
+    --border-subtle: rgba(0, 0, 0, 0.08);
+    --border-light: #dde2e8;
+    --border-light2: #eeeeee;
+    --border-medium: #ccd3db;
+    --border-dark: #a8a8a8;
 
-    --overlay-clr: rgba(0, 0, 0, 0.7);
-    --box-shadow-clr: rgba(0, 0, 0, .25);
+    /* === Avatar & Special Elements === */
+    --avatar-bg: #ccd0d5;
+
+    /* === Overlays & Shadows === */
+    --overlay: rgba(0, 0, 0, 0.7);
+    --shadow: rgba(0, 0, 0, 0.25);
+
+    /* === Gradients === */
+    --gradient-primary: linear-gradient(to right, #ff5c00, #ff0069, #d300c5);
 }

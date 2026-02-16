@@ -7,7 +7,6 @@ export function CommentList({ comments, stories, storyId, users, onOpenStory, on
     return <ul className="comment-list">
             {comments.map(comment =>
                 <li key={comment._id}>
-
                     <CommentPreview
                     user={users.find(user => user._id === comment.byId)}
                     comment={comment} 

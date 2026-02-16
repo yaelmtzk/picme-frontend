@@ -1,6 +1,5 @@
 
 export function StoryMoreOpt({ storyId, onClose, onRemove, isOwner }) {
-
     async function onRemoveStory() {
         onRemove(storyId)
         onClose()

@@ -1,51 +1,39 @@
 .opts-overlay {
     position: fixed;
     inset: 0;
-
     display: flex;
     align-items: center;
     justify-content: center;
-
-    background: var(--overlay-clr);
+    background: var(--overlay);
     overscroll-behavior: contain;
     overflow: hidden;
     z-index: 300;
 }
 
 .opts-container {
-
     display: grid;
     grid-template-columns: 1fr;
-
     justify-content: center;
     align-items: center;
-
     width: 60vw;
     min-width: 287px;
     max-width: 400px;
     flex: 1;
-
     height: fit-content;
-
     border-radius: 24px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
-
-    background-color: rgb(255, 255, 255);
+    box-shadow: 0 8px 30px var(--shadow);
+    background-color: var(--white);
     overflow: hidden;
+}
 
-    .option {
-        cursor: pointer;
-
-        font-size: 14px;
-        min-height: 48px;
-        width: 100%;
-
-        display: grid;
-        place-items: center;
-
-        margin: 0;
-        padding: 4px 8px;
-        border-bottom: 1.3px solid var(--border-clr2);
-    }
-
+.opts-container .option {
+    cursor: pointer;
+    font-size: 14px;
+    min-height: 48px;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    margin: 0;
+    padding: 4px 8px;
+    border-bottom: 1.3px solid var(--border-secondary);
 }

@@ -1,4 +1,4 @@
-.pointer{
+.pointer {
     cursor: pointer;
 }
 
@@ -7,17 +7,17 @@
     width: 24px;
     height: 24px;
     margin: 8px;
-
-    &:hover {
-        transform: scale(1.04);
-    }
 }
 
-.flex{
+.btn:hover {
+    transform: scale(1.04);
+}
+
+.flex {
     display: flex;
 }
 
-.disabled{
+.disabled {
     opacity: 0.4;
     pointer-events: none;
 }

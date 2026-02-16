@@ -1,9 +1,5 @@
 /* Medium devices */
 @media (max-width: 767px) {
-    /* .nav-md-device {
-        display: none;
-    } */
-
     .nav-section {
         grid-row: 2;
         position: absolute;
@@ -132,8 +128,6 @@
     }
 
     .nav-section.open-search {
-
-        /* width: 72px; */
         .nav-desktop {
             display: none;
         }
@@ -197,7 +191,6 @@
     }
 
     .nav-section.open-search {
-        /* width: 72px; */
         .nav-desktop {
             display: none;
         }
@@ -229,5 +222,4 @@
     .profile-bio-mobile {
         display: none;
     }
-
 }

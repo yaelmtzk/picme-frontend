@@ -3,12 +3,10 @@
     position: absolute;
     inset: 0;
     top: 0;
-    background: white;
-    z-index: 300;
-
     display: flex;
     flex-direction: column;
-
+    background: white;
+    z-index: 300;
     overscroll-behavior: contain;
     touch-action: manipulation;
 }
@@ -26,31 +24,32 @@
     height: 70px;
     font-weight: 600;
     padding: 0 16px;
-
-    div {
-        width: 100%;
-        text-align: center;
-    }
-
-    svg{
-        transform: rotate(-90deg)
-    }
-
-    button {
-        background-color: transparent;
-    }
 }
 
-.mobile-details-section .date{
+.mobile-details-section .pre-header div {
+    width: 100%;
+    text-align: center;
+}
+
+.mobile-details-section .pre-header svg {
+    transform: rotate(-90deg)
+}
+
+.mobile-details-section .pre-header button {
+    background-color: transparent;
+}
+
+.mobile-details-section .date {
     padding-left: 16px;
 }
 
 .mobile-details-section .story-txt-short {
     span {
-       margin-right: 5px;
-       font-size: 16px; 
+        margin-right: 5px;
+        font-size: 16px;
     }
-    p{
+
+    p {
         font-size: 16px;
     }
 }

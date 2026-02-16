@@ -13,7 +13,6 @@ import { timeAgo } from '../services/util.service.js'
 import { getOid } from "../services/util.service.js"
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import spinner from '../assets/img/icons/spinner.png'
-// import { userService } from '../services/user/user.service.local.js'
 import { userService } from '../services/user/user.service.remote.js'
 
 export function StoryDetails() {
@@ -253,7 +252,7 @@ export function StoryDetails() {
               placeholderTxt={'Add a comment...'}
               txt={txt} setTxt={setTxt} />
 
-            <a onClick={() => onAddComment(storyId, txt)} className={`post-btn ${txt.length == 0 && 'disabled'}`}>Post</a>
+            <a onClick={() => onAddComment(storyId, txt)} className={`post-btn ${txt.length === 0 && 'disabled'}`}>Post</a>
           </section>
 
         </div>

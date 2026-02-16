@@ -43,8 +43,6 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
             setIsOpen(true)
 
         }, 140)
-
-
     }
 
     function closeWithDelay() {
@@ -132,7 +130,6 @@ export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, chi
                         </ul>
                         )
                     }
-
                 </div>
             )}
         </span>

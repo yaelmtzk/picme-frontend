@@ -17,13 +17,13 @@
   display: flex;
   flex-direction: column;
   width: 95%;
-  
-  .top-header-row {
+}
+
+  .profile-header .top-header-row {
     width: 100%;
     display: flex;
     gap: 20px;
   }
-}
 
 .profile-header-main {
   display: flex;
@@ -31,15 +31,15 @@
   justify-content: space-between;
   margin: 16px 0;
   row-gap: 4px;
-
+  
   >* {
     height: 100%;
   }
+}
 
-  &:nth-child(2) {
+  .profile-header-main:nth-child(2) {
     margin-bottom: 8px;
   }
-}
 
 .profile-header-main .username {
   align-self: center;
@@ -49,7 +49,7 @@
 
 .profile-header-main .profile-fullname {
   font-size: 14px;
-  color: var(--txt-clr1);
+  color: var(--text-primary);
 }
 
 .profile-avatar {
@@ -62,11 +62,7 @@
   height: 77px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid var(--txt-clr2);
-  
-  /* &:hover{
-    cursor: pointer;
-  } */
+  border: 1px solid var(--text-secondary);
 }
 
 .profile-top-row {
@@ -90,29 +86,27 @@
   width: 100%;
   padding: 0 20px;
   font-size: 14px;
-  background-color: var(--btn-clr2);
+  background-color: var(--btn-secondary);
   font-weight: 600;
-
   border-radius: 8px;
   cursor: pointer;
 }
 
 .profile-btn:hover {
-  background: #F0F0F0;
+  background: var(--bg-secondary);
 }
 
 .profile-stats {
   display: flex;
   font-size: 14px;
   gap: 16px;
-
   padding: 0;
   list-style: none;
+}
 
-  span {
+  .profile-stats span {
     font-weight: 600;
   }
-}
 
 .profile-bio, .profile-bio-mobile{
   margin: 20px 0;
@@ -147,25 +141,20 @@
   width: 87px;
   height: 87px;
   border-radius: 50%;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  border: 3px solid var(--border-clr);
+  border: 3px solid var(--border-primary);
 }
 
 .highlight-circle-inner {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  background: var(--border-clr2);
-
+  background: var(--border-secondary);
   display: flex;
   align-items: center;
   justify-content: center;
-
-  /* cursor: pointer; */
   overflow: hidden;
 }
 
@@ -181,7 +170,7 @@
 }
 
 .new-high-icon path {
-  fill: var(--icon-btn-hover);
+  fill: var(--btn-icon-hover);
   stroke: currentColor;
   stroke-width: 0;
   stroke-linecap: round;
@@ -192,11 +181,9 @@
   display: flex;
   justify-content: center;
   column-gap: 4px;
-
   min-height: 45px;
-
   color: var(--icon-btn-hover);
-  border-bottom: 0.5px solid rgb(219, 223, 228);
+  border-bottom: 0.5px solid var(--border-light);
 }
 
 .inner-profile-tabs {
@@ -207,7 +194,6 @@
   height: 44px;
   width: 100%;
   max-width: 193px;
-  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -222,8 +208,8 @@
 }
 
 .tab .active {
-  color: #262626;
-  border-bottom: 2px solid #262626;
+  color: var(--text-dark);
+  border-bottom: 2px solid var(--text-dark);
 }
 
 .profile-tabs svg {
@@ -252,7 +238,7 @@
 
 .story-tile {
   aspect-ratio: 1 / 1.335;
-  background-color: var(--border-clr2);
+  background-color: var(--border-secondary);
   width: 100%;
   cursor: pointer;
   position: relative;
@@ -268,7 +254,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--overlay-clr);
+  background: var(--overlay);
   opacity: 0;
   transition: opacity 0.25s ease;
   pointer-events: none;
@@ -285,10 +271,8 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-
   color: white;
   font-weight: 600;
-
   opacity: 0;
   z-index: 1;
   transition: opacity .25s ease;

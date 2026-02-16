@@ -11,7 +11,6 @@ export function UserList({users, onDetails}) {
                         onClick={() => { onDetails(user._id, user.username) }}>
 
                         <UserPreview user={user}/>
-
                     </li>
                 ))
             ) : null}

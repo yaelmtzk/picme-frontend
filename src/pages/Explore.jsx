@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { loadStories, loadStory } from '../store/actions/story.actions'
-import { userService } from '../services/user/user.service.remote.js'
 import spinner from '../assets/img/icons/spinner.png'
 
 export function Explore() {

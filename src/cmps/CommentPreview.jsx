@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { useState } from "react"
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
-// import { userService } from '../services/user/user.service.local.js'
 import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
 import { loadWatchedUser } from "../store/actions/user.actions.js"
 import defaultImg from "../assets/img/icons/avatar.svg"

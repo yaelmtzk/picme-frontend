@@ -1,9 +1,7 @@
 import { useState, useRef } from "react";
-import { getIconImg } from '../services/image.service.js'
 import { uploadImgtoCloud } from '../services/upload.service.js'
 import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
 import spinner from '../assets/img/icons/spinner.png'
-
 
 export function CreateStoryMobile({ onAdd, onClose }) {
     const fileInputRef = useRef(null)
@@ -14,7 +12,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
     const [isLoading, setIsLoading] = useState(false)
 
     async function onSaveStory() {
-
         try {
             setIsLoading(true)
             const uploadedUrl = await uploadImgtoCloud(imgFile)
@@ -35,11 +32,9 @@ export function CreateStoryMobile({ onAdd, onClose }) {
     function handleFileChange(e) {
         const file = e.target.files[0]
         if (!file) return
-
         const reader = new FileReader()
         reader.onload = () => setImgUrl(reader.result)
         reader.readAsDataURL(file)
-
         setImgFile(file)
     }
 
@@ -97,11 +92,6 @@ export function CreateStoryMobile({ onAdd, onClose }) {
 
                 {imgUrl && next && (
                     <section className="mobile-create-caption">
-
-                        <div className="add-location">
-                            <span>Add location</span>
-                            <img src={getIconImg("location")} alt="location" />
-                        </div>
 
                     </section>
                 )}

@@ -9,7 +9,6 @@ import { StoryList } from '../cmps/StoryList'
 import spinner from '../assets/img/icons/spinner.png'
 
 export function StoryIndex() {
-
     const loggedinUser = userService.getLoggedinUser()
     const [filterBy, setFilterBy] = useState(getDefaultFilter())
     const stories = useSelector(storeState => storeState.storyModule.stories)

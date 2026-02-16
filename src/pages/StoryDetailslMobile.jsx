@@ -11,7 +11,7 @@ import { loadStory, removeStory, clearStory, removeStoryComment, toggleLikeStory
 import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-// import { userService } from '../services/user/user.service.local.js'
+
 import { userService } from '../services/user/user.service.remote.js'
 import { getOid } from "../services/util.service.js"
 import spinner from '../assets/img/icons/spinner.png'

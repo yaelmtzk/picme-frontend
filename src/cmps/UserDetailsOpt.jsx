@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router"
 
 export function UserDetailsMoreOpt({ userId, onClose, onLogOut }) {
-
     const navigate = useNavigate()
 
     async function onLogout() {

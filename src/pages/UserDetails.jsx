@@ -2,13 +2,11 @@ import { useEffect, useState } from "react"
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { getIconImg } from '../services/image.service.js'
-// import { userService } from '../services/user/user.service.local.js'
 import { getOid } from '../services/util.service'
 import spinner from '../assets/img/icons/spinner.png'
 import { loadWatchedUser, clearWatchedUser } from "../store/actions/user.actions"
 import { Modal } from "../cmps/Modal.jsx"
 import { UserDetailsMoreOpt } from "../cmps/UserDetailsOpt.jsx"
-import { ProfilePicOpt } from "../cmps/ProfilePicOpt.jsx"
 import { logout } from '../store/actions/user.actions'
 
 export function UserDetails() {
@@ -68,10 +66,6 @@ export function UserDetails() {
                 src={watchedUser.imgUrl}
                 alt="profile avatar"
                 className="avatar-img"
-                // title="Change profile photo"
-                // onClick={() => {
-                //   setOpenProfPicOpts(true)
-                // }}
               />
             </div>
 
@@ -92,7 +86,6 @@ export function UserDetails() {
                         alt="settings" title="Options" />
                     </div>
                   )}
-
               </div>
 
               <div className='profile-fullname'>{watchedUser.fullname}</div>
@@ -110,7 +103,6 @@ export function UserDetails() {
               }
 
             </div>
-
           </div>
 
           {watchedUser.bio &&
@@ -118,14 +110,6 @@ export function UserDetails() {
               <p>{watchedUser.bio}</p>
             </div>)
           }
-
-          {/* {loggedinUser._id === watchedUser._id ?
-            (
-              <div className='profile-btn-section'>
-                <button className="profile-btn">Edit profile</button>
-                <button className="profile-btn">View archive</button>
-              </div>
-            ) : ('')} */}
 
           <section className="profile-highlights">
 
@@ -146,35 +130,6 @@ export function UserDetails() {
                 </div>
 
               ))}
-
-            {/* {loggedinUser._id === watchedUser._id ?
-              (
-                <div className='highlight-container'>
-                  <div className='highlight-circle-outer'>
-
-                    <div className="highlight-circle-inner" title='New highlight'>
-
-                      <svg
-                        className='new-high-icon'
-                        viewBox="0 0 24 24"
-                        alt="new-highlight"
-                      >
-                        <path
-                          d="M21 11h-8V3a1 1 0 1 0-2 0v8H3a1 1 0 1 0 0 2h8v8a1 1 0 1 0 2 0v-8h8a1 1 0 1 0 0-2Z"
-                        />
-                      </svg>
-
-                    </div>
-
-                  </div>
-
-                  <span>New</span>
-
-                </div>
-              ) :
-              ('')
-            } */}
-
           </section>
 
         </header>
@@ -285,19 +240,6 @@ export function UserDetails() {
             onClose={() => setOpenOpts(false)} />
         </Modal>
         )}
-
-      {/* {openProfPicOpts &&
-        (<Modal
-          onClose={() => setOpenProfPicOpts(false)}
-          className="opts-modal"
-        >
-          <ProfilePicOpt
-            userId={loggedinUser._id}
-            onUpdate={() => console.log('update')}
-            onClose={() => setOpenProfPicOpts(false)} />
-        </Modal>
-        )} */}
-
     </section>
   )
 }

@@ -4,7 +4,6 @@ import { getIconImg } from '../services/image.service.js'
 import { timeAgo } from '../services/util.service.js'
 import { toggleLikeStory } from '../store/actions/story.actions'
 import { useLocation, useNavigate } from "react-router-dom"
-// import { userService } from '../services/user/user.service.local.js'
 import { LikeButton } from "./LikeButton.jsx"
 import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
 import { Modal } from "../cmps/Modal.jsx"
@@ -135,7 +134,6 @@ export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) 
                 <span>{txt}</span>
             </UserHoverCard>
         </div>
-
 
         {openOpts &&
             (<Modal

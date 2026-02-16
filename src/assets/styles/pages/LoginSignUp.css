@@ -12,24 +12,24 @@
     grid-column: 1;
     padding: 0 20px;
     height: 100%;
-    border-right: solid 2px #DDE2E8;
+    border-right: solid 2px var(--border-light);
+}
 
-    h1 {
-        font-size: 2.8vw;
-        font-weight: 400;
-        word-wrap: break-word;
-        text-align: center;
-        line-height: 64.8px;
-        margin: 0;
-    }
+.left-panel-login-signup h1 {
+    font-size: 2.8vw;
+    font-weight: 400;
+    word-wrap: break-word;
+    text-align: center;
+    line-height: 64.8px;
+    margin: 0;
+}
 
-    span {
-        background: linear-gradient(to right, #ff5c00, #ff0069, #d300c5);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        color: transparent;
-    }
+.left-panel-login-signup span {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 .loginsignup-left-png {

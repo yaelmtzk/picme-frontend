@@ -6,14 +6,11 @@
   width: 100%;
   height: 70vh;
   padding: 0 16px;
-
   border-radius: 24px 24px 0 0;
-  background-color: #fff;
-
+  background-color: var(--white);
   display: flex;
   flex-direction: column;
   animation: slideUp 0.25s ease;
-
   overflow-y: auto;
   scrollbar-width: none;
 }
@@ -25,34 +22,32 @@
   width: 100%;
   height: fit-content;
   padding: 30px 15px 10px 15px;
-  background-color: #fff;
+  background-color: var(--white);
   z-index: 20;
-
   justify-content: center;
+}
 
-  span {
+  .comments-sheet .comments-header span {
     grid-row: 1;
     font-weight: 700;
   }
-}
 
 .comments-sheet .comment-list {
-  /* height: 100%; */
   font-size: 14px;
-  border-top: 1.3px solid var(--border-clr2);
+  border-top: 1.3px solid var(--border-secondary);
   overflow-y:auto;
   min-height: 0;
   flex: 1;
 }
 
 .comment-input {
+    display: flex;
+  align-items: center;
   position: sticky;
   bottom: 0;
   margin-top: auto;
   width: 100%;
   padding: 10px 5px 10px 0;
-  display: flex;
-  align-items: center;
   gap: 8px;
   background-color: white;
 }
@@ -65,15 +60,12 @@
 .comments-sheet input {
   padding: 16px;
   padding-left: 15px;
-
   width: 100%;
   max-height: 80px;
   font-size: 14px;
   font-family: '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', Helvetica, Arial, sans-serif;
-
   border-radius: 25px;
-  border: 2px solid var(--border-clr2);
-
+  border: 2px solid var(--border-secondary);
   outline: none;
 }
 

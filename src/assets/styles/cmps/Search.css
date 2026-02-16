@@ -1,17 +1,14 @@
 .search-desktop {
-    height: 100%;
-    width: 425px;
-
-    position: absolute;
+        position: absolute;
     top: 0;
     left: 72px;
     z-index: 200;
-
-    background-color: var(--txt-clr3);
-
+    height: 100%;
+    width: 425px;
+    background-color: var(--white);
     border-radius: 0 16px 16px 0;
-    border-right: solid 1px var(--border-clr);
-    box-shadow: 10px -4px 20px -4px var(--box-shadow-clr);
+    border-right: solid 1px var(--border-primary);
+    box-shadow: 10px -4px 20px -4px var(--shadow);
 }
 
 .search-desktop .title {
@@ -24,56 +21,49 @@
     position: relative;
     display: flex;
     align-items: center;
-
     margin: 0 16px;
     padding: 8px 16px;
-
-    background-color: var(--border-clr2);
+    background-color: var(--border-secondary);
     border-radius: 25px;
+}
 
-    input {
-        outline: none;
-        border-color: transparent;
-        font-size: 16px;
-        font-family: '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', Helvetica, Arial, sans-serif;
-        border-radius: 25px;
-        background-color: var(--border-clr2);
-    }
-
+.search-desktop .search-bar input {
+    outline: none;
+    border-color: transparent;
+    font-size: 16px;
+    font-family: '-apple-system', 'BlinkMacSystemFont', "Segoe UI", 'Roboto', Helvetica, Arial, sans-serif;
+    border-radius: 25px;
+    background-color: var(--border-secondary);
 }
 
 .users-list {
     width: 100%;
     overflow-y: auto;
     margin-top: 12px;
-    background-color: var(--bg-clr1);
+    background-color: var(--bg-primary);
 }
-
 
 .user-preview {
     height: fit-content;
     display: flex;
     gap: 12px;
     align-items: center;
-
     padding: 8px 24px;
-
     font-size: 14px;
     font-weight: 600;
-
     cursor: pointer;
-
-    &:hover {
-        background-color: var(--nav-hover);
-    }
 }
 
-.user-preview span{
+.user-preview:hover {
+    background-color: var(--nav-hover);
+}
+
+.user-preview span {
     font-weight: 400;
-    color: var(--txt-clr2);
+    color: var(--text-secondary);
 }
 
-.search-mobile .users-list{
+.search-mobile .users-list {
     position: absolute;
     top: 40.4px;
     right: 0px;

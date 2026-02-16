@@ -1,12 +1,12 @@
 .story-index {
     height: 100vh;
+}
 
-    h2 {
-        margin: 0;
-        font-size: 1.3em;
-    }
+.story-index h2 {
+    margin: 0;
+    font-size: 1.3em;
+}
 
-    button {
-        margin-inline-end: 0;
-    }
+.story-index button {
+    margin-inline-end: 0;
 }
