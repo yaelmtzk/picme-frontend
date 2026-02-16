@@ -21,7 +21,6 @@ export function UserDetails() {
   const stories = useSelector(storeState => storeState.storyModule.stories)
 
   const [openOpts, setOpenOpts] = useState(false)
-  const [openProfPicOpts, setOpenProfPicOpts] = useState(false)
 
   useEffect(() => {
     clearWatchedUser()
@@ -121,7 +120,6 @@ export function UserDetails() {
                   <div className='highlight-circle-outer'>
 
                     <div className="highlight-circle-inner">
-
                       <img src={hl.coverImg} alt="highlight-img" />
                     </div>
 
@@ -182,7 +180,6 @@ export function UserDetails() {
 
                 </li>)
               }
-
             </ul>
             ) : (<div className='no-stories'>Share your first photo</div>)
           }

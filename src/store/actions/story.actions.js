@@ -5,7 +5,7 @@ import { getOid, makeId, toggleStoryLike } from "../../services/util.service"
 
 export async function loadStories(filterBy = {}) {
     try {
-        const stories = await storyService.query(filterBy)
+        const stories = await storyService.query(filterBy)        
         store.dispatch(getCmdSetStories(stories))
     } catch (err) {
         console.log('Cannot load stories', err)
@@ -152,8 +152,8 @@ export async function removeStoryComment(storyId, commentId) {
 export async function toggleLikeStory(story) {
     const state = store.getState()
     const user = state.userModule.user
-
     const optimisticStory = toggleStoryLike(story, user)
+
     store.dispatch(getCmdUpdateStory(optimisticStory))
 
     try {

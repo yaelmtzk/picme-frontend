@@ -1,4 +1,4 @@
-import { CommentPreview } from './CommentPreview.jsx'
+import { CommentPreview } from './CommentPreview'
 
 export function CommentList({ comments, stories, storyId, users, onOpenStory, onRemoveComment }) {
 

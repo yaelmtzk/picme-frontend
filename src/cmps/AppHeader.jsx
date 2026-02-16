@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
-import { getIconImg } from '../services/image.service.js'
-import {Search} from './Search.jsx'
+import { getIconImg } from '../services/image.service'
+import {Search} from './Search'
 
 export function AppHeader() {
 	return (

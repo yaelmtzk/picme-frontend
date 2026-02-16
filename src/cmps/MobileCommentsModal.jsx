@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import { Modal } from "./Modal.jsx"
 import { CommentList } from "./CommentList.jsx"
 import { showErrorMsg } from "../services/event-bus.service"
-import { userService } from "../services/user/user.service.local.js"
+import { userService } from '../services/user/user.service.remote.js'
 import { addStoryComment, loadStory } from '../store/actions/story.actions'
 import { useEffect, useState } from "react"
 import { useSelector } from 'react-redux'

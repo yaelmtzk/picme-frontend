@@ -10,7 +10,6 @@ export function Login({ onSwitch }) {
     async function onLogin(ev) {
         ev.preventDefault()
         if (!credentials.username || !credentials.password) return
-
         await login(credentials)
     }
 
