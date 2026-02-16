@@ -53,8 +53,8 @@
     height: 44px;
     border-radius: 22px;
     border: none;
-    background-color: var(--btn-primary-dark);
-    color: white;
+    background-color: var(--btn-primary);
+    color: var(--white);
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
@@ -65,7 +65,9 @@
     cursor: not-allowed;
 }
 
-.signup-link span:hover {
-    text-decoration: underline;
-    cursor: pointer;
+.signup-link {
+    span:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
 }

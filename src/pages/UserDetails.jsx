@@ -154,45 +154,6 @@ export function UserDetails() {
             </div>
           </div>
 
-          {loggedinUser._id === watchedUser._id &&
-            (
-              <div className="saved-tab tab ">
-                <div className='inner-tab'>
-
-                  <svg
-                    className='saved-icon'
-                    viewBox="0 0 24 24"
-                    alt="saved-icon"
-                    title="Saved"
-                  >
-                    <path d="M20 21 L12 13.44 L4 21 L4 3 L20 3 Z" />
-
-                  </svg>
-                </div>
-
-              </div>
-            )}
-
-          <div className="tagged-tab tab">
-            <div className='inner-tab'>
-              <svg
-                className='tagged-icon'
-                viewBox="0 0 24 24"
-                alt="tagged-icon"
-              >
-                <path d="M10.201 3.797L12 1.997l1.799 1.8a1.59 1.59
-                        0 0 0 1.124.465h5.259A1.818 1.818 0 0 1 22 
-                        6.08v14.104A1.818 1.818 0 0 1 20.182 22H3.818A1.818 
-                        1.818 0 0 1 2 20.184V6.08A1.818 1.818 0 0 1 3.818 
-                        4.262h5.26a1.59 1.59 0 0 0 1.123-.465Z
-                        M6 20v-.5a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4V20
-                        M12 13.5a3 3 0 1 0 0-6a3 3 0 0 0 0 6
-                " />
-              </svg>
-            </div>
-
-          </div>
-
         </nav>
 
         <section className="profile-stories">

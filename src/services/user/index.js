@@ -8,6 +8,7 @@ function getEmptyUser() {
         username: '', 
         password: '', 
         fullname: '',
+        imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1771233643/owjl9mvyi7qnnnh0253z.png',
         isAdmin: false
     }
 }

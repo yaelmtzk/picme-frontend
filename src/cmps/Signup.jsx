@@ -10,7 +10,7 @@ export function Signup({ onSwitch }) {
             username: '',
             password: '',
             fullname: '',
-            imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1770939998/owjl9mvyi7qnnnh0253z.svg'
+            imgUrl: 'https://res.cloudinary.com/picmeapp/image/upload/v1771233643/owjl9mvyi7qnnnh0253z.png'
         })
     }
 
@@ -25,6 +25,7 @@ export function Signup({ onSwitch }) {
         if (ev) ev.preventDefault()
 
         if (!credentials.username || !credentials.password || !credentials.fullname) return
+        
         await signup(credentials)
         clearState()
     }
