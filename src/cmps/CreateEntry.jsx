@@ -1,6 +1,6 @@
-import { useMediaQuery } from "../customHooks/useMediaQuery.js"
-import { CreateStory } from "./CreateStory.jsx"
-import { CreateStoryMobile } from "./CreateStoryMobile.jsx"
+import { useMediaQuery } from '../customHooks/useMediaQuery'
+import { CreateStory } from './CreateStory'
+import { CreateStoryMobile } from './CreateStoryMobile'
 
 export function CreateEntry({ onClose, onAdd }) {
     const isMobile = useMediaQuery("(max-width: 767px)")

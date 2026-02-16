@@ -1,4 +1,4 @@
-import {getIconImg} from "../services/image.service.js"
+import {getIconImg} from '../services/image.service'
 
 export function UserPreview({user}) {
     return (

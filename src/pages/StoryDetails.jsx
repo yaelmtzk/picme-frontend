@@ -1,19 +1,26 @@
-import { useEffect, useState } from "react"
-import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { CommentList } from "../cmps/CommentList.jsx"
-import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
-import { LikeButton } from "../cmps/LikeButton.jsx"
-import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
-import { Modal } from "../cmps/Modal.jsx"
-import { UserHoverCard } from "../cmps/UserHoverCard.jsx";
-import { loadStory, clearStory, removeStory, addStoryComment, removeStoryComment, toggleLikeStory } from '../store/actions/story.actions'
-import { getIconImg } from '../services/image.service.js'
-import { timeAgo } from '../services/util.service.js'
-import { getOid } from "../services/util.service.js"
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import { 
+  loadStory, 
+  clearStory, 
+  removeStory,
+  addStoryComment, 
+  removeStoryComment, 
+  toggleLikeStory 
+} from '../store/actions/story.actions'
+import { getIconImg } from '../services/image.service'
+import { timeAgo } from '../services/util.service'
+import { getOid } from '../services/util.service'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import spinner from '../assets/img/icons/spinner.png'
-import { userService } from '../services/user/user.service.remote.js'
+import { userService } from '../services/user/user.service.remote'
+import { CommentList } from '../cmps/CommentList'
+import { EmojiTextArea } from '../cmps/EmojiTextArea'
+import { LikeButton } from '../cmps/LikeButton'
+import { StoryMoreOpt } from '../cmps/StoryMoreOpt'
+import { Modal } from '../cmps/Modal'
+import { UserHoverCard } from '../cmps/UserHoverCard'
 
 export function StoryDetails() {
   const location = useLocation()

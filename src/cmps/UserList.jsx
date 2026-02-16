@@ -1,4 +1,4 @@
-import { UserPreview } from "./UserPreview"
+import { UserPreview } from './UserPreview'
 
 export function UserList({users, onDetails}) {
     return (

@@ -1,7 +1,7 @@
-import { FeedSideBar } from './FeedSideBar'
-import { StoryPreview } from './StoryPreview'
 import { useSelector } from 'react-redux'
 import { getOid } from '../services/util.service'
+import { FeedSideBar } from './FeedSideBar'
+import { StoryPreview } from './StoryPreview'
 
 export function StoryList({ stories, onRemoveStory, onUpdateStory }) {
     const users = useSelector(storeState => storeState.userModule.users)

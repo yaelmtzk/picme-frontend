@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getIconImg } from '../services/image.service.js'
-import { timeAgo } from '../services/util.service.js'
-import { toggleLikeStory } from '../store/actions/story.actions'
-import { useLocation, useNavigate } from "react-router-dom"
-import { LikeButton } from "./LikeButton.jsx"
-import { StoryMoreOpt } from "./StoryMoreOpt.jsx";
-import { Modal } from "../cmps/Modal.jsx"
-import { UserHoverCard } from "./UserHoverCard.jsx";
+import { useLocation, useNavigate } from 'react-router-dom'
+import { getIconImg } from '../services/image.service'
+import { timeAgo } from '../services/util.service'
 import { showErrorMsg } from '../services/event-bus.service'
+import { toggleLikeStory } from '../store/actions/story.actions'
+import { LikeButton } from './LikeButton'
+import { StoryMoreOpt } from './StoryMoreOpt'
+import { Modal } from '../cmps/Modal'
+import { UserHoverCard } from './UserHoverCard'
 
 export function StoryPreview({ story, storyUser, stories, onUpdate, onRemove }) {
     if (!storyUser) return null

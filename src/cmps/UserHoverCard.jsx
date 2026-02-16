@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react"
-import { getOid } from "../services/util.service.js";
-import defaultImg from "../assets/img/icons/avatar.svg"
+import { useEffect, useRef, useState } from 'react'
+import { getOid } from '../services/util.service'
+import defaultImg from '../assets/img/icons/avatar.svg'
 
 export function UserHoverCard({ user, storyList, onOpenProfile, onOpenStory, children }) {
     const [isOpen, setIsOpen] = useState(false)

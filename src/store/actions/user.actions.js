@@ -1,6 +1,6 @@
+import { store } from '../store'
 import { userService } from '../../services/user/user.service.remote'
 import { socketService } from '../../services/socket.service'
-import { store } from '../store'
 import { showErrorMsg } from '../../services/event-bus.service'
 import { LOADING_DONE, LOADING_START } from '../reducers/system.reducer'
 import {

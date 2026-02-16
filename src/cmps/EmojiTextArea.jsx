@@ -1,5 +1,5 @@
-import EmojiPicker from "emoji-picker-react"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect } from 'react'
+import EmojiPicker from 'emoji-picker-react'
 
 export function EmojiTextArea({ placeholderTxt = '', txt, setTxt }) {
     const [open, setOpen] = useState(false)

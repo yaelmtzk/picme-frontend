@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react"
+
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { getIconImg } from '../services/image.service.js'
+import { getIconImg } from '../services/image.service'
 import { getOid } from '../services/util.service'
 import spinner from '../assets/img/icons/spinner.png'
-import { loadWatchedUser, clearWatchedUser } from "../store/actions/user.actions"
-import { Modal } from "../cmps/Modal.jsx"
-import { UserDetailsMoreOpt } from "../cmps/UserDetailsOpt.jsx"
-import { logout } from '../store/actions/user.actions'
+import { loadWatchedUser, clearWatchedUser, logout } from '../store/actions/user.actions'
+import { Modal } from '../cmps/Modal'
+import { UserDetailsMoreOpt } from '../cmps/UserDetailsOpt'
 
 export function UserDetails() {
   const location = useLocation()

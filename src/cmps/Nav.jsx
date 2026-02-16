@@ -1,12 +1,11 @@
 import { useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { NavLink, useNavigate } from "react-router-dom"
-import { getIconImg } from '../services/image.service.js'
-import { Search } from './Search.jsx'
-import { CreateEntry } from './CreateEntry.jsx'
-import { MobileCreatePortal } from './MobileCreatePortal.jsx'
-import { loadWatchedUser } from '../store/actions/user.actions.js'
-
+import { NavLink, useNavigate } from 'react-router-dom'
+import { getIconImg } from '../services/image.service'
+import { loadWatchedUser } from '../store/actions/user.actions'
+import { Search } from './Search'
+import { CreateEntry } from './CreateEntry'
+import { MobileCreatePortal } from './MobileCreatePortal'
 
 export function Nav({ onAdd }) {
     const desktopToggleRef = useRef(null)
@@ -67,12 +66,6 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" /> <div>Explore</div>
                     </NavLink>
 
-                    {/* <div className='nav-btn disabled'><img src={getIconImg('reel')} alt="reel" /><div>Reels</div></div>
-
-                    <div  className='nav-btn disabled'><img src={getIconImg('send')} alt="send" /> <div>Messages</div></div>
-
-                    <div className='nav-btn disabled'><img src={getIconImg('like')} alt="like" /> <div>Notifications</div></div> */}
-
                     <div onClick={() => { setOpenCreate(true) }}
                         title="New post"
                         className='nav-btn'>
@@ -123,12 +116,6 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" />
                     </NavLink>
 
-                    {/* <div className='nav-btn disabled' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div>
-
-                    <div className='nav-btn disabled' title="Messages"><img src={getIconImg('send')} alt="send" /></div>
-
-                    <div className='nav-btn disabled' title="Notifications"><img src={getIconImg('like')} alt="like" /></div> */}
-
                     <div onClick={() => { setOpenCreate(true) }}
                         title="New post"
                         className='nav-btn'>
@@ -159,15 +146,11 @@ export function Nav({ onAdd }) {
                         <img src={getIconImg('explore')} alt="explore" />
                     </NavLink>
 
-                    {/* <div className='nav-btn disabled' title="Reels"><img src={getIconImg('reel')} alt="reel" /></div> */}
-
                     <div onClick={() => setOpenCreate(true)}
                         title="New post"
                         className='nav-btn'>
                         <img src={getIconImg('create')} alt="create" />
                     </div>
-
-                    {/* <div className='nav-btn disabled' title="Messages"><img src={getIconImg('send')} alt="send" /></div> */}
 
                     <div
                         onClick={() => onUserDetails(userId, username)}

@@ -1,11 +1,18 @@
-import { storyService } from '../../services/story/story.service.remote'
 import { store } from '../store'
-import { ADD_STORY, REMOVE_STORY, SET_STORIES, SET_STORY, UPDATE_STORY, CLEAR_STORY } from '../reducers/story.reducer'
+import {
+    ADD_STORY,
+    REMOVE_STORY,
+    SET_STORIES,
+    SET_STORY,
+    UPDATE_STORY,
+    CLEAR_STORY
+} from '../reducers/story.reducer'
+import { storyService } from '../../services/story/story.service.remote'
 import { getOid, makeId, toggleStoryLike } from "../../services/util.service"
 
 export async function loadStories(filterBy = {}) {
     try {
-        const stories = await storyService.query(filterBy)        
+        const stories = await storyService.query(filterBy)
         store.dispatch(getCmdSetStories(stories))
     } catch (err) {
         console.log('Cannot load stories', err)
@@ -103,7 +110,7 @@ export async function addStoryComment(storyId, txt) {
         ...story,
         comments: [...story.comments, optimisticComment]
     }
-    
+
     store.dispatch(getCmdUpdateStory(optimisticStory))
 
     try {

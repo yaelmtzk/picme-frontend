@@ -1,4 +1,3 @@
-import { getIconImg } from '../services/image.service.js';
 
 export function LikeButton({ isLiked, onLike }) {
   return (

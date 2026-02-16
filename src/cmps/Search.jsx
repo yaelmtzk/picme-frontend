@@ -1,11 +1,11 @@
 import { useRef, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { loadSearchUsers, clearSearchUsers } from '../store/actions/user.actions.js'
-import { debounce } from "../services/util.service.js"
-import { UserList } from './UserList.jsx'
-import { SearchBar } from './SearchBar.jsx'
-import { useMediaQuery } from "../customHooks/useMediaQuery.js"
+import { loadSearchUsers, clearSearchUsers } from '../store/actions/user.actions'
+import { useMediaQuery } from '../customHooks/useMediaQuery'
+import { debounce } from '../services/util.service'
+import { UserList } from './UserList'
+import { SearchBar } from './SearchBar'
 
 export function Search({ onClose = () => { }, btnRef = null }) {
     const isMobile = useMediaQuery("(max-width: 767px)")

@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import { uploadImgtoCloud } from '../services/upload.service.js'
-import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
+import { useState, useRef } from 'react'
+import { uploadImgtoCloud } from '../services/upload.service'
+import { EmojiTextArea } from '../cmps/EmojiTextArea'
 import spinner from '../assets/img/icons/spinner.png'
 
 export function CreateStoryMobile({ onAdd, onClose }) {

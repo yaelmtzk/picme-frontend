@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react"
-import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
-import { LikeButton } from "../cmps/LikeButton.jsx"
-import { StoryMoreOpt } from "../cmps/StoryMoreOpt.jsx"
-import { MobileCommentsModal } from "../cmps/MobileCommentsModal.jsx"
-import { Modal } from "../cmps/Modal.jsx"
-
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { loadStory, removeStory, clearStory, removeStoryComment, toggleLikeStory } from '../store/actions/story.actions'
-import { getIconImg } from '../services/image.service.js'
-import { timeAgo } from '../services/util.service.js'
+import { getIconImg } from '../services/image.service'
+import { timeAgo } from '../services/util.service'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
-
-import { userService } from '../services/user/user.service.remote.js'
-import { getOid } from "../services/util.service.js"
+import { userService } from '../services/user/user.service.remote'
+import { getOid } from '../services/util.service'
 import spinner from '../assets/img/icons/spinner.png'
+import { LikeButton } from '../cmps/LikeButton'
+import { StoryMoreOpt } from '../cmps/StoryMoreOpt'
+import { MobileCommentsModal } from '../cmps/MobileCommentsModal'
+import { Modal } from '../cmps/Modal'
 
 export function StoryDetailsMobile() {
   const location = useLocation()

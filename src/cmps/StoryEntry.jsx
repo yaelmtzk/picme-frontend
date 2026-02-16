@@ -1,10 +1,11 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { useMediaQuery } from "../customHooks/useMediaQuery.js"
-import { StoryDetails } from "../pages/StoryDetails.jsx"
-import { StoryDetailsMobile } from "../pages/StoryDetailslMobile.jsx"
-import { MobileCommentsModal } from "./MobileCommentsModal.jsx"
-import { MobileCreatePortal } from "./MobileCreatePortal.jsx"
-import { removeStoryComment } from "../store/actions/story.actions.js"
+import { useLocation, useNavigate } from 'react-router-dom'
+import { removeStoryComment } from '../store/actions/story.actions'
+import { useMediaQuery } from '../customHooks/useMediaQuery'
+import { StoryDetails } from '../pages/StoryDetails'
+import { StoryDetailsMobile } from '../pages/StoryDetailslMobile'
+import { MobileCommentsModal } from './MobileCommentsModal'
+import { MobileCreatePortal } from './MobileCreatePortal'
+
 
 export function StoryEntry() {
   const isMobile = useMediaQuery("(max-width: 767px)")

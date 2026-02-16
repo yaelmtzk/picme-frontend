@@ -1,7 +1,7 @@
-import { store } from "../store"
-import { loadUsers } from "./user.actions"
-import { loadStories } from "./story.actions"
-import { userService } from "../../services/user/user.service.remote"
+import { store } from '../store'
+import { loadUsers } from './user.actions'
+import { loadStories } from './story.actions'
+import { userService } from '../../services/user/user.service.remote'
 import { SET_USER } from '../reducers/user.reducer'
 
 export async function loadInitialData() {

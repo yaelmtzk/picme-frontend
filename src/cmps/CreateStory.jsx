@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
-import { getIconImg } from '../services/image.service.js'
-import { uploadImgtoCloud } from '../services/upload.service.js'
-import { EmojiTextArea } from "../cmps/EmojiTextArea.jsx"
-import { Modal } from "../cmps/Modal.jsx"
+import { getIconImg } from '../services/image.service'
+import { uploadImgtoCloud } from '../services/upload.service'
+import { EmojiTextArea } from '../cmps/EmojiTextArea'
+import { Modal } from '../cmps/Modal'
 import spinner from '../assets/img/icons/spinner.png'
 import spinnerChecked from '../assets/img/icons/spinnerchecked.png'
 

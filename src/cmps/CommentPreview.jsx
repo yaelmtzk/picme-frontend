@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux'
 import { useState } from "react"
 import { getIconImg } from '../services/image.service'
 import { timeAgo } from '../services/util.service'
-import { UserHoverCard } from "../cmps/UserHoverCard";
-import { loadWatchedUser } from "../store/actions/user.actions"
-import defaultImg from "../assets/img/icons/avatar.svg"
-import { CommentOpt } from './CommentOpt.jsx';
+import { UserHoverCard } from '../cmps/UserHoverCard'
+import { loadWatchedUser } from '../store/actions/user.actions'
+import defaultImg from '../assets/img/icons/avatar.svg'
+import { CommentOpt } from './CommentOpt'
 
 export function CommentPreview({ comment, user, stories, storyId, onOpenStory, onRemoveComment }) {
     const navigate = useNavigate()

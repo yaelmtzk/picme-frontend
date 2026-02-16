@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { signup } from '../store/actions/user.actions'
 import { userService } from '../services/user'
+import { signup } from '../store/actions/user.actions'
 
 export function Signup({ onSwitch }) {
     const [credentials, setCredentials] = useState(userService.getEmptyUser())

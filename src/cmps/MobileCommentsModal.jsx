@@ -1,13 +1,13 @@
-import { useParams } from 'react-router-dom'
-import { Modal } from "./Modal.jsx"
-import { CommentList } from "./CommentList.jsx"
-import { showErrorMsg } from "../services/event-bus.service"
-import { userService } from '../services/user/user.service.remote.js'
-import { addStoryComment, loadStory } from '../store/actions/story.actions'
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { getIconImg } from "../services/image.service.js"
-import { getOid } from "../services/util.service.js"
+import { useParams } from 'react-router-dom'
+import { showErrorMsg } from '../services/event-bus.service'
+import { getIconImg } from '../services/image.service'
+import { getOid } from '../services/util.service'
+import { userService } from '../services/user/user.service.remote'
+import { addStoryComment, loadStory } from '../store/actions/story.actions'
+import { Modal } from './Modal'
+import { CommentList } from './CommentList'
 
 export function MobileCommentsModal({ onClose, onRemoveComment }) {
     const [txt, setTxt] = useState('')

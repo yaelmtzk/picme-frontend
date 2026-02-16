@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Login } from "../cmps/Login"
-import { Signup } from '../cmps/Signup';
+import { Login } from '../cmps/Login'
+import { Signup } from '../cmps/Signup'
 
 export function LoginSignUp() {
     const [isSignup, setIsSignup] = useState(false)

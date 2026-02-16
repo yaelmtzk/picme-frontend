@@ -1,17 +1,17 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Routes, Route, useLocation, useNavigate } from 'react-router'
-import { StoryIndex } from './pages/StoryIndex.jsx'
-import { UserDetails } from './pages/UserDetails.jsx'
-import { Explore } from './pages/Explore.jsx'
-import { UserMsg } from './cmps/UserMsg.jsx'
-import { LayoutWithNav } from './cmps/LayoutWithNav.jsx'
-import { StoryEntry } from './cmps/StoryEntry.jsx'
-import { LoginSignUp } from './pages/LoginSignUp.jsx'
-import { addStory } from './store/actions/story.actions.js'
-import { getEmptyStory } from './services/story/index.js'
-import { showSuccessMsg, showErrorMsg } from './services/event-bus.service.js'
+import { StoryIndex } from './pages/StoryIndex'
+import { UserDetails } from './pages/UserDetails'
+import { Explore } from './pages/Explore'
+import { UserMsg } from './cmps/UserMsg'
+import { LayoutWithNav } from './cmps/LayoutWithNav'
+import { StoryEntry } from './cmps/StoryEntry'
+import { LoginSignUp } from './pages/LoginSignUp'
+import { getEmptyStory } from './services/story/index'
+import { showSuccessMsg, showErrorMsg } from './services/event-bus.service'
 import { loadInitialData } from "./store/actions/app.actions"
+import { addStory } from './store/actions/story.actions'
 
 export function RootCmp() {
     const location = useLocation()
