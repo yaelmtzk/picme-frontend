@@ -12,6 +12,7 @@ export function StoryIndex() {
     const loggedinUser = userService.getLoggedinUser()
     const [filterBy, setFilterBy] = useState(getDefaultFilter())
     const stories = useSelector(storeState => storeState.storyModule.stories)
+    console.log('Redux stories state:', stories)
     const users = useSelector(storeState => storeState.userModule.users)
 
     useEffect(() => {
