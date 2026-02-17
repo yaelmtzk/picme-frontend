@@ -14,9 +14,12 @@ export function CreateStoryMobile({ onAdd, onClose }) {
     async function onSaveStory() {
         try {
             setIsLoading(true)
-            const uploadedUrl = await uploadImgtoCloud(imgFile)
-
-            onAdd(txt, uploadedUrl)
+            let imgData = null
+            if (imgFile) {
+                imgData = await uploadImgtoCloud(imgFile)
+            }
+            await onAdd(txt, imgData)
+            setSaved(true)
         } catch (err) {
             console.error(err)
         } finally {
