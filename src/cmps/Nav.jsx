@@ -37,8 +37,8 @@ export function Nav({ onAdd }) {
             <div className="nav-desktop">
                 <div className='logo'>
                     <NavLink to="/">
-                        <img src={getIconImg('picme-logo.png')}
-                            alt="logo" />
+                        <img src="https://res.cloudinary.com/picmeapp/image/upload/v1771332493/kwaxc17xsrjsn0kmdbm2.png"
+                            alt="picme-logo" />
                     </NavLink>
                 </div>
 
@@ -83,7 +83,7 @@ export function Nav({ onAdd }) {
             </div>
 
             <div className="nav-md-device">
-                <div className='logo' title="Picme">
+                <div className='logo'>
                     <NavLink to="/">
                         <svg fill="currentColor"
                             height="24" role="img"
