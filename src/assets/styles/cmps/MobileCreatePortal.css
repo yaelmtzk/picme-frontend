@@ -5,7 +5,7 @@
   display: grid;
   place-items: center;
   overscroll-behavior: contain;
-  background: var(--overlay-clr);
+  background: var(--overlay);
   z-index: 100; 
   overflow: hidden;
 }

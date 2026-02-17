@@ -25,7 +25,7 @@
     padding: 1px 6px;
     border:0;
     border-radius: 50%;
-    color:var(--gray4);
+    color:var(--text-secondary);
 }
 
 .user-msg.success {

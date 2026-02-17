@@ -11,7 +11,7 @@
     height: 60px;
     width: 100%;
     padding: 0 16px;
-    background-color: var(--bg-clr1);
+    background-color: var(--bg-primary);
 }
 
 .app-header .logo {
@@ -33,7 +33,7 @@
     height: 44px;
     padding: 0 16px;
     border-radius: 25px;
-    background-color: var(--border-clr2);
+    background-color: var(--border-light2);
 }
 
 .search-mobile input {
@@ -42,5 +42,5 @@
     outline: none;
     border-radius: 25px;
     border-color: transparent;
-    background-color: var(--border-clr2);
+    background-color: var(--border-light2);
 }

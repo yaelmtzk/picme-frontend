@@ -32,7 +32,7 @@
 }
 
 .preview header .btn:hover {
-    color: var(--icon-btn-hover);
+    color: var(--btn-icon-hover);
 }
 
 .preview-header {
@@ -44,7 +44,7 @@
 
 .preview .story-date {
     font-size: 14px;
-    color: var(--txt-clr2);
+    color: var(--text-gray);
 }
 
 .story-txt-short {

@@ -10,12 +10,18 @@ import {
 import { storyService } from '../../services/story/story.service.remote'
 import { getOid, makeId, toggleStoryLike } from "../../services/util.service"
 
-export async function loadStories(filterBy = {}) {
+export async function loadStories(filterBy = {}, retries = 3) {
     try {
         const stories = await storyService.query(filterBy)
         store.dispatch(getCmdSetStories(stories))
+        return stories
     } catch (err) {
         console.log('Cannot load stories', err)
+        if (retries > 0) {
+            console.log(`Retrying... (${retries})`)
+            await new Promise(resolve => setTimeout(resolve, 3000))
+            return loadStories(filterBy, retries - 1)
+        }
         throw err
     }
 }

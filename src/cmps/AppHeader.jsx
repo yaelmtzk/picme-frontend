@@ -6,8 +6,8 @@ export function AppHeader() {
 	return (
 		<header className="app-header">
 			<nav>
-				<div className='logo'>
-					<NavLink to="/"><img src={getIconImg('picme-logo.png')} alt="logo" />
+				<div className="logo">
+					<NavLink to="/"><img src="https://res.cloudinary.com/picmeapp/image/upload/v1771332493/kwaxc17xsrjsn0kmdbm2.png" alt="logo" />
 					</NavLink>
 				</div>
 

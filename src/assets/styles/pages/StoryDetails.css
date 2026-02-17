@@ -46,7 +46,7 @@
     align-items: center;
     justify-content: space-between;
     padding-right: 8px;
-    border-bottom: 1.3px solid var(--border-clr2);
+    border-bottom: 1.3px solid var(--border-light2);
 }
 
 .side-details-section header .avatar {
@@ -89,7 +89,7 @@
     scrollbar-width: none;
     padding: 16px;
     font-size: 14px;
-    border-bottom: 1.3px solid var(--border-clr2);
+    border-bottom: 1.3px solid var(--border-light2);
 }
 
 .comment-section .story-txt {

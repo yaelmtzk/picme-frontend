@@ -5,7 +5,7 @@
     background-color: var(--bg-primary);
     color: var(--text-gray-dark);
     overflow-y: hidden;
-    border-right: solid 1px var(--border-clr);
+    border-right: solid 1px var(--border-light);
 }
 
 .nav-section.open-search {
@@ -30,7 +30,7 @@
         transition: background-color .2s ease, transform .15s ease;
 
         &:hover {
-            background-color: var(--nav-hover);
+            background-color: var(--shadow);
         }
     }
 
