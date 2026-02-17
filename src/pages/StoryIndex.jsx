@@ -4,6 +4,7 @@ import { getDefaultFilter } from '../services/story/index.js'
 import { userService } from '../services/user/user.service.remote.js'
 import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service'
 import { loadStories, updateStory, removeStory } from '../store/actions/story.actions'
+import { loadUsers } from '../store/actions/user.actions'
 import spinner from '../assets/img/icons/spinner.png'
 import { AppHeader } from '../cmps/AppHeader.jsx'
 import { StoryList } from '../cmps/StoryList'
@@ -14,11 +15,14 @@ export function StoryIndex() {
     const stories = useSelector(storeState => storeState.storyModule.stories)
     const users = useSelector(storeState => storeState.userModule.users)
 
+
     useEffect(() => {
-        loadStories(filterBy)
+        if (!stories || !stories.length) loadStories(filterBy)
+        if (!users || !users.length) loadUsers()
     }, [filterBy])
 
-    if (!stories || !users || !loggedinUser || stories.length === 0) {
+
+    if (!stories || !stories.length || !users || !users.length) {
         return <main className="story-index ">
             <div className='loader-section'>
                 <img className="spinner" src={spinner} alt="Loading…" />
