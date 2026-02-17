@@ -8,12 +8,10 @@ export const SOCKET_EMIT_USER_WATCH = 'user-watch'
 export const SOCKET_EVENT_ADD_MSG = 'chat-add-msg'
 export const SOCKET_EVENT_USER_UPDATED = 'user-updated'
 
-
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
 
-
-const baseUrl = (process.env.NODE_ENV === 'production') ? import.meta.env.VITE_SOCKET_URL : '//localhost:3030'
+const baseUrl = import.meta.env.VITE_SOCKET_URL
 
 export const socketService = (VITE_LOCAL === 'true')? createDummySocketService() : createSocketService()
 
