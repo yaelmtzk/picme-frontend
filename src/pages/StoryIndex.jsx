@@ -19,7 +19,7 @@ export function StoryIndex() {
         loadStories(filterBy)
     }, [filterBy])
 
-    if (!stories || !users || !loggedinUser) {
+    if (!stories || !users || !loggedinUser || stories.length === 0) {
         return <main className="story-index ">
             <div className='loader-section'>
                 <img className="spinner" src={spinner} alt="Loading…" />
