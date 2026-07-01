@@ -5,6 +5,7 @@
 
 .login-signup-section .picme-icon {
     height: 200px;
+    margin: auto;
 }
 
 .left-panel-login-signup {
@@ -44,6 +45,5 @@
     grid-column: 1;
     width: 100%;
     max-width: 650px;
-    height: 100%;
     padding: 0 52px;
 }

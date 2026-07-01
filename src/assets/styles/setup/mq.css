@@ -29,6 +29,10 @@
         width: 100%;
     }
 
+    .profile-stories {
+        padding-bottom: 30px;
+    }
+
     .profile-btn {
         height: 32px;
     }
@@ -39,6 +43,10 @@
         padding-top: 8px;
     }
 
+    .profile-page {
+        margin-bottom: 500px;
+    }
+
     .highlight-circle-outer {
         width: 67px;
         height: 67px;
@@ -47,6 +55,11 @@
     .highlight-circle-inner {
         width: 56px;
         height: 56px;
+    }
+
+    .story-tile:hover::after,
+    .story-tile:hover .profile-comment-icon {
+        opacity: 0;
     }
 }
 
@@ -149,7 +162,6 @@
     .profile-stories-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-        padding-bottom: 52px;
     }
 
     .profile-avatar img {
@@ -207,7 +219,6 @@
     .profile-stories-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-        padding-bottom: 52px;
     }
 
     .profile-avatar img {

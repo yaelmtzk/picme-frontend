@@ -92,17 +92,6 @@ li.hover-story-tile {
   object-fit: cover;
 }
 
-.profile-stories {
-  height: 300px;
-  display: flex;
-  justify-content: center;
-}
-
-.profile-stories .no-stories {
-  font-size: 18px;
-  font-weight: 600;
-}
-
 @keyframes uhc-pop {
   from {
     transform: translateY(-4px) scale(.985);
